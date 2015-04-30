@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>
+
+@{
+    ViewBag.Title = "Listado de Roles";
+}
+
+<h4>@ViewBag.Title <a href="@Url.Action("Create")" class="btn btn-success btn-cons" style="margin-left: 20px;">Agregar</a></h4>
+
+<table class="table" id="dtRoles">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                Acciones
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var settings = {
+                "sDom": "<'table-responsive't><'row'<'pull-right'p> <'pull-left'i>>",
+                "sPaginationType": "bootstrap",
+                "destroy": true,
+                "scrollCollapse": true,
+                "oLanguage": {
+                    "sLengthMenu": "_MENU_ ",
+                    "sInfo": "Showing <b>_START_ to _END_</b> of _TOTAL_ entries"
+                },
+                "iDisplayLength": 10
+            };
+
+            $('#dtRoles').dataTable(settings);
+        });
+    </script>
+}

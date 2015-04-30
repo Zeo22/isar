@@ -1,0 +1,29 @@
+﻿@model ISAR.Models.RoleViewModel
+
+@{
+    ViewBag.Title = "Agregar Rol";
+}
+
+<h4>@ViewBag.Title</h4>
+
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-md-12">
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <div class="form-group form-group-default required">
+                @Html.LabelFor(model => model.Name, "Rol")
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+
+            <a href="@Url.Action("index")" class="btn btn-warning btn-cons">Regresar</a> <input type="submit" value="Crear Rol" class="btn btn-success btn-cons" />
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

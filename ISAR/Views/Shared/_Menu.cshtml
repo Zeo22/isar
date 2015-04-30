@@ -1,0 +1,30 @@
+﻿@using ISAR.Models;
+@{
+    ApplicationDbContext db = new ApplicationDbContext();
+
+    List<GrupoPantalla> grupos = db.GrupoPantalla.Where(item => item.Pantallas.Count > 0).ToList();
+}
+
+<ul class="menu-items">
+    <li>
+        <h2>&nbsp;</h2>
+    </li>
+    @foreach (GrupoPantalla grupo in grupos)
+    {
+        <li class="">
+            <a href="javascript:;">
+                <span class="title">@grupo.Nombre</span>
+            </a>
+            <ul class="sub-menu">
+                @foreach (Pantalla pantalla in grupo.Pantallas)
+                {
+                    <li class="">
+                        <a href="@pantalla.URL">@pantalla.Nombre</a>
+                    </li>
+                }
+            </ul>
+        </li>
+    }
+</ul>
+<div class="clearfix"></div>
+

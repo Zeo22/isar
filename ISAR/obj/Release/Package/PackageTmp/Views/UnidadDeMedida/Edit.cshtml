@@ -1,0 +1,26 @@
+﻿@model ISAR.Models.UnidadDeMedida
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h4>@ViewBag.Title</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="row">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="form-group form-group-default">
+            @Html.LabelFor(model => model.Nombre)
+            @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+        </div>
+
+        <a href="@Url.Action("index")" class="btn btn-warning btn-cons">Back to List</a> <input type="submit" value="Save" class="btn btn-success btn-cons" />
+    </div>
+}
+
