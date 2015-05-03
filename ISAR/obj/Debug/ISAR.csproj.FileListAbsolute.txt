@@ -50,8 +50,10 @@ D:\Projects\ISAR\ISAR\bin\Microsoft.Owin.Security.OAuth.xml
 D:\Projects\ISAR\ISAR\bin\Microsoft.Owin.Security.Google.xml
 D:\Projects\ISAR\ISAR\bin\Microsoft.Owin.Security.Twitter.xml
 D:\Projects\ISAR\ISAR\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-D:\Projects\ISAR\ISAR\obj\Debug\ISAR.csprojResolveAssemblyReference.cache
-D:\Projects\ISAR\ISAR\obj\Debug\ISAR.dll
-D:\Projects\ISAR\ISAR\obj\Debug\ISAR.pdb
 D:\Projects\ISAR\ISAR\obj\Debug\ISAR.Migrations.InitialDB.resources
 D:\Projects\ISAR\ISAR\obj\Debug\ISAR.csproj.GenerateResource.Cache
+D:\Projects\ISAR\ISAR\obj\Debug\ISAR.dll
+D:\Projects\ISAR\ISAR\obj\Debug\ISAR.pdb
+D:\Projects\ISAR\ISAR\obj\Debug\ISAR.csprojResolveAssemblyReference.cache
+D:\Projects\ISAR\ISAR\obj\Debug\ISAR.Migrations.temp.resources
+D:\Projects\ISAR\ISAR\obj\Debug\ISAR.Migrations.temp1.resources

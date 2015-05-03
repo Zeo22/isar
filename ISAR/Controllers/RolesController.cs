@@ -14,6 +14,8 @@ namespace ISAR.Controllers
     [Authorize]
     public class RolesController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
+
         public RolesController()
         {
         }
@@ -88,24 +90,56 @@ namespace ISAR.Controllers
         // GET: /Roles/Create
         public ActionResult Create()
         {
+            ViewBag.Grupos = db.GrupoPantalla.Where(item => item.Pantallas.Count > 0).ToList();
             return View();
         }
 
         //
-        // POST: /Roles/Create
+        // POST: /Roles/Crear
         [HttpPost]
-        public async Task<ActionResult> Create(RoleViewModel roleViewModel)
+        public async Task<ActionResult> Crear(EditarRol rol)
         {
             if (ModelState.IsValid)
             {
-                var role = new ApplicationRole(roleViewModel.Name);
+                ApplicationDbContext db = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
+
+                var role = new ApplicationRole(rol.Nombre);
                 var roleresult = await RoleManager.CreateAsync(role);
                 if (!roleresult.Succeeded)
                 {
-                    ModelState.AddModelError("", roleresult.Errors.First());
-                    return View();
+                    role = await RoleManager.FindByNameAsync(rol.Nombre);
+                    if (role == null)
+                    {
+                        ModelState.AddModelError("", roleresult.Errors.First());
+                        return View();
+                    }
                 }
-                return RedirectToAction("Index");
+
+                if (role.Permisos != null)
+                {
+                    db.Permisos.RemoveRange(role.Permisos);
+                }
+                rol.Permisos.ForEach(item =>
+                {
+                    db.Permisos.Add(new Permiso()
+                    {
+                        Pantalla = db.Pantallas.FirstOrDefault(pantalla => pantalla.ID == item.PantallaId),
+                        Escritura = item.Escritura,
+                        Lectura = item.Lectura,
+                        Rol = role
+                    });
+                });
+
+                db.SaveChanges();
+
+                if (Request.IsAjaxRequest())
+                {
+                    return JavaScript("document.location.replace('" + Url.Action("Index") + "');");
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
             }
             return View();
         }
@@ -114,6 +148,7 @@ namespace ISAR.Controllers
         // GET: /Roles/Edit/Admin
         public async Task<ActionResult> Edit(string id)
         {
+            List<EditarPermiso> permisos = new List<EditarPermiso>();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -123,23 +158,58 @@ namespace ISAR.Controllers
             {
                 return HttpNotFound();
             }
-            RoleViewModel roleModel = new RoleViewModel { Id = role.Id, Name = role.Name };
+            role.Permisos.ForEach(item =>
+            {
+                permisos.Add(new EditarPermiso()
+                {
+                    Grupo = item.Pantalla.Grupo.Nombre,
+                    Nombre = item.Pantalla.Nombre,
+                    Escritura = item.Escritura,
+                    Lectura = item.Lectura,
+                    PantallaId = item.Pantalla.ID,
+                    Eliminar = "<a href=\"#\" style=\"color:red\" class=\"fa fa-minus\"></a>"
+                });
+            });
+            RoleViewModel roleModel = new RoleViewModel { Id = role.Id, Name = role.Name, Permisos = permisos };
+            ViewBag.Grupos = db.GrupoPantalla.Where(item => item.Pantallas.Count > 0).ToList();
             return View(roleModel);
         }
 
         //
-        // POST: /Roles/Edit/5
+        // POST: /Roles/Editar
         [HttpPost]
-
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Name,Id")] RoleViewModel roleModel)
+        public ActionResult Editar(EditarRol rol)
         {
             if (ModelState.IsValid)
             {
-                var role = await RoleManager.FindByIdAsync(roleModel.Id);
-                role.Name = roleModel.Name;
-                await RoleManager.UpdateAsync(role);
-                return RedirectToAction("Index");
+                ApplicationDbContext db = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
+                var role = RoleManager.FindById(rol.Id);
+
+                role.Name = role.Name;
+                RoleManager.Update(role);
+
+                db.Permisos.RemoveRange(role.Permisos);
+                rol.Permisos.ForEach(item =>
+                {
+                    db.Permisos.Add(new Permiso()
+                    {
+                        Pantalla = db.Pantallas.FirstOrDefault(pantalla => pantalla.ID == item.PantallaId),
+                        Escritura = item.Escritura,
+                        Lectura = item.Lectura,
+                        Rol = role
+                    });
+                });
+
+                db.SaveChanges();
+
+                if (Request.IsAjaxRequest())
+                {
+                    return JavaScript("document.location.replace('" + Url.Action("Index") + "');");
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
             }
             return View();
         }
@@ -172,11 +242,14 @@ namespace ISAR.Controllers
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
+                ApplicationDbContext db = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
                 var role = await RoleManager.FindByIdAsync(id);
                 if (role == null)
                 {
                     return HttpNotFound();
                 }
+                db.Permisos.RemoveRange(role.Permisos);
+                db.SaveChanges();
                 IdentityResult result;
                 if (deleteUser != null)
                 {

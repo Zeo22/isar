@@ -7,9 +7,6 @@
     var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
     var currentUser = manager.FindById(currentUserId);
     List<Periodo> periodos = context.Periodos.Where(item => item.Activo == true).ToList();
-    string controller = ViewContext.RouteData.Values["controller"].ToString();
-
-    Pantalla pantalla = context.Pantallas.First(el => el.URL == "/" + controller);
 }
 
 <!DOCTYPE html>
@@ -148,17 +145,17 @@
                     <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
                         <div class="inner">
                             <!-- START BREADCRUMB -->
-                            @if (pantalla != null)
+                            @if (ViewBag.Grupo != null && ViewBag.Pantalla != null)
                             {
                                 <ul class="breadcrumb">
                                     <li>
                                         <p>
-                                            <span id="lbl_level">@pantalla.Grupo.Nombre</span>
+                                            <span id="lbl_level">@ViewBag.Grupo</span>
                                         </p>
                                     </li>
                                     <li>
                                         <a href="#" class="active">
-                                            <span id="lbl_level_description">@pantalla.Nombre</span>
+                                            <span id="lbl_level_description">@ViewBag.Pantalla</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -196,7 +193,7 @@
     <!-- END PAGE CONTAINER -->
     <!-- BEGIN VENDOR JS -->
     <script src="~/assets/plugins/pace/pace.min.js" type="text/javascript"></script>
-    <script src="~/assets/plugins/jquery/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="~/assets/plugins/jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
     <script src="~/assets/plugins/modernizr.custom.js" type="text/javascript"></script>
     <script src="~/assets/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
     <script src="~/assets/plugins/boostrapv3/js/bootstrap.min.js" type="text/javascript"></script>
@@ -220,10 +217,9 @@
     <script src="~/assets/plugins/datatables-responsive/js/datatables.responsive.js" type="text/javascript"></script>
     <script src="~/assets/plugins/datatables-responsive/js/lodash.min.js" type="text/javascript"></script>
 
-
     <!-- END VENDOR JS -->
     <!-- BEGIN CORE TEMPLATE JS -->
-    <script src="~/pages/js/pages.js" type="text/javascript"></script>
+    <script src="~/pages/js/pages.min.js" type="text/javascript"></script>
     <!-- END CORE TEMPLATE JS -->
     <!-- BEGIN PAGE LEVEL JS -->
     <script src="~/assets/js/scripts.js" type="text/javascript"></script>

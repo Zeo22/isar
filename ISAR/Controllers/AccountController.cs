@@ -167,7 +167,7 @@ namespace ISAR.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("index", "dashboard");
                 }
                 AddErrors(result);
             }
@@ -396,7 +396,7 @@ namespace ISAR.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("index", "dashboard");
         }
 
         //
@@ -453,7 +453,7 @@ namespace ISAR.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("index", "dashboard");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

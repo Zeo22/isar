@@ -44,11 +44,11 @@ namespace ISAR.Models
             modelBuilder.Entity<IdentityRole>().ToTable("Roles");
             modelBuilder.Entity<ApplicationRole>().ToTable("Roles");
             // Models
-            modelBuilder.Entity<ApplicationRole>().HasMany(t => t.Permisos).WithMany(t => t.Roles).Map(m => {
-                m.ToTable("Roles_Permisos");
-                m.MapLeftKey("RolID");
-                m.MapRightKey("PermisoID");
-            });
+            //modelBuilder.Entity<ApplicationRole>().HasMany(t => t.Permisos).WithMany(t => t.Roles).Map(m => {
+            //    m.ToTable("Roles_Permisos");
+            //    m.MapLeftKey("RolID");
+            //    m.MapRightKey("PermisoID");
+            //});
 
             //modelBuilder.Entity<GrupoPantalla>().HasMany(g => g.Pantallas).WithRequired(p => p.Grupo);
 

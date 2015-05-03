@@ -16,7 +16,7 @@ if(IsPartialView) {
 #>
 
 @{
-    ViewBag.Title = "<#= ViewName#>";
+    ViewBag.Title = "Editar <#= ViewDataTypeShortName #>";
 <#
 if (!String.IsNullOrEmpty(LayoutPageFile)) {
 #>
@@ -177,7 +177,7 @@ foreach (PropertyMetadata property in ModelMetadata.Properties) {
     }
 }
 #>
-        <a href="@Url.Action("index")" class="btn btn-warning btn-cons">Back to List</a> <input type="submit" value="Save" class="btn btn-success btn-cons" />
+        <a href="@Url.Action("index")" class="btn btn-warning btn-cons">Regresar</a> <input type="submit" value="Editar <#= ViewDataTypeShortName #>" class="btn btn-success btn-cons" />
     </div>
 }
 

@@ -10,7 +10,6 @@ using ISAR.Models;
 
 namespace ISAR.Controllers
 {
-    [Authorize]
     public class UnidadDeMedidaController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

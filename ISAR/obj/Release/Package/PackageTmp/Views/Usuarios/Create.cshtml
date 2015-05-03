@@ -1,6 +1,8 @@
 ﻿@model ISAR.Models.RegisterViewModel
 @{
     ViewBag.Title = "Create";
+    ViewBag.Grupo = "Administración";
+    ViewBag.Pantalla = ViewBag.Title;
 }
 
 @using (Html.BeginForm("Create", "Usuarios", FormMethod.Post))

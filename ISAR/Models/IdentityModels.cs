@@ -40,5 +40,22 @@ namespace ISAR.Models
 
     }
 
-    
+    // Clases para editar un rol con permisos
+    public class EditarPermiso
+    {
+        public string Grupo { get; set; }
+        public string Nombre { get; set; }
+        public bool Lectura { get; set; }
+        public bool Escritura { get; set; }
+        public int PantallaId { get; set; }
+        public string Eliminar { get; set; }
+    }
+
+    public class EditarRol
+    {
+        public string Id { get; set; }
+        public string Nombre { get; set; }
+
+        public List<EditarPermiso> Permisos { get; set; }
+    }
 }

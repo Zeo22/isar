@@ -1,7 +1,7 @@
 ﻿@model ISAR.Models.UnidadDeMedida
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Editar Unidad de Medida";
 }
 
 <h4>@ViewBag.Title</h4>
@@ -14,13 +14,12 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ID)
 
-        <div class="form-group form-group-default">
+        <div class="form-group form-group-default required">
             @Html.LabelFor(model => model.Nombre)
-            @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", required = "" } })
         </div>
 
-        <a href="@Url.Action("index")" class="btn btn-warning btn-cons">Back to List</a> <input type="submit" value="Save" class="btn btn-success btn-cons" />
+        <a href="@Url.Action("index")" class="btn btn-warning btn-cons">Regresar</a> <input type="submit" value="Editar Unidad de Medida" class="btn btn-success btn-cons" />
     </div>
 }
 

@@ -157,10 +157,11 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\JsonModelBinder.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PantallasController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
@@ -172,6 +173,14 @@
     <Compile Include="Migrations\201504300240574_InitialDB.cs" />
     <Compile Include="Migrations\201504300240574_InitialDB.Designer.cs">
       <DependentUpon>201504300240574_InitialDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505022317521_temp.cs" />
+    <Compile Include="Migrations\201505022317521_temp.Designer.cs">
+      <DependentUpon>201505022317521_temp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505022321258_temp1.cs" />
+    <Compile Include="Migrations\201505022321258_temp1.Designer.cs">
+      <DependentUpon>201505022321258_temp1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -1437,6 +1446,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Roles\AddEdit.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -1449,9 +1459,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -1490,6 +1497,7 @@
     <Content Include="Views\Pantallas\Details.cshtml" />
     <Content Include="Views\Pantallas\Edit.cshtml" />
     <Content Include="Views\Pantallas\Index.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\UnidadDeMedida\Create.cshtml" />
     <Content Include="Views\UnidadDeMedida\Delete.cshtml" />
     <Content Include="Views\UnidadDeMedida\Details.cshtml" />
@@ -1509,6 +1517,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201504300240574_InitialDB.resx">
       <DependentUpon>201504300240574_InitialDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505022317521_temp.resx">
+      <DependentUpon>201505022317521_temp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505022321258_temp1.resx">
+      <DependentUpon>201505022321258_temp1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

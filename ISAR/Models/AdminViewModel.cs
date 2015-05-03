@@ -10,6 +10,7 @@ namespace ISAR.Models
         [Required(AllowEmptyStrings = false)]
         [Display(Name = "RoleName")]
         public string Name { get; set; }
+        public List<EditarPermiso> Permisos { get; set; }
     }
 
     public class EditUserViewModel

@@ -12,10 +12,9 @@
     
     <div class="row">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group form-group-default">
+        <div class="form-group form-group-default required">
             @Html.LabelFor(model => model.Nombre)
-            @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", required = "true" } })
         </div>
 
         <a href="@Url.Action("index")" class="btn btn-warning btn-cons">Regresar</a> <input type="submit" value="Agregar Unidad de Medida" class="btn btn-success btn-cons" />
