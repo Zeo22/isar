@@ -39,6 +39,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -113,9 +117,6 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.Core">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.1.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Owin">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.1.0\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
     </Reference>
@@ -162,38 +163,61 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AreasController.cs" />
+    <Compile Include="Controllers\AtribucionesController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\EstrategiasController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\PantallasController.cs" />
+    <Compile Include="Controllers\ObjetivosController.cs" />
+    <Compile Include="Controllers\PeriodosController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\UnidadDeMedidaController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201504300240574_InitialDB.cs" />
-    <Compile Include="Migrations\201504300240574_InitialDB.Designer.cs">
-      <DependentUpon>201504300240574_InitialDB.cs</DependentUpon>
+    <Compile Include="Migrations\201505062110014_initialDB.cs" />
+    <Compile Include="Migrations\201505062110014_initialDB.Designer.cs">
+      <DependentUpon>201505062110014_initialDB.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201505022317521_temp.cs" />
-    <Compile Include="Migrations\201505022317521_temp.Designer.cs">
-      <DependentUpon>201505022317521_temp.cs</DependentUpon>
+    <Compile Include="Migrations\201505070653122_AddPeriodo.cs" />
+    <Compile Include="Migrations\201505070653122_AddPeriodo.Designer.cs">
+      <DependentUpon>201505070653122_AddPeriodo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201505022321258_temp1.cs" />
-    <Compile Include="Migrations\201505022321258_temp1.Designer.cs">
-      <DependentUpon>201505022321258_temp1.cs</DependentUpon>
+    <Compile Include="Migrations\201505070701537_AddAtribucion.cs" />
+    <Compile Include="Migrations\201505070701537_AddAtribucion.Designer.cs">
+      <DependentUpon>201505070701537_AddAtribucion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505072302419_EditObjetivo.cs" />
+    <Compile Include="Migrations\201505072302419_EditObjetivo.Designer.cs">
+      <DependentUpon>201505072302419_EditObjetivo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505080812163_AddAtribucionesToObjetivo.cs" />
+    <Compile Include="Migrations\201505080812163_AddAtribucionesToObjetivo.Designer.cs">
+      <DependentUpon>201505080812163_AddAtribucionesToObjetivo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505080856039_AddEstrategiasToObjetivo.cs" />
+    <Compile Include="Migrations\201505080856039_AddEstrategiasToObjetivo.Designer.cs">
+      <DependentUpon>201505080856039_AddEstrategiasToObjetivo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505081559361_AddObjetivosAlineaciones.cs" />
+    <Compile Include="Migrations\201505081559361_AddObjetivosAlineaciones.Designer.cs">
+      <DependentUpon>201505081559361_AddObjetivosAlineaciones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505082005208_AddEstrategias.cs" />
+    <Compile Include="Migrations\201505082005208_AddEstrategias.Designer.cs">
+      <DependentUpon>201505082005208_AddEstrategias.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\Area.cs" />
+    <Compile Include="Models\Atribucion.cs" />
     <Compile Include="Models\Estrategia.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\NivelOrganizacional.cs" />
     <Compile Include="Models\Objetivo.cs" />
-    <Compile Include="Models\Pantalla.cs" />
     <Compile Include="Models\Periodo.cs" />
     <Compile Include="Models\Permiso.cs" />
     <Compile Include="Models\UnidadDeMedida.cs" />
@@ -1493,11 +1517,6 @@
     <Content Include="Views\Usuarios\Details.cshtml" />
     <Content Include="Views\Usuarios\Edit.cshtml" />
     <Content Include="Views\Usuarios\Index.cshtml" />
-    <Content Include="Views\Pantallas\Create.cshtml" />
-    <Content Include="Views\Pantallas\Delete.cshtml" />
-    <Content Include="Views\Pantallas\Details.cshtml" />
-    <Content Include="Views\Pantallas\Edit.cshtml" />
-    <Content Include="Views\Pantallas\Index.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\UnidadDeMedida\Create.cshtml" />
     <Content Include="Views\UnidadDeMedida\Delete.cshtml" />
@@ -1509,6 +1528,26 @@
     <Content Include="Views\Areas\Details.cshtml" />
     <Content Include="Views\Areas\Edit.cshtml" />
     <Content Include="Views\Areas\Index.cshtml" />
+    <Content Include="Views\Periodos\Create.cshtml" />
+    <Content Include="Views\Periodos\Delete.cshtml" />
+    <Content Include="Views\Periodos\Details.cshtml" />
+    <Content Include="Views\Periodos\Edit.cshtml" />
+    <Content Include="Views\Periodos\Index.cshtml" />
+    <Content Include="Views\Atribuciones\Create.cshtml" />
+    <Content Include="Views\Atribuciones\Delete.cshtml" />
+    <Content Include="Views\Atribuciones\Details.cshtml" />
+    <Content Include="Views\Atribuciones\Edit.cshtml" />
+    <Content Include="Views\Atribuciones\Index.cshtml" />
+    <Content Include="Views\Objetivos\Create.cshtml" />
+    <Content Include="Views\Objetivos\Delete.cshtml" />
+    <Content Include="Views\Objetivos\Details.cshtml" />
+    <Content Include="Views\Objetivos\Edit.cshtml" />
+    <Content Include="Views\Objetivos\Index.cshtml" />
+    <Content Include="Views\Estrategias\Create.cshtml" />
+    <Content Include="Views\Estrategias\Delete.cshtml" />
+    <Content Include="Views\Estrategias\Details.cshtml" />
+    <Content Include="Views\Estrategias\Edit.cshtml" />
+    <Content Include="Views\Estrategias\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1521,14 +1560,29 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201504300240574_InitialDB.resx">
-      <DependentUpon>201504300240574_InitialDB.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201505062110014_initialDB.resx">
+      <DependentUpon>201505062110014_initialDB.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201505022317521_temp.resx">
-      <DependentUpon>201505022317521_temp.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201505070653122_AddPeriodo.resx">
+      <DependentUpon>201505070653122_AddPeriodo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201505022321258_temp1.resx">
-      <DependentUpon>201505022321258_temp1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201505070701537_AddAtribucion.resx">
+      <DependentUpon>201505070701537_AddAtribucion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505072302419_EditObjetivo.resx">
+      <DependentUpon>201505072302419_EditObjetivo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505080812163_AddAtribucionesToObjetivo.resx">
+      <DependentUpon>201505080812163_AddAtribucionesToObjetivo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505080856039_AddEstrategiasToObjetivo.resx">
+      <DependentUpon>201505080856039_AddEstrategiasToObjetivo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505081559361_AddObjetivosAlineaciones.resx">
+      <DependentUpon>201505081559361_AddObjetivosAlineaciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505082005208_AddEstrategias.resx">
+      <DependentUpon>201505082005208_AddEstrategias.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
