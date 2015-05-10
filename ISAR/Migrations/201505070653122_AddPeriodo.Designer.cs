@@ -7,13 +7,13 @@ namespace ISAR.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class temp : IMigrationMetadata
+    public sealed partial class AddPeriodo : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(temp));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddPeriodo));
         
         string IMigrationMetadata.Id
         {
-            get { return "201505022317521_temp"; }
+            get { return "201505070653122_AddPeriodo"; }
         }
         
         string IMigrationMetadata.Source

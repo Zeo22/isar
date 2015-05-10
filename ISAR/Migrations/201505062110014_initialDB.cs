@@ -3,7 +3,7 @@ namespace ISAR.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialDB : DbMigration
+    public partial class initialDB : DbMigration
     {
         public override void Up()
         {
@@ -165,28 +165,6 @@ namespace ISAR.Migrations
                 .PrimaryKey(t => t.ID);
             
             CreateTable(
-                "dbo.GrupoPantalla",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        Nombre = c.String(),
-                    })
-                .PrimaryKey(t => t.ID);
-            
-            CreateTable(
-                "dbo.Pantallas",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        URL = c.String(),
-                        Nombre = c.String(),
-                        Grupo_ID = c.Int(),
-                    })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.GrupoPantalla", t => t.Grupo_ID)
-                .Index(t => t.Grupo_ID);
-            
-            CreateTable(
                 "dbo.Periodos",
                 c => new
                     {
@@ -203,13 +181,11 @@ namespace ISAR.Migrations
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
+                        Nombre = c.String(),
                         Lectura = c.Boolean(nullable: false),
                         Escritura = c.Boolean(nullable: false),
-                        Pantalla_ID = c.Int(),
                     })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Pantallas", t => t.Pantalla_ID)
-                .Index(t => t.Pantalla_ID);
+                .PrimaryKey(t => t.ID);
             
             CreateTable(
                 "dbo.Roles",
@@ -251,8 +227,6 @@ namespace ISAR.Migrations
             DropForeignKey("dbo.RolesUsuario", "RoleId", "dbo.Roles");
             DropForeignKey("dbo.Roles_Permisos", "PermisoID", "dbo.Permisos");
             DropForeignKey("dbo.Roles_Permisos", "RolID", "dbo.Roles");
-            DropForeignKey("dbo.Permisos", "Pantalla_ID", "dbo.Pantallas");
-            DropForeignKey("dbo.Pantallas", "Grupo_ID", "dbo.GrupoPantalla");
             DropForeignKey("dbo.Objetivos", "Estrategia_ID", "dbo.Estrategias");
             DropForeignKey("dbo.Objetivos", "Tipo_ID", "dbo.TipoObjetivo");
             DropForeignKey("dbo.Objetivos", "Responsable_Id", "dbo.Usuarios");
@@ -269,8 +243,6 @@ namespace ISAR.Migrations
             DropIndex("dbo.Roles_Permisos", new[] { "PermisoID" });
             DropIndex("dbo.Roles_Permisos", new[] { "RolID" });
             DropIndex("dbo.Roles", "RoleNameIndex");
-            DropIndex("dbo.Permisos", new[] { "Pantalla_ID" });
-            DropIndex("dbo.Pantallas", new[] { "Grupo_ID" });
             DropIndex("dbo.RolesUsuario", new[] { "RoleId" });
             DropIndex("dbo.RolesUsuario", new[] { "UserId" });
             DropIndex("dbo.IniciosUsuario", new[] { "UserId" });
@@ -291,8 +263,6 @@ namespace ISAR.Migrations
             DropTable("dbo.Roles");
             DropTable("dbo.Permisos");
             DropTable("dbo.Periodos");
-            DropTable("dbo.Pantallas");
-            DropTable("dbo.GrupoPantalla");
             DropTable("dbo.TipoObjetivo");
             DropTable("dbo.RolesUsuario");
             DropTable("dbo.IniciosUsuario");

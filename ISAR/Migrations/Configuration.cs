@@ -33,30 +33,49 @@ namespace ISAR.Migrations
             );
             // Tipo de Objetivos
             context.TipoObjetivo.AddOrUpdate(
-                new TipoObjetivo() { ID = 1, Nombre = "Organización" },
-                new TipoObjetivo() { ID = 2, Nombre = "Estratégico" },
-                new TipoObjetivo() { ID = 3, Nombre = "Operativo" }
+                new TipoObjetivo() { ID = 1, Nombre = "Estratégicos-Organización" },
+                new TipoObjetivo() { ID = 2, Nombre = "Estratégicos-Específicos" },
+                new TipoObjetivo() { ID = 3, Nombre = "Operativos" }
             );
             // Categorias Objetivo
             context.CategoriaObjetivo.AddOrUpdate(
-                new CategoriaObjetivo() { ID = 1, Nombre = "Finanzas" },
-                new CategoriaObjetivo() { ID = 2, Nombre = "Clientes" },
-                new CategoriaObjetivo() { ID = 3, Nombre = "Procesos" },
-                new CategoriaObjetivo() { ID = 4, Nombre = "Innovación" },
-                new CategoriaObjetivo() { ID = 5, Nombre = "Crecimiento" }
+                // Nivel 1
+                new CategoriaObjetivo() { ID = 1, Nivel = context.NivelesOrganizacionales.FirstOrDefault(item => item.ID == 1), Nombre = "Finanzas" },
+                new CategoriaObjetivo() { ID = 2, Nivel = context.NivelesOrganizacionales.FirstOrDefault(item => item.ID == 1), Nombre = "Clientes" },
+                new CategoriaObjetivo() { ID = 3, Nivel = context.NivelesOrganizacionales.FirstOrDefault(item => item.ID == 1), Nombre = "Procesos" },
+                new CategoriaObjetivo() { ID = 4, Nivel = context.NivelesOrganizacionales.FirstOrDefault(item => item.ID == 1), Nombre = "Desarrollo Humano" },
+                new CategoriaObjetivo() { ID = 5, Nivel = context.NivelesOrganizacionales.FirstOrDefault(item => item.ID == 1), Nombre = "Innovación y Crecimiento" },
+                // Nivel 2
+                new CategoriaObjetivo() { ID = 6, Nivel = context.NivelesOrganizacionales.FirstOrDefault(item => item.ID == 2), Nombre = "Finanzas" },
+                new CategoriaObjetivo() { ID = 7, Nivel = context.NivelesOrganizacionales.FirstOrDefault(item => item.ID == 2), Nombre = "Clientes-Ventas" },
+                new CategoriaObjetivo() { ID = 8, Nivel = context.NivelesOrganizacionales.FirstOrDefault(item => item.ID == 2), Nombre = "Procesos-Caña" },
+                new CategoriaObjetivo() { ID = 9, Nivel = context.NivelesOrganizacionales.FirstOrDefault(item => item.ID == 2), Nombre = "Procesos-Fábrica" },
+                new CategoriaObjetivo() { ID = 10, Nivel = context.NivelesOrganizacionales.FirstOrDefault(item => item.ID == 2), Nombre = "Procesos-Soporte" },
+                new CategoriaObjetivo() { ID = 11, Nivel = context.NivelesOrganizacionales.FirstOrDefault(item => item.ID == 2), Nombre = "Desarrollo Humano" },
+                new CategoriaObjetivo() { ID = 12, Nivel = context.NivelesOrganizacionales.FirstOrDefault(item => item.ID == 2), Nombre = "Innovación y Crecimiento" },
+                // Nivel 2
+                new CategoriaObjetivo() { ID = 13, Nivel = context.NivelesOrganizacionales.FirstOrDefault(item => item.ID == 3), Nombre = "Finanzas" },
+                new CategoriaObjetivo() { ID = 14, Nivel = context.NivelesOrganizacionales.FirstOrDefault(item => item.ID == 3), Nombre = "Clientes-Ventas" },
+                new CategoriaObjetivo() { ID = 15, Nivel = context.NivelesOrganizacionales.FirstOrDefault(item => item.ID == 3), Nombre = "Procesos-Caña" },
+                new CategoriaObjetivo() { ID = 16, Nivel = context.NivelesOrganizacionales.FirstOrDefault(item => item.ID == 3), Nombre = "Procesos-Fábrica" },
+                new CategoriaObjetivo() { ID = 17, Nivel = context.NivelesOrganizacionales.FirstOrDefault(item => item.ID == 3), Nombre = "Procesos-Soporte" },
+                new CategoriaObjetivo() { ID = 18, Nivel = context.NivelesOrganizacionales.FirstOrDefault(item => item.ID == 3), Nombre = "Desarrollo Humano" },
+                new CategoriaObjetivo() { ID = 19, Nivel = context.NivelesOrganizacionales.FirstOrDefault(item => item.ID == 3), Nombre = "Innovación y Crecimiento" }
             );
             // Tipo Alineacion
             context.TipoAlineacion.AddOrUpdate(
                 new TipoAlineacion() { ID = 1, Nombre = "Vertical" },
                 new TipoAlineacion() { ID = 2, Nombre = "Matricial" }
             );
-            // Grupo Pantalla
-            context.GrupoPantalla.AddOrUpdate(
-                new GrupoPantalla() { ID = 1, Nombre = "Nivel Superior" },
-                new GrupoPantalla() { ID = 2, Nombre = "Nivel Vicepresidencia" },
-                new GrupoPantalla() { ID = 3, Nombre = "Nivel Operativo" },
-                new GrupoPantalla() { ID = 4, Nombre = "Administración" }
-            ); 
+            // Permisos
+            context.Permisos.AddOrUpdate(
+                new Permiso() { ID = 1, Nombre = "Administración" },
+                new Permiso() { ID = 2, Nombre = "Captura de Estrategias", Escritura = true },
+                new Permiso() { ID = 3, Nombre = "Listado de Estrategias", Lectura = true },
+                new Permiso() { ID = 4, Nombre = "Captura de Objetivos", Escritura = true },
+                new Permiso() { ID = 5, Nombre = "Listado de Objetivos", Lectura = true },
+                new Permiso() { ID = 6, Nombre = "Líder de Unidad Operativa" }
+            );
         }
     }
 }

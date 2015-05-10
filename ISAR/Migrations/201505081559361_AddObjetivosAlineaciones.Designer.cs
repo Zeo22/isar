@@ -7,13 +7,13 @@ namespace ISAR.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class InitialDB : IMigrationMetadata
+    public sealed partial class AddObjetivosAlineaciones : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialDB));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddObjetivosAlineaciones));
         
         string IMigrationMetadata.Id
         {
-            get { return "201504300240574_InitialDB"; }
+            get { return "201505081559361_AddObjetivosAlineaciones"; }
         }
         
         string IMigrationMetadata.Source
