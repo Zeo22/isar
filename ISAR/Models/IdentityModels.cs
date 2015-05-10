@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace ISAR.Models
 {
@@ -15,11 +16,36 @@ namespace ISAR.Models
         public string Nombre { get; set; }
 
         [Display(Name = "Área")]
-        public Area UsuarioArea { get; set; }
+        public virtual Area UsuarioArea { get; set; }
 
         public string Puesto { get; set; }
 
+        [Display(Name = "Activo / Inactivo")]
         public bool Activo { get; set; }
+
+        public bool TieneNivel(int Nivel)
+        {
+            return this.UsuarioArea.Nivel.ID == Nivel;
+        }
+
+        public bool TienePermiso(int PermisoId)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+
+            foreach (IdentityUserRole item in this.Roles)
+            {
+                ApplicationRole role = (ApplicationRole)db.Roles.Find(item.RoleId);
+
+                foreach (Permiso p in role.Permisos)
+                {
+                    if (p.ID == PermisoId)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -41,21 +67,10 @@ namespace ISAR.Models
     }
 
     // Clases para editar un rol con permisos
-    public class EditarPermiso
-    {
-        public string Grupo { get; set; }
-        public string Nombre { get; set; }
-        public bool Lectura { get; set; }
-        public bool Escritura { get; set; }
-        public int PantallaId { get; set; }
-        public string Eliminar { get; set; }
-    }
-
     public class EditarRol
     {
         public string Id { get; set; }
         public string Nombre { get; set; }
-
-        public List<EditarPermiso> Permisos { get; set; }
+        public List<Permiso> Permisos { get; set; }
     }
 }

@@ -10,7 +10,6 @@ namespace ISAR.Models
         [Required(AllowEmptyStrings = false)]
         [Display(Name = "RoleName")]
         public string Name { get; set; }
-        public List<EditarPermiso> Permisos { get; set; }
     }
 
     public class EditUserViewModel
@@ -18,12 +17,21 @@ namespace ISAR.Models
         public string Id { get; set; }
 
         [Required]
-        [Display(Name = "User Name")]
+        [Display(Name = "Usuario")]
         public string UserName { get; set; }
 
         [Required]
         [Display(Name = "Nombre")]
         public string Nombre { get; set; }
+
+        [Display(Name = "Area")]
+        public Area Area { get; set; }
+
+        [Display(Name = "Puesto")]
+        public string Puesto { get; set; }
+
+        [Display(Name = "Activo / Inactivo")]
+        public bool Activo { get; set; }
 
         [Required(AllowEmptyStrings = false)]
         [Display(Name = "Email")]

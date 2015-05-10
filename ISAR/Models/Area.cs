@@ -12,8 +12,10 @@ namespace ISAR.Models
         [Display(Name = "Área")]
         public string Nombre { get; set; }
         [Display(Name = "Área Padre")]
-        public Area AreaPadre { get; set; }
+        public virtual Area AreaPadre { get; set; }
         [Display(Name="Nivel Organizacional")]
-        public NivelOrganizacional Nivel { get; set; }
+        public virtual NivelOrganizacional Nivel { get; set; }
+        public virtual List<Area> AreasHijas { get; set; }
+        public virtual List<Atribucion> Atribuciones { get; set; }
     }
 }

@@ -11,9 +11,9 @@ namespace ISAR.Models
     public class Permiso
     {
         public int ID { get; set; }
-        public virtual ApplicationRole Rol { get; set; }
-        public virtual Pantalla Pantalla { get; set; }
+        public string Nombre { get; set; }
         public bool Lectura { get; set; }
         public bool Escritura { get; set; }
+        public virtual List<ApplicationRole> Roles { get; set; }
     }
 }

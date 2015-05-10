@@ -13,5 +13,6 @@ namespace ISAR.Models
         public int ID { get; set; }
         [Display(Name = "Nivel Organizacional")]
         public string Nombre { get; set; }
+        public virtual List<Area> Areas { get; set; }
     }
 }

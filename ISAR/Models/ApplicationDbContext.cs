@@ -12,6 +12,8 @@ namespace ISAR.Models
     {
         #region Models
 
+        //public DbSet<ApplicationUser> AppUsuarios { get; set; }
+        //public DbSet<ApplicationRole> AppRoles { get; set; }
         public DbSet<Area> Areas { get; set; }
         public DbSet<NivelOrganizacional> NivelesOrganizacionales { get; set; }
         public DbSet<Permiso> Permisos { get; set; }
@@ -22,13 +24,18 @@ namespace ISAR.Models
         public DbSet<CategoriaObjetivo> CategoriaObjetivo { get; set; }
         public DbSet<TipoAlineacion> TipoAlineacion { get; set; }
         public DbSet<Objetivo> Objetivos { get; set; }
-        public DbSet<GrupoPantalla> GrupoPantalla { get; set; }
-        public DbSet<Pantalla> Pantallas { get; set; }
+        public DbSet<Atribucion> Atribuciones { get; set; }
 
         #endregion
+
         public ApplicationDbContext()
             : base("DatabaseContext", throwIfV1Schema: false)
         {
+        }
+
+        static ApplicationDbContext()
+        {
+            Database.SetInitializer<ApplicationDbContext>(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Migrations.Configuration>());
         }
 
         protected override void OnModelCreating(System.Data.Entity.DbModelBuilder modelBuilder)
@@ -44,11 +51,26 @@ namespace ISAR.Models
             modelBuilder.Entity<IdentityRole>().ToTable("Roles");
             modelBuilder.Entity<ApplicationRole>().ToTable("Roles");
             // Models
-            //modelBuilder.Entity<ApplicationRole>().HasMany(t => t.Permisos).WithMany(t => t.Roles).Map(m => {
-            //    m.ToTable("Roles_Permisos");
-            //    m.MapLeftKey("RolID");
-            //    m.MapRightKey("PermisoID");
-            //});
+            modelBuilder.Entity<ApplicationRole>().HasMany(t => t.Permisos).WithMany(t => t.Roles).Map(m =>
+            {
+                m.ToTable("Roles_Permisos");
+                m.MapLeftKey("RolID");
+                m.MapRightKey("PermisoID");
+            });
+
+            modelBuilder.Entity<Objetivo>().HasMany(t => t.Estrategias).WithMany(t => t.ObjetivoAlineado).Map(m =>
+            {
+                m.ToTable("Objetivos_Estrategias");
+                m.MapLeftKey("ObjetivoID");
+                m.MapRightKey("EstrategiaID");
+            });
+
+            modelBuilder.Entity<Objetivo>().HasMany(t => t.ObjetivosAlineados).WithMany().Map(m =>
+            {
+                m.ToTable("ObjetivosAlineados");
+                m.MapLeftKey("ObjetivoID");
+                m.MapRightKey("ObjetivoAlineadoID");
+            });
 
             //modelBuilder.Entity<GrupoPantalla>().HasMany(g => g.Pantallas).WithRequired(p => p.Grupo);
 
