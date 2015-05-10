@@ -27,6 +27,7 @@ D:\Projects\ISAR\ISAR\bin\System.Web.WebPages.Deployment.dll
 D:\Projects\ISAR\ISAR\bin\System.Web.WebPages.dll
 D:\Projects\ISAR\ISAR\bin\System.Web.WebPages.Razor.dll
 D:\Projects\ISAR\ISAR\bin\WebGrease.dll
+D:\Projects\ISAR\ISAR\bin\Microsoft.AspNet.Identity.Core.xml
 D:\Projects\ISAR\ISAR\bin\System.Web.Helpers.xml
 D:\Projects\ISAR\ISAR\bin\System.Web.Mvc.xml
 D:\Projects\ISAR\ISAR\bin\System.Web.Optimization.xml
@@ -38,7 +39,6 @@ D:\Projects\ISAR\ISAR\bin\Antlr3.Runtime.pdb
 D:\Projects\ISAR\ISAR\bin\Newtonsoft.Json.xml
 D:\Projects\ISAR\ISAR\bin\EntityFramework.xml
 D:\Projects\ISAR\ISAR\bin\EntityFramework.SqlServer.xml
-D:\Projects\ISAR\ISAR\bin\Microsoft.AspNet.Identity.Core.xml
 D:\Projects\ISAR\ISAR\bin\Microsoft.AspNet.Identity.Owin.xml
 D:\Projects\ISAR\ISAR\bin\Microsoft.AspNet.Identity.EntityFramework.xml
 D:\Projects\ISAR\ISAR\bin\Microsoft.Owin.xml
@@ -50,10 +50,16 @@ D:\Projects\ISAR\ISAR\bin\Microsoft.Owin.Security.OAuth.xml
 D:\Projects\ISAR\ISAR\bin\Microsoft.Owin.Security.Google.xml
 D:\Projects\ISAR\ISAR\bin\Microsoft.Owin.Security.Twitter.xml
 D:\Projects\ISAR\ISAR\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-D:\Projects\ISAR\ISAR\obj\Debug\ISAR.Migrations.InitialDB.resources
+D:\Projects\ISAR\ISAR\bin\es\Microsoft.AspNet.Identity.Core.resources.dll
+D:\Projects\ISAR\ISAR\obj\Debug\ISAR.Migrations.initialDB.resources
+D:\Projects\ISAR\ISAR\obj\Debug\ISAR.Migrations.AddPeriodo.resources
+D:\Projects\ISAR\ISAR\obj\Debug\ISAR.Migrations.AddAtribucion.resources
+D:\Projects\ISAR\ISAR\obj\Debug\ISAR.Migrations.EditObjetivo.resources
+D:\Projects\ISAR\ISAR\obj\Debug\ISAR.Migrations.AddAtribucionesToObjetivo.resources
+D:\Projects\ISAR\ISAR\obj\Debug\ISAR.Migrations.AddEstrategiasToObjetivo.resources
+D:\Projects\ISAR\ISAR\obj\Debug\ISAR.Migrations.AddObjetivosAlineaciones.resources
 D:\Projects\ISAR\ISAR\obj\Debug\ISAR.csproj.GenerateResource.Cache
 D:\Projects\ISAR\ISAR\obj\Debug\ISAR.dll
 D:\Projects\ISAR\ISAR\obj\Debug\ISAR.pdb
 D:\Projects\ISAR\ISAR\obj\Debug\ISAR.csprojResolveAssemblyReference.cache
-D:\Projects\ISAR\ISAR\obj\Debug\ISAR.Migrations.temp.resources
-D:\Projects\ISAR\ISAR\obj\Debug\ISAR.Migrations.temp1.resources
+D:\Projects\ISAR\ISAR\obj\Debug\ISAR.Migrations.AddEstrategias.resources

@@ -1,6 +1,134 @@
-﻿@{
+﻿@using ISAR.Models;
+@{
+    ApplicationDbContext db = new ApplicationDbContext();
     ViewBag.Title = "Dashboard";
     ViewBag.Grupo = "Inicio";
     ViewBag.Pantalla = ViewBag.Title;
+    ApplicationUser user = db.Users.FirstOrDefault(item => item.UserName == User.Identity.Name);
 }
-Dashboard
+
+@if (user.TieneNivel(1) || user.TienePermiso(1))
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading separator">
+                    <div class="panel-title">
+                        Nivel Estratégico Superior
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <ul>
+                        <li class="">
+                            @Html.ActionLink("Mision y Vision", "index", "dashboard")
+                        </li>
+                        <li class="">
+                            @Html.ActionLink("Objetivos de la Organización", "index", "objetivos", new { lvl = 1 }, new { })
+                        </li>
+                        <li class="">
+                            @Html.ActionLink("Estrategias Generales", "index", "dashboard")
+                        </li>
+                        <li class="">
+                            @Html.ActionLink("Tableros de Indicadores", "index", "dashboard")
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (user.TieneNivel(2) || user.TienePermiso(1))
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading separator">
+                    <div class="panel-title">
+                        Nivel Estratégico Vicepresidencias
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <ul>
+                        <li class="">
+                            @Html.ActionLink("Objetivos Estratégicos", "index", "objetivos", new { lvl = 2 }, new { })
+                        </li>
+                        <li class="">
+                            @Html.ActionLink("Estrategias Especifícas", "index", "dashboard")
+                        </li>
+                        <li class="">
+                            @Html.ActionLink("Tableros de Indicadores", "index", "dashboard")
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (user.TieneNivel(3) || user.TienePermiso(1))
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading separator">
+                    <div class="panel-title">
+                        Nivel Operativo
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <ul>
+                        <li class="">
+                            @Html.ActionLink("Objetivos Operativos", "index", "objetivos", new { lvl = 3 }, new { })
+                        </li>
+                        <li class="">
+                            @Html.ActionLink("Procesos", "index", "dashboard")
+                        </li>
+                        <li class="">
+                            @Html.ActionLink("Proyectos", "index", "dashboard")
+                        </li>
+                        <li class="">
+                            @Html.ActionLink("Indicadores", "index", "dashboard")
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (user.TienePermiso(1)) { 
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading separator">
+                    <div class="panel-title">
+                        Administración
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <ul>
+                        <li class="">
+                            @Html.ActionLink("Areas", "index", "areas")
+                        </li>
+                        <li class="">
+                            @Html.ActionLink("Unidades de Medida", "index", "unidaddemedida")
+                        </li>
+                        <li class="">
+                            @Html.ActionLink("Periodos", "index", "periodos")
+                        </li>
+                        <li class="">
+                            @Html.ActionLink("Atribuciones", "index", "atribuciones")
+                        </li>
+                        <li class="">
+                            @Html.ActionLink("Roles", "index", "roles")
+                        </li>
+                        <li class="">
+                            @Html.ActionLink("Usuarios", "index", "usuarios")
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+}

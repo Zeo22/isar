@@ -1,0 +1,132 @@
+﻿@model IEnumerable<ISAR.Models.Objetivo>
+
+@{
+    switch ((string)ViewBag.Nivel)
+    {
+        case "1":
+            ViewBag.Grupo = "Nivel Superior";
+            ViewBag.Pantalla = "Objetivos de la Organización";
+            break;
+        case "2":
+            ViewBag.Grupo = "Nivel Vicepresidencia";
+            ViewBag.Pantalla = "Objetivos Estratégicos";
+            break;
+        case "3":
+            ViewBag.Grupo = "Nivel Operativo";
+            ViewBag.Pantalla = "Objetivos Operativos";
+            break;
+    }
+    ViewBag.Title = "Listado de " + ViewBag.Pantalla;
+}
+
+<h4>@ViewBag.Title <a href="@Url.Action("Create", new { lvl = ViewBag.Nivel })" class="btn btn-success btn-cons" style="margin-left: 20px;">Agregar Objetivo</a></h4>
+
+<table class="table" id="dtTable">
+	<thead>
+		<tr>
+            <th>
+                No.
+            </th>
+			<th>
+				Objetivo
+			</th>
+			<th>
+				Estrategias Generales
+			</th>
+			<th>
+				Alineado
+			</th>
+			<th>
+				Detalle
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+@foreach (var item in Model) {
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.ID)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Nombre)
+			</td>
+			<td>
+				@item.Estrategias.Count()
+			</td>
+            <td>
+                @if (item.ObjetivosAlineados.Count() > 0)
+                {
+                    <i style="color:green" class="fa fa-check-circle"></i>
+                }
+                else
+                {
+                    <i style="color:red" class="fa fa-times-circle"></i>
+                }
+            </td>
+            <td>
+			    <a href="@Url.Action("Edit", new { id=item.ID, lvl = ViewBag.Nivel })" style="color:green" class="fa fa-edit"></a>
+			    <a href="#" style="color:red" class="fa fa-minus" data-toggle="modal" data-target="#modalDelete" data-id="@item.ID" id="btnDelete"></a>
+            </td>
+		</tr>
+}
+	</tbody>
+</table>
+
+<div class="modal fade slide-up disable-scroll" id="modalDelete" tabindex="-1" role="dialog" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content-wrapper">
+            <div class="modal-content">
+                <div class="modal-header clearfix text-left">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <i class="pg-close fs-14"></i>
+                    </button>
+                    <h4 class="semi-bold">¿Esta seguro que desea eliminar este Objetivo?</h4>
+                </div>
+                <div class="modal-body">
+                    @using (Html.BeginForm("Delete", "Objetivos", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("ID")
+                        @Html.Hidden("lvl", (string)ViewBag.Nivel)
+                        <div class="row">
+                            <div class="col-md-8"></div>
+                            <div class="col-md-4">
+                                <input type="submit" value="Eliminar Objetivo" class="btn btn-primary btn-block m-t-5 pull-right" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var settings = {
+                "sDom": "<'table-responsive't><'row'<'pull-right'p> <'pull-left'i>>",
+                "sPaginationType": "bootstrap",
+                "destroy": true,
+                "scrollCollapse": true,
+                "oLanguage": {
+                    "sLengthMenu": "_MENU_ ",
+                    "sInfo": "Mostrando items del <b>_START_ al _END_</b> de un total de _TOTAL_ items",
+                    "sEmptyTable": "No existe información para mostrar.",
+                    "sInfoEmpty": ""
+                },
+                "iDisplayLength": 10
+            };
+
+            $('#dtTable').dataTable(settings);
+        });
+
+		$('#modalDelete').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var Id = button.data('id')
+
+            var modal = $(this)
+                        modal.find("#ID").val(Id);
+        })
+    </script>
+}

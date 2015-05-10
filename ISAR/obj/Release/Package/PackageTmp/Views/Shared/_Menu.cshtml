@@ -1,30 +1,104 @@
 ﻿@using ISAR.Models;
 @{
     ApplicationDbContext db = new ApplicationDbContext();
-
-    List<GrupoPantalla> grupos = db.GrupoPantalla.Where(item => item.Pantallas.Count > 0).ToList();
+    ApplicationUser user = db.Users.FirstOrDefault(item => item.UserName == User.Identity.Name);
 }
 
 <ul class="menu-items">
     <li>
         <h2>&nbsp;</h2>
     </li>
-    @foreach (GrupoPantalla grupo in grupos)
-    {
-        <li class="">
-            <a href="javascript:;">
-                <span class="title">@grupo.Nombre</span>
-            </a>
-            <ul class="sub-menu">
-                @foreach (Pantalla pantalla in grupo.Pantallas)
-                {
-                    <li class="">
-                        <a href="@pantalla.URL">@pantalla.Nombre</a>
-                    </li>
-                }
-            </ul>
-        </li>
-    }
+@if (user.TieneNivel(1) || user.TienePermiso(1))
+{
+    <li class="">
+        <a href="javascript:;">
+            <span class="title">Nivel Superior</span>
+        </a>
+        <ul class="sub-menu">
+            <li class="">
+                @Html.ActionLink("Mision y Vision", "index", "dashboard")
+            </li>
+            <li class="">
+                @Html.ActionLink("Objetivos de la Organización", "index", "objetivos", new { lvl = 1 }, new { })
+            </li>
+            <li class="">
+                @Html.ActionLink("Estrategias Generales", "index", "dashboard")
+            </li>
+            <li class="">
+                @Html.ActionLink("Tableros de Indicadores", "index", "dashboard")
+            </li>
+        </ul>
+    </li>
+}
+@if (user.TieneNivel(2) || user.TienePermiso(1))
+{
+    <li class="">
+        <a href="javascript:;">
+            <span class="title">Nivel Vicepresidencia</span>
+        </a>
+        <ul class="sub-menu">
+            <li class="">
+                @Html.ActionLink("Objetivos Estratégicos", "index", "objetivos", new { lvl = 2 }, new { })
+            </li>
+            <li class="">
+                @Html.ActionLink("Estrategias Especifícas", "index", "dashboard")
+            </li>
+            <li class="">
+                @Html.ActionLink("Tableros de Indicadores", "index", "dashboard")
+            </li>
+        </ul>
+    </li>
+}
+@if (user.TieneNivel(3) || user.TienePermiso(1))
+{
+    <li class="">
+        <a href="javascript:;">
+            <span class="title">Nivel Operativo</span>
+        </a>
+        <ul class="sub-menu">
+            <li class="">
+                @Html.ActionLink("Objetivos Operativos", "index", "objetivos", new { lvl = 3 }, new { })
+            </li>
+            <li class="">
+                @Html.ActionLink("Procesos", "index", "dashboard")
+            </li>
+            <li class="">
+                @Html.ActionLink("Proyectos", "index", "dashboard")
+            </li>
+            <li class="">
+                @Html.ActionLink("Indicadores", "index", "dashboard")
+            </li>
+        </ul>
+    </li>
+}
+@if (user.TienePermiso(1))
+{
+    <li class="">
+        <a href="javascript:;">
+            <span class="title">Administración</span>
+        </a>
+        <ul class="sub-menu">
+            <li class="">
+                @Html.ActionLink("Areas", "index", "areas")
+            </li>
+            <li class="">
+                @Html.ActionLink("Unidades de Medida", "index", "unidaddemedida")
+            </li>
+            <li class="">
+                @Html.ActionLink("Periodos", "index", "periodos")
+            </li>
+            <li class="">
+                @Html.ActionLink("Atribuciones", "index", "atribuciones")
+            </li>
+            <li class="">
+                @Html.ActionLink("Roles", "index", "roles")
+            </li>
+            <li class="">
+                @Html.ActionLink("Usuarios", "index", "usuarios")
+            </li>
+        </ul>
+    </li>
+}
 </ul>
 <div class="clearfix"></div>
 

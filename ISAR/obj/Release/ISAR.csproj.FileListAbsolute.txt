@@ -55,5 +55,9 @@ D:\Projects\ISAR\ISAR\obj\Release\ISAR.Migrations.InitialDB.resources
 D:\Projects\ISAR\ISAR\obj\Release\ISAR.csproj.GenerateResource.Cache
 D:\Projects\ISAR\ISAR\obj\Release\ISAR.dll
 D:\Projects\ISAR\ISAR\obj\Release\ISAR.pdb
-D:\Projects\ISAR\ISAR\obj\Release\ISAR.Migrations.temp.resources
-D:\Projects\ISAR\ISAR\obj\Release\ISAR.Migrations.temp1.resources
+D:\Projects\ISAR\ISAR\bin\es\Microsoft.AspNet.Identity.Core.resources.dll
+D:\Projects\ISAR\ISAR\obj\Release\ISAR.Migrations.AddPeriodo.resources
+D:\Projects\ISAR\ISAR\obj\Release\ISAR.Migrations.AddAtribucion.resources
+D:\Projects\ISAR\ISAR\obj\Release\ISAR.Migrations.EditObjetivo.resources
+D:\Projects\ISAR\ISAR\obj\Release\ISAR.Migrations.AddAtribucionesToObjetivo.resources
+D:\Projects\ISAR\ISAR\obj\Release\ISAR.Migrations.AddEstrategiasToObjetivo.resources

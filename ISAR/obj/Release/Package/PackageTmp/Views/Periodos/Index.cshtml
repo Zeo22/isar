@@ -1,0 +1,107 @@
+﻿@model IEnumerable<ISAR.Models.Periodo>
+
+@{
+    ViewBag.Title = "Listado de Periodo";
+}
+
+<h4>@ViewBag.Title <a href="@Url.Action("Create")" class="btn btn-success btn-cons" style="margin-left: 20px;">Agregar Periodo</a></h4>
+
+<table class="table" id="dtTable">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Nombre)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.FechaInicio)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.FechaFin)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Activo)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+@foreach (var item in Model) {
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.Nombre)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.FechaInicio)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.FechaFin)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Activo)
+			</td>
+        <td>
+			<a href="@Url.Action("Edit", new { id=item.ID })" style="color:green" class="fa fa-edit"></a>
+			<a href="#" style="color:red" class="fa fa-minus" data-toggle="modal" data-target="#modalDelete" data-id="@item.ID" id="btnDelete"></a>
+        </td>
+		</tr>
+}
+	</tbody>
+</table>
+
+<div class="modal fade slide-up disable-scroll" id="modalDelete" tabindex="-1" role="dialog" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content-wrapper">
+            <div class="modal-content">
+                <div class="modal-header clearfix text-left">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <i class="pg-close fs-14"></i>
+                    </button>
+                    <h4 class="semi-bold">¿Esta seguro que desea eliminar este Periodo?</h4>
+                </div>
+                <div class="modal-body">
+                    @using (Html.BeginForm("Delete", "Periodos", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("ID")
+                        <div class="row">
+                            <div class="col-md-8"></div>
+                            <div class="col-md-4">
+                                <input type="submit" value="Eliminar Periodo" class="btn btn-primary btn-block m-t-5 pull-right" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var settings = {
+                "sDom": "<'table-responsive't><'row'<'pull-right'p> <'pull-left'i>>",
+                "sPaginationType": "bootstrap",
+                "destroy": true,
+                "scrollCollapse": true,
+                "oLanguage": {
+                    "sLengthMenu": "_MENU_ ",
+                    "sInfo": "Mostrando items del <b>_START_ al _END_</b> de un total de _TOTAL_ items",
+                    "sEmptyTable": "No existe información para mostrar.",
+                    "sInfoEmpty": ""
+                },
+                "iDisplayLength": 10
+            };
+
+            $('#dtTable').dataTable(settings);
+        });
+
+		$('#modalDelete').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var Id = button.data('id')
+
+            var modal = $(this)
+                        modal.find("#ID").val(Id);
+        })
+    </script>
+}

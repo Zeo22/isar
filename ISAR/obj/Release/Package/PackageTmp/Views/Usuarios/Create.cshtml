@@ -1,54 +1,86 @@
-﻿@model ISAR.Models.RegisterViewModel
+﻿@using ISAR.Models;
+@model ISAR.Models.RegisterViewModel
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Agregar Usuario";
     ViewBag.Grupo = "Administración";
-    ViewBag.Pantalla = ViewBag.Title;
+    ViewBag.Pantalla = ViewBag.Title; 
+    List<NivelOrganizacional> niveles = ViewBag.Niveles;
 }
+
+<h4>@ViewBag.Title</h4>
 
 @using (Html.BeginForm("Create", "Usuarios", FormMethod.Post))
 {
     <div class="row">
         <div class="col-md-12">
-            <h4>Create a new account.</h4>
-
+            
             @Html.AntiForgeryToken()
-            @Html.ValidationSummary("", new { @class = "text-error" })
+            @Html.ValidationSummary("", new { @class = "text-danger" })
 
             <div class="form-group form-group-default required">
                 @Html.LabelFor(m => m.UserName)
                 @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
             </div>
+
             <div class="form-group form-group-default required">
                 @Html.LabelFor(m => m.Nombre)
                 @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control" })
             </div>
+
             <div class="form-group form-group-default required">
                 @Html.LabelFor(model => model.Email)
                 @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Email)
             </div>
+
             <div class="form-group form-group-default required">
                 @Html.LabelFor(m => m.Password)
                 @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
             </div>
+
             <div class="form-group form-group-default required">
                 @Html.LabelFor(m => m.ConfirmPassword)
                 @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
             </div>
-            <div class="form-group panel panel-default">
-                <div class="panel-heading"><label>Select User Role</label></div>
-                <div class="panel-body">
+
+            <div class="form-group form-group-default required">
+                @Html.LabelFor(m => m.Puesto)
+                @Html.TextBoxFor(m => m.Puesto, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group form-group-default">
+                @Html.LabelFor(model => model.Area)
+                <select class="full-width" data-init-plugin="select2" name="Area">
+                    @foreach (NivelOrganizacional nivel in niveles)
+                    {
+                        <optgroup label="@nivel.Nombre">
+                            @foreach (Area area in @nivel.Areas.ToList())
+                            {
+                                <option value="@area.ID">@area.Nombre</option>
+                            }
+                        </optgroup>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group form-group-default">
+                @Html.Label("Rol")
+                <select class="full-width" data-init-plugin="select2" name="SelectedRoles">
                     @foreach (var item in (SelectList)ViewBag.RoleId)
                     {
-                        <div class="checkbox check-success">
-                            <input type="checkbox" name="SelectedRoles" value="@item.Value" id="@item.Value" class="checkbox-inline" />
-                            @Html.Label(item.Value)
-                        </div>
+                        <option value="@item.Value">@item.Value</option>
                     }
+                </select>
+            </div>
+
+            <div class="form-group form-group-default required">
+                @Html.Label("Activo / Inactivo")
+                <div class="checkbox check-success">
+                    <input type="checkbox" name="Activo" id="Activo" value="true" />
+                    @Html.Label("Activo", "Activo / Inactivo")
                 </div>
             </div>
-            <div class="clearfix"></div>
-            <input type="submit" class="btn btn-default" value="Create" />
+
+            <a href="@Url.Action("index")" class="btn btn-warning btn-cons">Regresar</a> <input type="submit" value="Agregar Usuario" class="btn btn-success btn-cons" />
         </div>
     </div>
 
