@@ -10,112 +10,121 @@ using ISAR.Models;
 
 namespace ISAR.Controllers
 {
-    [Authorize]
-    public class PantallasController : Controller
+    public class AtribucionesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Pantallas
+        // GET: Atribuciones
         public ActionResult Index()
         {
-            return View(db.Pantallas.ToList());
+            return View(db.Atribuciones.ToList());
         }
-        
-        // GET: Pantallas/Details/5
+
+        // GET: Atribuciones/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pantalla pantalla = db.Pantallas.Find(id);
-            if (pantalla == null)
+            Atribucion atribucion = db.Atribuciones.Find(id);
+            if (atribucion == null)
             {
                 return HttpNotFound();
             }
-            return View(pantalla);
+            return View(atribucion);
         }
 
-        // GET: Pantallas/Create
+        // GET: Atribuciones/Create
         public ActionResult Create()
         {
-            ViewBag.Grupos = db.GrupoPantalla.ToList();
+            ViewBag.Niveles = db.NivelesOrganizacionales.ToList();
             return View();
         }
 
-        // POST: Pantallas/Create
+        // POST: Atribuciones/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,URL,Nombre")] Pantalla pantalla, int Grupo)
+        public ActionResult Create([Bind(Include = "ID,Descripcion")] Atribucion atribucion, string Area)
         {
             if (ModelState.IsValid)
             {
-                pantalla.Grupo = db.GrupoPantalla.Find(Grupo);
-                db.Pantallas.Add(pantalla);
+                if (Area != null && Area != "-1")
+                {
+                    int areaId = int.Parse(Area);
+                    atribucion.Area = db.Areas.FirstOrDefault(item => item.ID == areaId);
+                }
+                db.Atribuciones.Add(atribucion);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            return View(pantalla);
+            ViewBag.Niveles = db.NivelesOrganizacionales.ToList();
+            return View(atribucion);
         }
 
-        // GET: Pantallas/Edit/5
+        // GET: Atribuciones/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pantalla pantalla = db.Pantallas.Find(id);
-            if (pantalla == null)
+            Atribucion atribucion = db.Atribuciones.Find(id);
+            if (atribucion == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Grupos = db.GrupoPantalla.ToList();
-            return View(pantalla);
+            ViewBag.Niveles = db.NivelesOrganizacionales.ToList();
+            return View(atribucion);
         }
 
-        // POST: Pantallas/Edit/5
+        // POST: Atribuciones/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,URL,Nombre")] Pantalla pantalla, int Grupo)
+        public ActionResult Edit([Bind(Include = "ID,Descripcion")] Atribucion atribucion, string Area)
         {
             if (ModelState.IsValid)
             {
-                pantalla.Grupo = db.GrupoPantalla.Find(Grupo);
-                db.Entry(pantalla).State = EntityState.Modified;
+                atribucion = db.Atribuciones.Find(atribucion.ID);
+                if (Area != null && Area != "-1")
+                {
+                    int areaId = int.Parse(Area);
+                    atribucion.Area = db.Areas.FirstOrDefault(item => item.ID == areaId);
+                }
+                db.Entry(atribucion).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(pantalla);
+            ViewBag.Niveles = db.NivelesOrganizacionales.ToList();
+            return View(atribucion);
         }
 
-        // GET: Pantallas/Delete/5
+        // GET: Atribuciones/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pantalla pantalla = db.Pantallas.Find(id);
-            if (pantalla == null)
+            Atribucion atribucion = db.Atribuciones.Find(id);
+            if (atribucion == null)
             {
                 return HttpNotFound();
             }
-            return View(pantalla);
+            return View(atribucion);
         }
 
-        // POST: Pantallas/Delete/5
+        // POST: Atribuciones/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Pantalla pantalla = db.Pantallas.Find(id);
-            db.Pantallas.Remove(pantalla);
+            Atribucion atribucion = db.Atribuciones.Find(id);
+            db.Atribuciones.Remove(atribucion);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

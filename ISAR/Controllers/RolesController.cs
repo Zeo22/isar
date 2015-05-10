@@ -90,24 +90,25 @@ namespace ISAR.Controllers
         // GET: /Roles/Create
         public ActionResult Create()
         {
-            ViewBag.Grupos = db.GrupoPantalla.Where(item => item.Pantallas.Count > 0).ToList();
+            ViewBag.Permisos = db.Permisos.ToList();
             return View();
         }
 
         //
-        // POST: /Roles/Crear
+        // POST: /Roles/Create
         [HttpPost]
-        public async Task<ActionResult> Crear(EditarRol rol)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Id,Nombre")] EditarRol rol, List<int> permisos)
         {
             if (ModelState.IsValid)
             {
-                ApplicationDbContext db = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
-
                 var role = new ApplicationRole(rol.Nombre);
-                var roleresult = await RoleManager.CreateAsync(role);
+                var roleresult = RoleManager.Create(role);
                 if (!roleresult.Succeeded)
                 {
-                    role = await RoleManager.FindByNameAsync(rol.Nombre);
+                    role = RoleManager.FindByName(rol.Nombre);
+                    role.Name = rol.Nombre;
+                    
                     if (role == null)
                     {
                         ModelState.AddModelError("", roleresult.Errors.First());
@@ -115,40 +116,35 @@ namespace ISAR.Controllers
                     }
                 }
 
-                if (role.Permisos != null)
+                // TODO: Permisos
+
+                if (permisos != null)
                 {
-                    db.Permisos.RemoveRange(role.Permisos);
-                }
-                rol.Permisos.ForEach(item =>
-                {
-                    db.Permisos.Add(new Permiso()
-                    {
-                        Pantalla = db.Pantallas.FirstOrDefault(pantalla => pantalla.ID == item.PantallaId),
-                        Escritura = item.Escritura,
-                        Lectura = item.Lectura,
-                        Rol = role
+                    role.Permisos.Clear();
+
+                    permisos.ForEach(item => {
+                        ApplicationDbContext db = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
+                        Permiso permiso = db.Permisos.FirstOrDefault(p => p.ID == item);
+
+                        if (permiso != null)
+                        {
+                            role.Permisos.Add(permiso);
+                        }
                     });
-                });
-
-                db.SaveChanges();
-
-                if (Request.IsAjaxRequest())
-                {
-                    return JavaScript("document.location.replace('" + Url.Action("Index") + "');");
                 }
-                else
-                {
-                    return RedirectToAction("Index");
-                }
+                
+                RoleManager.Update(role);
+                //db.SaveChanges();
+                return RedirectToAction("Index");
             }
-            return View();
+
+            return View(rol);
         }
 
         //
         // GET: /Roles/Edit/Admin
         public async Task<ActionResult> Edit(string id)
         {
-            List<EditarPermiso> permisos = new List<EditarPermiso>();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -158,60 +154,11 @@ namespace ISAR.Controllers
             {
                 return HttpNotFound();
             }
-            role.Permisos.ForEach(item =>
-            {
-                permisos.Add(new EditarPermiso()
-                {
-                    Grupo = item.Pantalla.Grupo.Nombre,
-                    Nombre = item.Pantalla.Nombre,
-                    Escritura = item.Escritura,
-                    Lectura = item.Lectura,
-                    PantallaId = item.Pantalla.ID,
-                    Eliminar = "<a href=\"#\" style=\"color:red\" class=\"fa fa-minus\"></a>"
-                });
-            });
-            RoleViewModel roleModel = new RoleViewModel { Id = role.Id, Name = role.Name, Permisos = permisos };
-            ViewBag.Grupos = db.GrupoPantalla.Where(item => item.Pantallas.Count > 0).ToList();
+            
+            // TODO: Permisos
+            ViewBag.Permisos = db.Permisos.ToList();
+            EditarRol roleModel = new EditarRol() { Id = role.Id, Nombre = role.Name, Permisos = role.Permisos };
             return View(roleModel);
-        }
-
-        //
-        // POST: /Roles/Editar
-        [HttpPost]
-        public ActionResult Editar(EditarRol rol)
-        {
-            if (ModelState.IsValid)
-            {
-                ApplicationDbContext db = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
-                var role = RoleManager.FindById(rol.Id);
-
-                role.Name = role.Name;
-                RoleManager.Update(role);
-
-                db.Permisos.RemoveRange(role.Permisos);
-                rol.Permisos.ForEach(item =>
-                {
-                    db.Permisos.Add(new Permiso()
-                    {
-                        Pantalla = db.Pantallas.FirstOrDefault(pantalla => pantalla.ID == item.PantallaId),
-                        Escritura = item.Escritura,
-                        Lectura = item.Lectura,
-                        Rol = role
-                    });
-                });
-
-                db.SaveChanges();
-
-                if (Request.IsAjaxRequest())
-                {
-                    return JavaScript("document.location.replace('" + Url.Action("Index") + "');");
-                }
-                else
-                {
-                    return RedirectToAction("Index");
-                }
-            }
-            return View();
         }
 
         //

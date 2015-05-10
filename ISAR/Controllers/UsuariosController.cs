@@ -78,16 +78,19 @@ namespace ISAR.Controllers
         // GET: /Users/Create
         public async Task<ActionResult> Create()
         {
+            ApplicationDbContext db = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
             //Get the list of Roles
             ViewBag.RoleId = new SelectList(await RoleManager.Roles.ToListAsync(), "Name", "Name");
+            ViewBag.Niveles = db.NivelesOrganizacionales.ToList();
             return View();
         }
 
         //
         // POST: /Users/Create
         [HttpPost]
-        public async Task<ActionResult> Create(RegisterViewModel userViewModel, params string[] selectedRoles)
+        public async Task<ActionResult> Create([Bind(Exclude = "Area")] RegisterViewModel userViewModel, string Area, params string[] selectedRoles)
         {
+            ApplicationDbContext db = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser
@@ -95,7 +98,14 @@ namespace ISAR.Controllers
                     UserName = userViewModel.UserName,
                     Email = userViewModel.Email,
                     Nombre = userViewModel.Nombre,
+                    Puesto = userViewModel.Puesto,
+                    Activo = userViewModel.Activo
                 };
+                if (Area != null && Area != "-1")
+                {
+                    int areaId = int.Parse(Area);
+                    user.UsuarioArea = db.Areas.FirstOrDefault(item => item.ID == areaId);
+                }
                 var adminresult = await UserManager.CreateAsync(user, userViewModel.Password);
 
                 //Add User to the selected Roles 
@@ -107,6 +117,7 @@ namespace ISAR.Controllers
                         if (!result.Succeeded)
                         {
                             ModelState.AddModelError("", result.Errors.First());
+                            ViewBag.Niveles = db.NivelesOrganizacionales.ToList();
                             ViewBag.RoleId = new SelectList(await RoleManager.Roles.ToListAsync(), "Name", "Name");
                             return View();
                         }
@@ -115,6 +126,7 @@ namespace ISAR.Controllers
                 else
                 {
                     ModelState.AddModelError("", adminresult.Errors.First());
+                    ViewBag.Niveles = db.NivelesOrganizacionales.ToList();
                     ViewBag.RoleId = new SelectList(RoleManager.Roles, "Name", "Name");
                     return View();
 
@@ -122,6 +134,7 @@ namespace ISAR.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.RoleId = new SelectList(RoleManager.Roles, "Name", "Name");
+            ViewBag.Niveles = db.NivelesOrganizacionales.ToList();
             return View();
         }
 
@@ -140,13 +153,18 @@ namespace ISAR.Controllers
             }
 
             var userRoles = await UserManager.GetRolesAsync(user.Id);
+            ApplicationDbContext db = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
 
+            ViewBag.Niveles = db.NivelesOrganizacionales.ToList();
             return View(new EditUserViewModel()
             {
                 UserName = user.UserName,
                 Nombre = user.Nombre,
                 Id = user.Id,
                 Email = user.Email,
+                Area = user.UsuarioArea,
+                Puesto = user.Puesto,
+                Activo = user.Activo,
                 RolesList = RoleManager.Roles.ToList().Select(x => new SelectListItem()
                 {
                     Selected = userRoles.Contains(x.Name),
@@ -160,10 +178,11 @@ namespace ISAR.Controllers
         // POST: /Users/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Email,Id,UserName,Nombre")] EditUserViewModel editUser, params string[] selectedRole)
+        public async Task<ActionResult> Edit([Bind(Include = "Email,Id,UserName,Nombre,Puesto,Activo")] EditUserViewModel editUser, string Area, params string[] selectedRole)
         {
             if (ModelState.IsValid)
             {
+                ApplicationDbContext db = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
                 var user = await UserManager.FindByIdAsync(editUser.Id);
                 if (user == null)
                 {
@@ -173,6 +192,14 @@ namespace ISAR.Controllers
                 user.UserName = editUser.UserName;
                 user.Email = editUser.Email;
                 user.Nombre = editUser.Nombre;
+                user.Puesto = editUser.Puesto;
+                user.Activo = editUser.Activo;
+
+                if (Area != null && Area != "-1")
+                {
+                    int areaId = int.Parse(Area);
+                    user.UsuarioArea = db.Areas.FirstOrDefault(item => item.ID == areaId);
+                }
 
                 var userRoles = await UserManager.GetRolesAsync(user.Id);
 
