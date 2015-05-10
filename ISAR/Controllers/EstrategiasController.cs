@@ -37,6 +37,7 @@ namespace ISAR.Controllers
             {
                 area = db.Areas.Where(item => item.Nivel.ID == nivel).FirstOrDefault(item => item.ID == areaId);
             }
+            ViewBag.usuario = usuario;
             ViewBag.CurrentArea = area;
             ViewBag.Nivel = lvl;
             ViewBag.Areas = db.Areas.Where(item => item.Nivel.ID == nivel).ToList();
@@ -71,6 +72,7 @@ namespace ISAR.Controllers
             ApplicationUser usuario = (ApplicationUser)db.Users.FirstOrDefault(item => item.UserName == User.Identity.Name);
             int nivel = int.Parse(lvl);
 
+            ViewBag.usuario = usuario;
             ViewBag.Nivel = lvl;
             if (usuario.TienePermiso(1)) // Administrador
             {

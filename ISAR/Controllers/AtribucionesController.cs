@@ -17,6 +17,11 @@ namespace ISAR.Controllers
         // GET: Atribuciones
         public ActionResult Index()
         {
+            if (ViewBag.Error != null)
+            {
+                ModelState.AddModelError("descripcion", ViewBag.Error);
+            }
+            ViewBag.Niveles = db.NivelesOrganizacionales.ToList();
             return View(db.Atribuciones.ToList());
         }
 
@@ -60,8 +65,9 @@ namespace ISAR.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.Error = ModelState.First().Value.Errors.First().ErrorMessage;
             ViewBag.Niveles = db.NivelesOrganizacionales.ToList();
-            return View(atribucion);
+            return RedirectToAction("Index");
         }
 
         // GET: Atribuciones/Edit/5
