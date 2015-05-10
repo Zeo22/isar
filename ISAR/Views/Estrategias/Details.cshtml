@@ -1,0 +1,71 @@
+﻿@model ISAR.Models.Estrategia
+@{
+    ViewBag.Title = "Detalle de Estrategia";
+    switch ((string)ViewBag.Nivel)
+    {
+        case "1":
+            ViewBag.Grupo = "Nivel Superior";
+            ViewBag.Pantalla = ViewBag.Title;
+            break;
+        case "2":
+            ViewBag.Grupo = "Nivel Vicepresidencia";
+            ViewBag.Pantalla = ViewBag.Title;
+            break;
+        case "3":
+            ViewBag.Grupo = "Nivel Operativo";
+            ViewBag.Pantalla = ViewBag.Title;
+            break;
+    }
+}
+
+<h4>@ViewBag.Title</h4>
+
+<div class="row">
+    <div class="form-group form-group-default">
+        @Html.LabelFor(model => model.Titulo)
+        @Html.DisplayFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+</div>
+
+<div class="row">
+    <table class="table" id="dtObjetivos">
+        <thead>
+            <tr>
+                <th>
+                    Objetivo
+                </th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+<div class="row">
+    <a href="@Url.Action("index", new { lvl = ViewBag.Nivel })" class="btn btn-warning btn-cons">Regresar</a>
+</div>
+
+@section scripts {
+    <script>
+        var initial_data_objetivos = @Html.Raw(ViewBag.JSONObjetivos);
+
+        var settings_objetivos = {
+            "sDom": "<'table-responsive't><'row'<'pull-right'p> <'pull-left'i>>",
+            "sPaginationType": "bootstrap",
+            "destroy": true,
+            "scrollCollapse": true,
+            "oLanguage": {
+                "sLengthMenu": "_MENU_ ",
+                "sInfo": "Mostrando items del <b>_START_ al _END_</b> de un total de _TOTAL_ items",
+                "sEmptyTable": "No existe información para mostrar.",
+                "sInfoEmpty": ""
+            },
+            "iDisplayLength": 10,
+            "data": initial_data_objetivos,
+            "columns": [
+                { name: "Objetivo", data: 'text' }
+            ]
+        };
+
+        $('#dtObjetivos').dataTable(settings_objetivos);
+    </script>
+}

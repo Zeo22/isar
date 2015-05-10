@@ -1,41 +1,41 @@
-﻿@model IEnumerable<ISAR.Models.Pantalla>
+﻿@model IEnumerable<ISAR.Models.Area>
 
 @{
-    ViewBag.Title = "Listado de Pantallas";
+    ViewBag.Title = "Listado de Areas";
 }
 
-<h4>@ViewBag.Title <a href="@Url.Action("Create")" class="btn btn-success btn-cons" style="margin-left: 20px;">Agregar Pantalla</a></h4>
+<h4>@ViewBag.Title <a href="@Url.Action("Create")" class="btn btn-success btn-cons" style="margin-left: 20px;">Agregar Area</a></h4>
 
 <table class="table" id="dtTable">
 	<thead>
 		<tr>
-			<th>
-                @Html.DisplayNameFor(model => model.Grupo)
+            <th>
+                @Html.DisplayNameFor(model => model.Nivel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AreaPadre)
             </th>
 			<th>
 				@Html.DisplayNameFor(model => model.Nombre)
 			</th>
-            <th>
-                @Html.DisplayNameFor(model => model.URL)
-            </th>
-			<th>Acciones</th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
 @foreach (var item in Model) {
 		<tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Grupo.Nombre)
+                @Html.DisplayFor(modelItem => item.Nivel.Nombre)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
+                @Html.DisplayFor(modelItem => item.AreaPadre.Nombre)
             </td>
 			<td>
-				@Html.DisplayFor(modelItem => item.URL)
+				@Html.DisplayFor(modelItem => item.Nombre)
 			</td>
             <td>
-                <a href="@Url.Action("Edit", new { id=item.ID })" style="color:green" class="fa fa-edit"></a>
-                <a href="#" style="color:red" class="fa fa-minus" data-toggle="modal" data-target="#modalDelete" data-id="@item.ID" id="btnDelete"></a>
+			    <a href="@Url.Action("Edit", new { id=item.ID })" style="color:green" class="fa fa-edit"></a>
+			    <a href="#" style="color:red" class="fa fa-minus" data-toggle="modal" data-target="#modalDelete" data-id="@item.ID" id="btnDelete"></a>
             </td>
 		</tr>
 }
@@ -50,17 +50,17 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         <i class="pg-close fs-14"></i>
                     </button>
-                    <h4 class="semi-bold">¿Esta seguro que desea eliminar esta Pantalla?</h4>
+                    <h4 class="semi-bold">¿Esta seguro que desea eliminar esta Área?</h4>
                 </div>
                 <div class="modal-body">
-                    @using (Html.BeginForm("Delete", "Pantallas", FormMethod.Post))
+                    @using (Html.BeginForm("Delete", "Areas", FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
                         @Html.Hidden("ID")
                         <div class="row">
                             <div class="col-md-8"></div>
                             <div class="col-md-4">
-                                <input type="submit" value="Eliminar Pantalla" class="btn btn-primary btn-block m-t-5 pull-right" />
+                                <input type="submit" value="Eliminar Área" class="btn btn-primary btn-block m-t-5 pull-right" />
                             </div>
                         </div>
                     }
@@ -80,7 +80,9 @@
                 "scrollCollapse": true,
                 "oLanguage": {
                     "sLengthMenu": "_MENU_ ",
-                    "sInfo": "Showing <b>_START_ to _END_</b> of _TOTAL_ entries"
+                    "sInfo": "Mostrando items del <b>_START_ al _END_</b> de un total de _TOTAL_ items",
+                    "sEmptyTable": "No existe información para mostrar.",
+                    "sInfoEmpty": ""
                 },
                 "iDisplayLength": 10
             };
@@ -88,7 +90,7 @@
             $('#dtTable').dataTable(settings);
         });
 
-        $('#modalDelete').on('show.bs.modal', function (event) {
+		$('#modalDelete').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget)
             var Id = button.data('id')
 

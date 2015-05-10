@@ -1,0 +1,225 @@
+﻿@using ISAR.Models;
+@model ISAR.Models.Objetivo
+
+@{
+    ViewBag.Title = "Detalle de Objetivo";
+    switch ((string)ViewBag.Nivel)
+    {
+        case "1":
+            ViewBag.Grupo = "Nivel Superior";
+            ViewBag.Pantalla = ViewBag.Title;
+            break;
+        case "2":
+            ViewBag.Grupo = "Nivel Vicepresidencia";
+            ViewBag.Pantalla = ViewBag.Title;
+            break;
+        case "3":
+            ViewBag.Grupo = "Nivel Operativo";
+            ViewBag.Pantalla = ViewBag.Title;
+            break;
+    }
+}
+
+<h4>@ViewBag.Title</h4>
+
+<div class="row">
+    <div class="col-md-12">
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6"></div>
+    <div class="col-md-6"></div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group form-group-default required">
+            @Html.LabelFor(model => model.Nombre)
+            @Html.DisplayFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group form-group-default">
+            @Html.LabelFor(model => model.Tipo)
+            <select class="full-width" data-init-plugin="select2" name="Tipo" id="Tipo">
+                @foreach (TipoObjetivo item in ViewBag.Tipos)
+                {
+                    <option value="@item.ID" @(@Model.Tipo.ID == item.ID ? "selected=\"selected\"" : "")>@item.Nombre</option>
+                }
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    Descripción
+                </div>
+            </div>
+            <div class="panel-body">
+                @Html.DisplayFor(model => model.Descripcion, new { @class = "form-control", rows = "5" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group form-group-default">
+            @Html.LabelFor(model => model.Categoria)
+            <select class="full-width" data-init-plugin="select2" name="Categoria" id="Categoria">
+                @foreach (CategoriaObjetivo item in ViewBag.Categorias)
+                {
+                    <option value="@item.ID" @(@Model.Categoria.ID == item.ID ? "selected=\"selected\"" : "")>@item.Nombre</option>
+                }
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group form-group-default input-group">
+            @Html.LabelFor(model => model.FechaInicio)
+            @Html.DisplayFor(model => model.FechaInicio, new { htmlAttributes = new { @class = "form-control" } })
+            <span class="input-group-addon">
+                <i class="fa fa-calendar"></i>
+            </span>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group form-group-default">
+            @Html.LabelFor(model => model.Area)
+            <select class="full-width" data-init-plugin="select2" name="Area" id="Area">
+                @foreach (Area item in ViewBag.Areas)
+                {
+                    <option value="@item.ID" @(@Model.Area.ID == item.ID ? "selected=\"selected\"" : "")>@(item.AreaPadre != null ? item.AreaPadre.Nombre + " - " : "")@item.Nombre</option>
+                }
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group form-group-default input-group">
+            @Html.LabelFor(model => model.FechaFinal)
+            @Html.DisplayFor(model => model.FechaFinal, new { htmlAttributes = new { @class = "form-control" } })
+            <span class="input-group-addon">
+                <i class="fa fa-calendar"></i>
+            </span>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group form-group-default">
+            @Html.LabelFor(model => model.Responsable)
+            <select class="full-width" data-init-plugin="select2" name="Responsable" id="Responsable">
+                @foreach (ApplicationUser item in ViewBag.Responsables)
+                {
+                    <option value="@item.Id" @(@Model.Responsable.Id == item.Id ? "selected=\"selected\"" : "")>@item.Nombre</option>
+                }
+            </select>
+        </div>
+    </div>
+</div>
+
+<h4>Atribuciones</h4>
+
+<div class="row">
+    <table class="table" id="dtAtribuciones">
+        <thead>
+            <tr>
+                <th>
+                    Area
+                </th>
+                <th>
+                    Atribución
+                </th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+@if (ViewBag.Nivel != "1")
+{
+    <h4>Objetivos Alineados</h4>
+
+    <div class="row">
+        <table class="table" id="dtObjetivos">
+            <thead>
+                <tr>
+                    <th>
+                        Objetivo
+                    </th>
+                    <th>
+                        Alineación
+                    </th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <a href="@Url.Action("index", new { lvl = ViewBag.Nivel })" class="btn btn-warning btn-cons">Regresar</a>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        var initial_data = @Html.Raw(ViewBag.JSONAtribuciones);
+
+        $("select").select2("readonly", true);
+
+        var settings = {
+            "sDom": "<'table-responsive't><'row'<'pull-right'p> <'pull-left'i>>",
+            "sPaginationType": "bootstrap",
+            "destroy": true,
+            "scrollCollapse": true,
+            "oLanguage": {
+                "sLengthMenu": "_MENU_ ",
+                "sInfo": "Mostrando items del <b>_START_ al _END_</b> de un total de _TOTAL_ items",
+                "sEmptyTable": "No existe información para mostrar.",
+                "sInfoEmpty": ""
+            },
+            "iDisplayLength": 10,
+            "data": initial_data,
+            "columns": [
+                { name: "Area", data: 'area' },
+                { name: "Atribucion", data: "text" }
+            ]
+        };
+
+        $('#dtAtribuciones').dataTable(settings);
+
+        // Objetivos
+        var initial_data_objetivos = @Html.Raw(ViewBag.JSONObjetivos);
+
+        var settings_objetivos = {
+            "sDom": "<'table-responsive't><'row'<'pull-right'p> <'pull-left'i>>",
+            "sPaginationType": "bootstrap",
+            "destroy": true,
+            "scrollCollapse": true,
+            "oLanguage": {
+                "sLengthMenu": "_MENU_ ",
+                "sInfo": "Mostrando items del <b>_START_ al _END_</b> de un total de _TOTAL_ items",
+                "sEmptyTable": "No existe información para mostrar.",
+                "sInfoEmpty": ""
+            },
+            "iDisplayLength": 10,
+            "data": initial_data_objetivos,
+            "columns": [
+                { name: "Objetivo", data: 'text' },
+                { name: "Alineación", data: "alineacion" }
+            ]
+        };
+
+        $('#dtObjetivos').dataTable(settings_objetivos);
+
+    </script>
+}

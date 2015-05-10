@@ -1,0 +1,108 @@
+﻿@using ISAR.Models;
+@model IEnumerable<ISAR.Models.Objetivo>
+
+@{
+    ApplicationUser usuario = (ApplicationUser)ViewBag.usuario;
+    
+    switch ((string)ViewBag.Nivel)
+    {
+        case "1":
+            ViewBag.Grupo = "Nivel Superior";
+            ViewBag.Pantalla = "Estrategias Generales";
+            break;
+        case "2":
+            ViewBag.Grupo = "Nivel Vicepresidencia";
+            ViewBag.Pantalla = "Estrategias Específicas";
+            break;
+    }
+    ViewBag.Title = "Listado de " + ViewBag.Pantalla;
+}
+
+<h4>@ViewBag.Title 
+    @if (usuario.TienePermiso(2)) // Captura de Estrategias
+    {
+        <a href="@Url.Action("Create", new { lvl = ViewBag.Nivel })" class="btn btn-success btn-cons" style="margin-left: 20px;">Agregar Estrategia</a>
+    }
+</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.Hidden("areaId", (int)ViewBag.CurrentArea.ID)
+}
+
+@if (usuario.TieneNivel(1))
+{
+    <div class="form-group form-group-default">
+        @Html.Label("Area")
+        <select class="full-width" data-init-plugin="select2" name="Area" id="Area">
+            @foreach (Area item in ViewBag.Areas)
+            {
+                <option value="@item.ID" @(item.ID == ViewBag.CurrentArea.ID ? "selected=\"selected\"" : "")>@item.Nombre</option>
+            }
+        </select>
+    </div>
+}
+
+@foreach (var item in Model) {
+<div class="col-md-12 contenido">
+    <div class="row">
+        <div class="col-md-12">
+            <h5>@item.Nombre</h5>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr class="info">
+                <th width="50">No.</th>
+                <th>Estrategia</th>
+                <th width="100">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Estrategia estrategia in item.Estrategias) { 
+            <tr>
+                <td>@estrategia.ID</td>
+                <td>@estrategia.Titulo</td>
+                <td>
+                    @if (usuario.TienePermiso(2)) // Captura de Estrategias
+                    {
+                        <a href="@Url.Action("Edit", new { id = estrategia.ID, lvl = ViewBag.Nivel })" style="color:green" class="fa fa-edit"></a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Details", new { id = estrategia.ID, lvl = ViewBag.Nivel })" style="color:green" class="fa fa-edit"></a>
+                    }
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+}
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var settings = {
+                "sDom": "<'table-responsive't><'row'<'pull-right'p> <'pull-left'i>>",
+                "sPaginationType": "bootstrap",
+                "destroy": true,
+                "scrollCollapse": true,
+                "oLanguage": {
+                    "sLengthMenu": "_MENU_ ",
+                    "sInfo": "Mostrando items del <b>_START_ al _END_</b> de un total de _TOTAL_ items",
+                    "sEmptyTable": "No existe información para mostrar.",
+                    "sInfoEmpty": ""
+                },
+                "iDisplayLength": 10
+            };
+
+            $('.contenido > table').dataTable(settings);
+
+            $("#Area").on("change", function (val) {
+                $("#areaId").val(val.val);
+                $("form").submit();
+            });
+        });
+    </script>
+}

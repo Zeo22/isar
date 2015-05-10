@@ -1,4 +1,4 @@
-﻿@model ISAR.Models.Pantalla
+﻿@model ISAR.Models.Estrategia
 
 @{
     ViewBag.Title = "Delete";
@@ -8,23 +8,15 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Pantalla</h4>
+    <h4>Estrategia</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.URL)
+            @Html.DisplayNameFor(model => model.Titulo)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.URL)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Nombre)
+            @Html.DisplayFor(model => model.Titulo)
         </dd>
 
     </dl>

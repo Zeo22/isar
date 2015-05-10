@@ -1,0 +1,41 @@
+﻿@using ISAR.Models;
+@model ISAR.Models.Atribucion
+
+@{
+    ViewBag.Title = "Agregar Atribucion";
+    List<NivelOrganizacional> niveles = ViewBag.Niveles;
+}
+
+<h4>@ViewBag.Title</h4>
+
+@using (Html.BeginForm("Create", "Atribuciones")) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="row">
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+
+        <div class="form-group form-group-default">
+            @Html.LabelFor(model => model.Descripcion)
+            @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        <div class="form-group form-group-default">
+            @Html.LabelFor(model => model.Area)
+            <select class="full-width" data-init-plugin="select2" name="Area">
+                @foreach (NivelOrganizacional nivel in niveles)
+                {
+                    <optgroup label="@nivel.Nombre">
+                        @foreach (Area area in @nivel.Areas.ToList())
+                        {
+                            <option value="@area.ID">@area.Nombre</option>
+                        }
+                    </optgroup>
+                }
+            </select>
+        </div>
+
+        <a href="@Url.Action("index")" class="btn btn-warning btn-cons">Regresar</a> <input type="submit" value="Agregar Atribucion" class="btn btn-success btn-cons" />
+    </div>
+}
+
