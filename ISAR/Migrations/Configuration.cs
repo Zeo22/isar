@@ -8,6 +8,10 @@ namespace ISAR.Migrations
     using System.Web.Mvc;
     using System.Web.Routing;
     using Models;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.Owin;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using System.Collections.Generic;
 
     internal sealed class Configuration : DbMigrationsConfiguration<ISAR.Models.ApplicationDbContext>
     {
@@ -74,8 +78,21 @@ namespace ISAR.Migrations
                 new Permiso() { ID = 3, Nombre = "Listado de Estrategias", Lectura = true },
                 new Permiso() { ID = 4, Nombre = "Captura de Objetivos", Escritura = true },
                 new Permiso() { ID = 5, Nombre = "Listado de Objetivos", Lectura = true },
-                new Permiso() { ID = 6, Nombre = "Líder de Unidad Operativa" }
+                new Permiso() { ID = 6, Nombre = "Líder de Unidad Operativa" },
+                new Permiso() { ID = 7, Nombre = "Captura de Indicadores", Escritura = true }
             );
+            // Admin
+            ApplicationUserManager userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
+
+            var user = new ApplicationUser
+            {
+                UserName = "admin",
+                Email = "admin@isar.com",
+                Nombre = "Administrador",
+                Puesto = "IT Consultant",
+                Activo = true
+            };
+            var adminresult = userManager.Create(user, "Admin01");
         }
     }
 }

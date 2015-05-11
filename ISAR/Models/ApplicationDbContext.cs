@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace ISAR.Models
 {
@@ -41,6 +42,7 @@ namespace ISAR.Models
         protected override void OnModelCreating(System.Data.Entity.DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            //modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
 
             // ASP.NET Identity
             //modelBuilder.Entity<IdentityUser>().ToTable("Usuarios");

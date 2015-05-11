@@ -120,7 +120,10 @@ namespace ISAR.Controllers
 
                 if (permisos != null)
                 {
-                    role.Permisos.Clear();
+                    if (role.Permisos != null)
+                    {
+                        role.Permisos.Clear();
+                    }
 
                     permisos.ForEach(item => {
                         ApplicationDbContext db = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
@@ -195,7 +198,7 @@ namespace ISAR.Controllers
                 {
                     return HttpNotFound();
                 }
-                db.Permisos.RemoveRange(role.Permisos);
+                //db.Permisos.RemoveRange(role.Permisos);
                 db.SaveChanges();
                 IdentityResult result;
                 if (deleteUser != null)
@@ -211,6 +214,7 @@ namespace ISAR.Controllers
                     ModelState.AddModelError("", result.Errors.First());
                     return View();
                 }
+                //Migrations.Configuration.SeedPermisos(db);                
                 return RedirectToAction("Index");
             }
             return View();

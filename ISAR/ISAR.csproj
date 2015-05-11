@@ -207,6 +207,30 @@
     <Compile Include="Migrations\201505082005208_AddEstrategias.Designer.cs">
       <DependentUpon>201505082005208_AddEstrategias.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201505110314135_AddRemoveManyToManyDeleteConvention.cs" />
+    <Compile Include="Migrations\201505110314135_AddRemoveManyToManyDeleteConvention.Designer.cs">
+      <DependentUpon>201505110314135_AddRemoveManyToManyDeleteConvention.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505110326173_AddRemoveManyToManyDeleteConvention1.cs" />
+    <Compile Include="Migrations\201505110326173_AddRemoveManyToManyDeleteConvention1.Designer.cs">
+      <DependentUpon>201505110326173_AddRemoveManyToManyDeleteConvention1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505110336456_AddRemoveManyToManyDeleteConvention2.cs" />
+    <Compile Include="Migrations\201505110336456_AddRemoveManyToManyDeleteConvention2.Designer.cs">
+      <DependentUpon>201505110336456_AddRemoveManyToManyDeleteConvention2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505110337143_AddRemoveManyToManyDeleteConvention3.cs" />
+    <Compile Include="Migrations\201505110337143_AddRemoveManyToManyDeleteConvention3.Designer.cs">
+      <DependentUpon>201505110337143_AddRemoveManyToManyDeleteConvention3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505110537584_AddRemoveManyToManyDeleteConvention4.cs" />
+    <Compile Include="Migrations\201505110537584_AddRemoveManyToManyDeleteConvention4.Designer.cs">
+      <DependentUpon>201505110537584_AddRemoveManyToManyDeleteConvention4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505110555080_AddRemoveManyToManyDeleteConvention5.cs" />
+    <Compile Include="Migrations\201505110555080_AddRemoveManyToManyDeleteConvention5.Designer.cs">
+      <DependentUpon>201505110555080_AddRemoveManyToManyDeleteConvention5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
@@ -1583,6 +1607,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201505082005208_AddEstrategias.resx">
       <DependentUpon>201505082005208_AddEstrategias.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505110314135_AddRemoveManyToManyDeleteConvention.resx">
+      <DependentUpon>201505110314135_AddRemoveManyToManyDeleteConvention.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505110326173_AddRemoveManyToManyDeleteConvention1.resx">
+      <DependentUpon>201505110326173_AddRemoveManyToManyDeleteConvention1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505110336456_AddRemoveManyToManyDeleteConvention2.resx">
+      <DependentUpon>201505110336456_AddRemoveManyToManyDeleteConvention2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505110337143_AddRemoveManyToManyDeleteConvention3.resx">
+      <DependentUpon>201505110337143_AddRemoveManyToManyDeleteConvention3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505110537584_AddRemoveManyToManyDeleteConvention4.resx">
+      <DependentUpon>201505110537584_AddRemoveManyToManyDeleteConvention4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505110555080_AddRemoveManyToManyDeleteConvention5.resx">
+      <DependentUpon>201505110555080_AddRemoveManyToManyDeleteConvention5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
