@@ -74,6 +74,12 @@ namespace ISAR.Models
                 m.MapRightKey("ObjetivoAlineadoID");
             });
 
+            modelBuilder.Entity<Atribucion>().HasMany(t => t.Objetivos).WithMany(p => p.Atribuciones).Map(m => {
+                m.ToTable("Atribuciones_Objetivos");
+                m.MapLeftKey("AtribucionID");
+                m.MapRightKey("ObjetivoID");
+            });
+
             //modelBuilder.Entity<GrupoPantalla>().HasMany(g => g.Pantallas).WithRequired(p => p.Grupo);
 
         }

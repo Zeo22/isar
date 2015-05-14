@@ -73,13 +73,18 @@ namespace ISAR.Migrations
             );
             // Permisos
             context.Permisos.AddOrUpdate(
-                new Permiso() { ID = 1, Nombre = "Administración" },
-                new Permiso() { ID = 2, Nombre = "Captura de Estrategias", Escritura = true },
-                new Permiso() { ID = 3, Nombre = "Listado de Estrategias", Lectura = true },
-                new Permiso() { ID = 4, Nombre = "Captura de Objetivos", Escritura = true },
-                new Permiso() { ID = 5, Nombre = "Listado de Objetivos", Lectura = true },
+                new Permiso() { ID = 1, Nombre = "Administrador" },
+                new Permiso() { ID = 2, Nombre = "Captura de Estrategias Generales" },
+                new Permiso() { ID = 3, Nombre = "Listado de Estrategias Generales" },
+                new Permiso() { ID = 4, Nombre = "Captura de Objetivos Estratégicos-Organización" },
+                new Permiso() { ID = 5, Nombre = "Listado de Objetivos Estratégicos-Organización" },
                 new Permiso() { ID = 6, Nombre = "Líder de Unidad Operativa" },
-                new Permiso() { ID = 7, Nombre = "Captura de Indicadores", Escritura = true }
+                new Permiso() { ID = 7, Nombre = "Captura de Objetivos Estratégicos-Específicos" },
+                new Permiso() { ID = 8, Nombre = "Listado de Objetivos Estratégicos-Específicos" },
+                new Permiso() { ID = 9, Nombre = "Captura de Estrategias Específicas" },
+                new Permiso() { ID = 10, Nombre = "Listado de Estrategias Específicas" },
+                new Permiso() { ID = 11, Nombre = "Captura de Objetivos Operativos" },
+                new Permiso() { ID = 12, Nombre = "Listado de Objetivos Operativos" }
             );
             // Admin
             ApplicationUserManager userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));

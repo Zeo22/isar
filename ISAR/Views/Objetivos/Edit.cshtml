@@ -227,11 +227,12 @@
 }
 
 @section scripts {
-@Scripts.Render("~/bundles/jqueryval")
+@*@Scripts.Render("~/bundles/jqueryval")*@
     <script>
         $("#FechaInicio, #FechaFinal").datepicker({
             language: 'es',
-            format: 'dd/mm/yyyy'
+            format: 'dd/mm/yyyy',
+            autoclose: true
         });
 
         // Atribuciones

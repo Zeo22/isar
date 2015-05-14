@@ -8,7 +8,7 @@
 }
 
 <h4>@ViewBag.Title</h4>
-
+<div id="summary"></div>
 @using (Html.BeginForm("Create", "Usuarios", FormMethod.Post))
 {
     <div class="row">
@@ -88,4 +88,23 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        var defaults = {
+            onkeyup: false,
+            onfocusout: false,
+            showErrors: function (errorMap, errorList) {
+                if (errorMap.Email != null && $("#Email").val() != "") {
+                    $('body').pgNotification({
+                        style: 'flip',
+                        message: errorMap.Email,
+                        type: 'danger'
+                    }).show();
+                }
+                this.defaultShowErrors();
+            }
+        };
+
+        $.validator.setDefaults(defaults);
+    </script>
 }

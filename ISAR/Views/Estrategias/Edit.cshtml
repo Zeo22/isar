@@ -113,10 +113,12 @@
             var table = $('#dtObjetivos').DataTable();
             var data = $("#Objetivo").select2("data")
             var exists = false;
+            var i = 1;
 
             table.rows().every(function () {
                 var data = this.data();
 
+                i++;
                 if (data.id == $("#Objetivo").select2("val")) {
                     exists = true;
                     return;
@@ -127,6 +129,15 @@
                 $('body').pgNotification({
                     style: 'flip',
                     message: 'El Objetivo seleccionado ya esta asignado.',
+                    type: 'danger'
+                }).show();
+                return;
+            }
+
+            if (i > 2) {
+                $('body').pgNotification({
+                    style: 'flip',
+                    message: 'Solo se puede alinear una Estrategia con un máximo de 2 Objetivos.',
                     type: 'danger'
                 }).show();
                 return;

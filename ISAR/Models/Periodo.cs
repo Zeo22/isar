@@ -21,5 +21,12 @@ namespace ISAR.Models
         public DateTime FechaFin { get; set; }
         [Display(Name = "Activo / Inactivo")]
         public bool Activo { get; set; }
+        public virtual List<Estrategia> Estrategias { get; set; }
+        public virtual List<Objetivo> Objetivos { get; set; }
+
+        public bool PuedeEliminar()
+        {
+            return !(this.Estrategias.Count() > 0 || this.Objetivos.Count() > 0);
+        }
     }
 }

@@ -52,11 +52,11 @@
 }
 
 @section scripts {
-@Scripts.Render("~/bundles/jqueryval")
     <script>
         $("#FechaInicio, #FechaFin").datepicker({
             language: 'es',
-            format: 'dd/mm/yyyy'
+            format: 'dd/mm/yyyy',
+            autoclose: true
         });
     </script>
 }

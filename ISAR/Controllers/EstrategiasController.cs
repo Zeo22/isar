@@ -24,7 +24,7 @@ namespace ISAR.Controllers
 
             if (areaId == null)
             {
-                if (usuario.TienePermiso(6)) // Administrador
+                if (usuario.TienePermiso(1)) // Administrador
                 {
                     area = db.Areas.Where(item => item.Nivel.ID == nivel).First();
                 }
@@ -41,6 +41,7 @@ namespace ISAR.Controllers
             ViewBag.CurrentArea = area;
             ViewBag.Nivel = lvl;
             ViewBag.Areas = db.Areas.Where(item => item.Nivel.ID == nivel).ToList();
+            ViewBag.EstrategiasNoAlineadas = db.Estrategias.Where(item => item.ObjetivoAlineado.Count() == 0).ToList();
             return View(db.Objetivos.Include("Estrategias").Where(item => item.Area.ID == area.ID));
         }
 
@@ -80,7 +81,7 @@ namespace ISAR.Controllers
             }
             else
             {
-                ViewBag.Objetivos = db.Objetivos.Where(item => item.Area == usuario.UsuarioArea).ToList();
+                ViewBag.Objetivos = db.Objetivos.Where(item => item.Area.ID == usuario.UsuarioArea.ID).ToList();
             }
         }
 

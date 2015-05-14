@@ -35,7 +35,7 @@
                     </td>
                     <td>
                         <a href="@Url.Action("Edit", new { id=item.Id })" style="color:green" class="fa fa-edit"></a>
-                        <a href="#" style="color:red" class="fa fa-minus" data-toggle="modal" data-target="#modalDelete" data-id="@item.Id" id="btnDelete"></a>
+                        <a href="#" style="color:red" class="fa fa-minus" data-toggle="modal" data-target="#modalDelete" data-id="@item.Id" data-puede-eliminar="@item.PuedeEliminar()" id="btnDelete"></a>
                     </td>
                 </tr>
             }
@@ -95,7 +95,16 @@
         $('#modalDelete').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget)
             var Id = button.data('id')
+            var del = button.data("puede-eliminar")
 
+            if (del == "False") {
+                $('body').pgNotification({
+                    style: 'flip',
+                    message: 'No se puede eliminar un Usuario que está en uso.',
+                    type: 'danger'
+                }).show();
+                return false;
+            }
             var modal = $(this)
             modal.find("#Id").val(Id);
         })

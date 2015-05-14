@@ -17,5 +17,12 @@ namespace ISAR.Models
         public string Descripcion { get; set; }
         [ScriptIgnore]
         public virtual Area Area { get; set; }
+        [ScriptIgnore]
+        public virtual List<Objetivo> Objetivos { get; set; }
+
+        public bool PuedeEliminar()
+        {
+            return !(this.Objetivos.Count() > 0);
+        }
     }
 }

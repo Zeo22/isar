@@ -140,7 +140,7 @@ namespace ISAR.Controllers
 
             ViewBag.usuario = usuario;
             ViewBag.Nivel = lvl;
-            ViewBag.Categorias = db.CategoriaObjetivo.Where(item => item.Nivel.ID == usuario.UsuarioArea.Nivel.ID).ToList();
+            ViewBag.Categorias = db.CategoriaObjetivo.Where(item => item.Nivel.ID == nivel).ToList();
             // Alineación
             if (nivel == 2)
             {
@@ -327,6 +327,7 @@ namespace ISAR.Controllers
                 objetivo_tmp.Categoria = db.CategoriaObjetivo.Find(Categoria);
                 objetivo_tmp.Area = db.Areas.Find(Area);
                 objetivo_tmp.Responsable = db.Users.Find(Responsable);
+                objetivo_tmp.Atribuciones.Clear();
                 objetivo_tmp.Atribuciones = db.Atribuciones.Where(item => Atribuciones.Contains(item.ID)).ToList();
                 objetivo_tmp.ObjetivosAlineados.Clear();
                 objetivo_tmp.ObjetivosAlineados = db.Objetivos.Where(item => Objetivos.Contains(item.ID)).ToList();

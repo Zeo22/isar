@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>
+﻿@model IEnumerable<ISAR.Models.ApplicationRole>
 
 @{
     ViewBag.Title = "Listado de Roles";
@@ -50,7 +50,7 @@
                     @using (Html.BeginForm("Delete", "Roles", FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
-                        @Html.Hidden("id")
+                        @Html.Hidden("Id")
                         <div class="row">
                             <div class="col-md-8"></div>
                             <div class="col-md-4">
@@ -89,7 +89,7 @@
             var Id = button.data('id')
 
             var modal = $(this)
-            modal.find('#id').val(Id);
+            modal.find("#Id").val(Id);
         })
     </script>
 }

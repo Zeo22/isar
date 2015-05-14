@@ -24,7 +24,7 @@
 }
 
 <h4>@ViewBag.Title 
-    @if (usuario.TienePermiso(4)) // Captura de Objetivos
+    @if (usuario.TienePermiso(1) || (ViewBag.Nivel == "1" && usuario.TienePermiso(4)) || (ViewBag.Nivel == "2" && usuario.TienePermiso(7)) || (ViewBag.Nivel == "3" && usuario.TienePermiso(11))) // Captura de Objetivos
     {
         <a href="@Url.Action("Create", new { lvl = ViewBag.Nivel })" class="btn btn-success btn-cons" style="margin-left: 20px;">Agregar Objetivo</a>
     }
@@ -81,10 +81,10 @@
             </td>
             }
             <td>
-                @if (usuario.TienePermiso(4)) // Captura de Objetivos
+                @if (usuario.TienePermiso(1) || (ViewBag.Nivel == "1" && usuario.TienePermiso(4)) || (ViewBag.Nivel == "2" && usuario.TienePermiso(7)) || (ViewBag.Nivel == "3" && usuario.TienePermiso(11))) // Captura de Objetivos
                 {
                     <a href="@Url.Action("Edit", new { id=item.ID, lvl = ViewBag.Nivel })" style="color:green" class="fa fa-edit"></a>
-                    <a href="#" style="color:red" class="fa fa-minus" data-toggle="modal" data-target="#modalDelete" data-id="@item.ID" id="btnDelete"></a>
+                    <a href="#" style="color:red" class="fa fa-minus" data-toggle="modal" data-target="#modalDelete" data-id="@item.ID" data-puede-eliminar="@item.PuedeEliminar()" id="btnDelete"></a>
                 }
                 else
                 {
@@ -145,12 +145,21 @@
             $('#dtTable').dataTable(settings);
         });
 
-		$('#modalDelete').on('show.bs.modal', function (event) {
+        $('#modalDelete').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget)
             var Id = button.data('id')
+            var del = button.data("puede-eliminar")
 
+            if (del == "False") {
+                $('body').pgNotification({
+                    style: 'flip',
+                    message: 'No se puede eliminar un Objetivo que está en uso.',
+                    type: 'danger'
+                }).show();
+                return false;
+            }
             var modal = $(this)
-                        modal.find("#ID").val(Id);
+            modal.find("#ID").val(Id);
         })
     </script>
 }

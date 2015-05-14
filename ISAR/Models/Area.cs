@@ -17,5 +17,11 @@ namespace ISAR.Models
         public virtual NivelOrganizacional Nivel { get; set; }
         public virtual List<Area> AreasHijas { get; set; }
         public virtual List<Atribucion> Atribuciones { get; set; }
+        public virtual List<ApplicationUser> Usuarios { get; set; }
+
+        public bool PuedeEliminar()
+        {
+            return !(this.AreasHijas.Count() > 0 || this.Atribuciones.Count() > 0 || this.Usuarios.Count() > 0);
+        }
     }
 }

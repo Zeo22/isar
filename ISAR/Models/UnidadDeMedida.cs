@@ -13,5 +13,10 @@ namespace ISAR.Models
         public int ID { get; set; }
         [Display(Name = "Unidad")]
         public string Nombre { get; set; }
+
+        public bool PuedeEliminar()
+        {
+            return true;
+        }
     }
 }

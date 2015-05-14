@@ -60,5 +60,10 @@ namespace ISAR.Models
         public virtual List<Objetivo> ObjetivosAlineados { get; set; } // Los hijos
         public virtual List<Estrategia> Estrategias { get; set; }
         public virtual Periodo Periodo { get; set; }
+
+        public bool PuedeEliminar()
+        {
+            return !(this.Estrategias.Count() > 0);
+        }
     }
 }

@@ -3321,17 +3321,29 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>04/24/2015 01:49:01</publishTime>
     </File>
+    <File Include="bin/Antlr3.Runtime.pdb">
+      <publishTime>04/24/2015 01:49:01</publishTime>
+    </File>
     <File Include="bin/EntityFramework.dll">
-      <publishTime>04/24/2015 01:49:07</publishTime>
+      <publishTime>05/12/2015 02:27:27</publishTime>
     </File>
     <File Include="bin/EntityFramework.SqlServer.dll">
-      <publishTime>04/24/2015 01:49:08</publishTime>
+      <publishTime>05/12/2015 02:27:27</publishTime>
+    </File>
+    <File Include="bin/es/EntityFramework.resources.dll">
+      <publishTime>05/12/2015 02:27:31</publishTime>
+    </File>
+    <File Include="bin/es/EntityFramework.SqlServer.resources.dll">
+      <publishTime>05/12/2015 02:27:31</publishTime>
     </File>
     <File Include="bin/es/Microsoft.AspNet.Identity.Core.resources.dll">
       <publishTime>05/07/2015 01:19:23</publishTime>
     </File>
     <File Include="bin/ISAR.dll">
-      <publishTime>05/11/2015 01:28:40</publishTime>
+      <publishTime>05/13/2015 15:21:53</publishTime>
+    </File>
+    <File Include="bin/ISAR.pdb">
+      <publishTime>05/12/2015 00:05:49</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
       <publishTime>05/07/2015 01:19:23</publishTime>
@@ -3457,7 +3469,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/24/2015 01:48:33</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>05/07/2015 01:19:28</publishTime>
+      <publishTime>05/12/2015 03:10:15</publishTime>
     </File>
     <File Include="pages/.DS_Store">
       <publishTime>04/24/2015 15:48:22</publishTime>
@@ -3817,16 +3829,334 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/24/2015 01:48:49</publishTime>
     </File>
     <File Include="Scripts/jquery.validate.js">
-      <publishTime>04/24/2015 01:49:03</publishTime>
+      <publishTime>05/12/2015 03:09:01</publishTime>
     </File>
     <File Include="Scripts/jquery.validate.min.js">
-      <publishTime>04/24/2015 01:49:03</publishTime>
+      <publishTime>05/12/2015 03:09:01</publishTime>
     </File>
     <File Include="Scripts/jquery.validate.unobtrusive.js">
-      <publishTime>04/24/2015 01:49:03</publishTime>
+      <publishTime>05/12/2015 03:10:15</publishTime>
     </File>
     <File Include="Scripts/jquery.validate.unobtrusive.min.js">
-      <publishTime>04/24/2015 01:49:03</publishTime>
+      <publishTime>05/12/2015 03:10:14</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_ar.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_ar.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_bg.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_bg.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_ca.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_ca.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_cs.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_cs.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_da.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_da.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_de.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_de.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_el.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_el.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_es.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_es.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_es_AR.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_es_AR.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_et.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_et.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_eu.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_eu.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_fa.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_fa.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_fi.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_fi.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_fr.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_fr.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_gl.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_gl.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_he.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_he.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_hr.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_hr.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_hu.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_hu.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_id.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_id.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_is.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_is.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_it.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_it.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_ja.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_ja.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_ka.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_ka.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_kk.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_kk.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_ko.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_ko.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_lt.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_lt.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_lv.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_lv.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_my.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_my.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_nl.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_nl.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_no.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_no.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_pl.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_pl.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_pt_BR.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_pt_BR.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_pt_PT.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_pt_PT.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_ro.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_ro.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_ru.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_ru.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_si.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_si.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_sk.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_sk.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_sl.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_sl.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_sr.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_sr.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_sr_lat.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_sr_lat.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_sv.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_sv.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_th.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_th.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_tj.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_tj.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_tr.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_tr.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_uk.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_uk.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_vi.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_vi.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_zh.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_zh.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_zh_TW.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/messages_zh_TW.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/methods_de.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/methods_de.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/methods_es_CL.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/methods_es_CL.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/methods_fi.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/methods_fi.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/methods_nl.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/methods_nl.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/methods_pt.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Scripts/localization/methods_pt.min.js">
+      <publishTime>05/12/2015 03:14:37</publishTime>
     </File>
     <File Include="Scripts/modernizr-2.6.2.js">
       <publishTime>04/24/2015 01:49:01</publishTime>
@@ -3841,7 +4171,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/03/2015 01:12:59</publishTime>
     </File>
     <File Include="Scripts/_references.js">
-      <publishTime>05/02/2015 19:41:25</publishTime>
+      <publishTime>05/12/2015 03:14:38</publishTime>
     </File>
     <File Include="Views/Account/ConfirmEmail.cshtml">
       <publishTime>04/24/2015 01:49:06</publishTime>
@@ -3880,7 +4210,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/24/2015 01:49:06</publishTime>
     </File>
     <File Include="Views/Areas/Create.cshtml">
-      <publishTime>05/06/2015 19:12:09</publishTime>
+      <publishTime>05/12/2015 04:09:29</publishTime>
     </File>
     <File Include="Views/Areas/Delete.cshtml">
       <publishTime>05/03/2015 19:07:38</publishTime>
@@ -3889,13 +4219,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/03/2015 19:07:38</publishTime>
     </File>
     <File Include="Views/Areas/Edit.cshtml">
-      <publishTime>05/06/2015 19:16:58</publishTime>
+      <publishTime>05/12/2015 04:10:06</publishTime>
     </File>
     <File Include="Views/Areas/Index.cshtml">
-      <publishTime>05/07/2015 03:14:39</publishTime>
+      <publishTime>05/13/2015 15:05:04</publishTime>
     </File>
     <File Include="Views/Atribuciones/Create.cshtml">
-      <publishTime>05/10/2015 04:33:21</publishTime>
+      <publishTime>05/12/2015 04:10:23</publishTime>
     </File>
     <File Include="Views/Atribuciones/Delete.cshtml">
       <publishTime>05/07/2015 02:03:01</publishTime>
@@ -3907,13 +4237,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/10/2015 04:59:14</publishTime>
     </File>
     <File Include="Views/Atribuciones/Index.cshtml">
-      <publishTime>05/10/2015 04:55:19</publishTime>
+      <publishTime>05/13/2015 15:05:15</publishTime>
     </File>
     <File Include="Views/Dashboard/Index.cshtml">
-      <publishTime>05/10/2015 04:21:18</publishTime>
+      <publishTime>05/13/2015 11:20:36</publishTime>
     </File>
     <File Include="Views/Estrategias/Create.cshtml">
-      <publishTime>05/10/2015 04:59:14</publishTime>
+      <publishTime>05/12/2015 18:06:49</publishTime>
     </File>
     <File Include="Views/Estrategias/Delete.cshtml">
       <publishTime>05/08/2015 14:50:55</publishTime>
@@ -3922,10 +4252,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/10/2015 04:00:07</publishTime>
     </File>
     <File Include="Views/Estrategias/Edit.cshtml">
-      <publishTime>05/10/2015 04:59:14</publishTime>
+      <publishTime>05/12/2015 18:07:43</publishTime>
     </File>
     <File Include="Views/Estrategias/Index.cshtml">
-      <publishTime>05/10/2015 04:28:21</publishTime>
+      <publishTime>05/13/2015 15:05:44</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
       <publishTime>04/24/2015 01:48:33</publishTime>
@@ -3955,7 +4285,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/24/2015 01:49:06</publishTime>
     </File>
     <File Include="Views/Objetivos/Create.cshtml">
-      <publishTime>05/10/2015 04:59:14</publishTime>
+      <publishTime>05/12/2015 18:02:35</publishTime>
     </File>
     <File Include="Views/Objetivos/Delete.cshtml">
       <publishTime>05/07/2015 18:13:29</publishTime>
@@ -3964,10 +4294,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/10/2015 04:13:26</publishTime>
     </File>
     <File Include="Views/Objetivos/Edit.cshtml">
-      <publishTime>05/10/2015 04:59:14</publishTime>
+      <publishTime>05/12/2015 18:02:40</publishTime>
     </File>
     <File Include="Views/Objetivos/Index.cshtml">
-      <publishTime>05/10/2015 04:07:23</publishTime>
+      <publishTime>05/13/2015 15:05:44</publishTime>
     </File>
     <File Include="Views/Pantallas/Create.cshtml">
       <publishTime>04/29/2015 19:23:51</publishTime>
@@ -3985,7 +4315,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/03/2015 19:12:45</publishTime>
     </File>
     <File Include="Views/Periodos/Create.cshtml">
-      <publishTime>05/10/2015 04:58:54</publishTime>
+      <publishTime>05/12/2015 18:02:22</publishTime>
     </File>
     <File Include="Views/Periodos/Delete.cshtml">
       <publishTime>05/06/2015 22:53:53</publishTime>
@@ -3994,13 +4324,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/06/2015 22:53:54</publishTime>
     </File>
     <File Include="Views/Periodos/Edit.cshtml">
-      <publishTime>05/10/2015 04:58:54</publishTime>
+      <publishTime>05/12/2015 18:02:21</publishTime>
     </File>
     <File Include="Views/Periodos/Index.cshtml">
-      <publishTime>05/07/2015 03:14:39</publishTime>
+      <publishTime>05/13/2015 15:05:44</publishTime>
     </File>
     <File Include="Views/Roles/Create.cshtml">
-      <publishTime>05/10/2015 04:58:54</publishTime>
+      <publishTime>05/11/2015 23:32:47</publishTime>
     </File>
     <File Include="Views/Roles/Delete.cshtml">
       <publishTime>04/30/2015 23:05:38</publishTime>
@@ -4012,7 +4342,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/10/2015 04:58:54</publishTime>
     </File>
     <File Include="Views/Roles/Index.cshtml">
-      <publishTime>05/07/2015 03:14:39</publishTime>
+      <publishTime>05/13/2015 20:02:15</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>04/24/2015 01:49:05</publishTime>
@@ -4021,7 +4351,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/24/2015 01:49:06</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>05/07/2015 01:50:57</publishTime>
+      <publishTime>05/12/2015 17:26:50</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutLogin.cshtml">
       <publishTime>05/03/2015 01:00:48</publishTime>
@@ -4030,7 +4360,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/24/2015 01:49:06</publishTime>
     </File>
     <File Include="Views/Shared/_Menu.cshtml">
-      <publishTime>05/10/2015 04:20:39</publishTime>
+      <publishTime>05/13/2015 11:20:51</publishTime>
     </File>
     <File Include="Views/UnidadDeMedida/Create.cshtml">
       <publishTime>05/10/2015 04:58:54</publishTime>
@@ -4045,10 +4375,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/10/2015 04:58:54</publishTime>
     </File>
     <File Include="Views/UnidadDeMedida/Index.cshtml">
-      <publishTime>05/07/2015 03:13:08</publishTime>
+      <publishTime>05/13/2015 15:09:16</publishTime>
     </File>
     <File Include="Views/Usuarios/Create.cshtml">
-      <publishTime>05/07/2015 01:49:02</publishTime>
+      <publishTime>05/12/2015 04:03:55</publishTime>
     </File>
     <File Include="Views/Usuarios/Delete.cshtml">
       <publishTime>04/30/2015 23:06:34</publishTime>
@@ -4057,10 +4387,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/30/2015 23:06:34</publishTime>
     </File>
     <File Include="Views/Usuarios/Edit.cshtml">
-      <publishTime>05/10/2015 04:58:34</publishTime>
+      <publishTime>05/12/2015 04:04:53</publishTime>
     </File>
     <File Include="Views/Usuarios/Index.cshtml">
-      <publishTime>05/07/2015 03:14:39</publishTime>
+      <publishTime>05/13/2015 20:02:16</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>04/24/2015 01:48:33</publishTime>
@@ -4069,7 +4399,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/24/2015 01:48:33</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>05/10/2015 05:00:36</publishTime>
+      <publishTime>05/12/2015 03:18:10</publishTime>
     </File>
   </ItemGroup>
 </Project>

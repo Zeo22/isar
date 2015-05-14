@@ -50,6 +50,14 @@ namespace ISAR.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (periodo.Activo)
+                {
+                    if (db.Periodos.FirstOrDefault(item => item.Activo) != null)
+                    {
+                        ModelState.AddModelError("Activo", "Ya existe un periodo Activo.");
+                        return View(periodo);
+                    }
+                }
                 db.Periodos.Add(periodo);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -82,6 +90,14 @@ namespace ISAR.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (periodo.Activo)
+                {
+                    if (db.Periodos.FirstOrDefault(item => item.Activo) != null)
+                    {
+                        ModelState.AddModelError("Activo", "Ya existe un periodo Activo.");
+                        return View(periodo);
+                    }
+                }
                 db.Entry(periodo).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

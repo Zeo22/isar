@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Linq;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -23,14 +24,18 @@ namespace ISAR.Models
         [Display(Name = "Activo / Inactivo")]
         public bool Activo { get; set; }
 
-        public bool TieneNivel(int Nivel)
+        public bool TieneNivel(params int[] Niveles)
         {
-            return this.UsuarioArea.Nivel.ID == Nivel;
+            //return this.UsuarioArea.Nivel.ID == Nivel;
+            List<int> niveles = new List<int>(Niveles);
+
+            return niveles.Contains(this.UsuarioArea.Nivel.ID);
         }
 
-        public bool TienePermiso(int PermisoId)
+        public bool TienePermiso(params int[] Permisos)
         {
             ApplicationDbContext db = new ApplicationDbContext();
+            List<int> PermisoId = new List<int>(Permisos);
 
             foreach (IdentityUserRole item in this.Roles)
             {
@@ -38,13 +43,20 @@ namespace ISAR.Models
 
                 foreach (Permiso p in role.Permisos)
                 {
-                    if (p.ID == PermisoId)
+                    if (PermisoId.Contains(p.ID))
                     {
                         return true;
                     }
                 }
             }
             return false;
+        }
+
+        public virtual List<Objetivo> Objetivos { get; set; }
+
+        public bool PuedeEliminar()
+        {
+            return !(this.Objetivos.Count() > 0);
         }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
@@ -59,6 +71,11 @@ namespace ISAR.Models
     public class ApplicationRole : IdentityRole
     {
         public virtual List<Permiso> Permisos { get; set; }
+
+        public bool PuedeEliminar()
+        {
+            return !(this.Users.Count() > 0);
+        }
 
         public ApplicationRole() : base() { }
 

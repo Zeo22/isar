@@ -95,13 +95,14 @@ namespace ISAR.Controllers
         {
             if (ModelState.IsValid)
             {
-                atribucion = db.Atribuciones.Find(atribucion.ID);
+                Atribucion atribucion_tmp = db.Atribuciones.Find(atribucion.ID);
+                atribucion_tmp.Descripcion = atribucion.Descripcion;
                 if (Area != null && Area != "-1")
                 {
                     int areaId = int.Parse(Area);
-                    atribucion.Area = db.Areas.FirstOrDefault(item => item.ID == areaId);
+                    atribucion_tmp.Area = db.Areas.FirstOrDefault(item => item.ID == areaId);
                 }
-                db.Entry(atribucion).State = EntityState.Modified;
+                db.Entry(atribucion_tmp).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

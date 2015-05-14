@@ -100,6 +100,8 @@ namespace ISAR.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Nombre")] EditarRol rol, List<int> permisos)
         {
+            ApplicationDbContext db = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
+
             if (ModelState.IsValid)
             {
                 var role = new ApplicationRole(rol.Nombre);
@@ -117,27 +119,30 @@ namespace ISAR.Controllers
                 }
 
                 // TODO: Permisos
-
+                if (role.Permisos != null)
+                {
+                    role.Permisos.Clear();
+                }
                 if (permisos != null)
                 {
-                    if (role.Permisos != null)
-                    {
-                        role.Permisos.Clear();
-                    }
+                    
 
                     permisos.ForEach(item => {
-                        ApplicationDbContext db = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
                         Permiso permiso = db.Permisos.FirstOrDefault(p => p.ID == item);
 
                         if (permiso != null)
                         {
+                            if (role.Permisos == null)
+                            {
+                                role.Permisos = new List<Permiso>();
+                            }
                             role.Permisos.Add(permiso);
                         }
                     });
                 }
                 
                 RoleManager.Update(role);
-                //db.SaveChanges();
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
