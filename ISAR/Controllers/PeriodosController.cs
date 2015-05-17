@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ISAR.Models;
+using ISAR.Extensions;
 
 namespace ISAR.Controllers
 {
@@ -52,9 +53,22 @@ namespace ISAR.Controllers
             {
                 if (periodo.Activo)
                 {
-                    if (db.Periodos.FirstOrDefault(item => item.Activo) != null)
+                    if (db.Periodos.Where(item => item.Activo).ToList().Count() == 2)
                     {
-                        ModelState.AddModelError("Activo", "Ya existe un periodo Activo.");
+                        ModelState.AddModelError("Activo", "Solo se permite un máximo de 2 periodos activos.");
+                        return View(periodo);
+                    }
+                }
+                foreach (Periodo item in db.Periodos.ToList())
+                {
+                    if (periodo.FechaInicio.IsBetween(item.FechaInicio, item.FechaFin))
+                    {
+                        ModelState.AddModelError("Traslape", "El periodo tiene traslape de fechas con otro periodo.");
+                        return View(periodo);
+                    }
+                    if (periodo.FechaFin.IsBetween(item.FechaInicio, item.FechaFin))
+                    {
+                        ModelState.AddModelError("Traslape", "El periodo tiene traslape de fechas con otro periodo.");
                         return View(periodo);
                     }
                 }
@@ -92,9 +106,22 @@ namespace ISAR.Controllers
             {
                 if (periodo.Activo)
                 {
-                    if (db.Periodos.FirstOrDefault(item => item.Activo) != null)
+                    if (db.Periodos.Where(item => item.Activo && item.ID != periodo.ID).ToList().Count() == 2)
                     {
-                        ModelState.AddModelError("Activo", "Ya existe un periodo Activo.");
+                        ModelState.AddModelError("Activo", "Solo se permite un máximo de 2 periodos activos.");
+                        return View(periodo);
+                    }
+                }
+                foreach (Periodo item in db.Periodos.Where(item => item.ID != periodo.ID))
+                {
+                    if (periodo.FechaInicio.IsBetween(item.FechaInicio, item.FechaFin))
+                    {
+                        ModelState.AddModelError("Traslape", "El periodo tiene traslape de fechas con otro periodo.");
+                        return View(periodo);
+                    }
+                    if (periodo.FechaFin.IsBetween(item.FechaInicio, item.FechaFin))
+                    {
+                        ModelState.AddModelError("Traslape", "El periodo tiene traslape de fechas con otro periodo.");
                         return View(periodo);
                     }
                 }

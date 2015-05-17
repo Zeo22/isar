@@ -93,17 +93,19 @@ namespace ISAR.Controllers
         {
             if (ModelState.IsValid)
             {
+                Area area_tmp = db.Areas.Find(area.ID);
+                area_tmp.Nombre = area.Nombre;
                 if (Nivel != null && Nivel != "-1")
                 {
                     int nivelID = int.Parse(Nivel);
-                    area.Nivel = db.NivelesOrganizacionales.FirstOrDefault(item => item.ID == nivelID);
+                    area_tmp.Nivel = db.NivelesOrganizacionales.FirstOrDefault(item => item.ID == nivelID);
                 }
                 if (AreaPadre != null && AreaPadre != "-1")
                 {
                     int areaId = int.Parse(AreaPadre);
-                    area.AreaPadre = db.Areas.FirstOrDefault(item => item.ID == areaId);
+                    area_tmp.AreaPadre = db.Areas.FirstOrDefault(item => item.ID == areaId);
                 }
-                db.Entry(area).State = EntityState.Modified;
+                db.Entry(area_tmp).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

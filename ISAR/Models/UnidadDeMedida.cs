@@ -11,8 +11,11 @@ namespace ISAR.Models
     public class UnidadDeMedida
     {
         public int ID { get; set; }
+        [Required]
         [Display(Name = "Unidad")]
         public string Nombre { get; set; }
+        [Required]
+        public string Abreviatura { get; set; }
 
         public bool PuedeEliminar()
         {

@@ -131,6 +131,9 @@
                             @Html.ActionLink("Atribuciones", "index", "atribuciones")
                         </li>
                         <li class="">
+                            @Html.ActionLink("Puestos", "index", "puestos")
+                        </li>
+                        <li class="">
                             @Html.ActionLink("Roles", "index", "roles")
                         </li>
                         <li class="">
@@ -141,4 +144,54 @@
             </div>
         </div>
     </div>
+}
+
+@if (ViewBag.Code != null)
+{
+    <div class="modal fade slide-up disable-scroll" id="modalShow" tabindex="-1" role="dialog" aria-hidden="false">
+        <div class="modal-dialog">
+            <div class="modal-content-wrapper">
+                <div class="modal-content">
+                    <div class="modal-header clearfix text-left">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            <i class="pg-close fs-14"></i>
+                        </button>
+                        <h4 class="semi-bold">¿Desea restablecer su contraseña?</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4>Notamos que su contraseña no ha sido restablecida, ¿Desea restablecer su contraseña ahora?</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-4">
+                                <button type="button" class="btn btn-warning btn-lg btn-large btn-block" data-dismiss="modal">
+                                    Cancelar
+                                </button>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="@Url.Action("RestablecerPassword", "Cuenta", new { code = ViewBag.Code, userName = user.UserName })" class="btn btn-primary btn-lg btn-large btn-block">Restablecer</a> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts {
+@if (ViewBag.Code != null)
+{
+<script>
+    $("#modalShow")
+        .modal({
+            backdrop: 'static',
+            keyboard: false
+        })
+        .modal("show");
+</script>
+}
 }

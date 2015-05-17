@@ -31,9 +31,9 @@ namespace ISAR.Migrations
 
             // Niveles Organizacionales
             context.NivelesOrganizacionales.AddOrUpdate(
-                new NivelOrganizacional() { ID = 1, Nombre = "Presidencias" },
-                new NivelOrganizacional() { ID = 2, Nombre = "VicePresidencias" },
-                new NivelOrganizacional() { ID = 3, Nombre = "Unidades Operativas" }
+                new NivelOrganizacional() { ID = 1, Nombre = "Presidencia" },
+                new NivelOrganizacional() { ID = 2, Nombre = "VicePresidencia" },
+                new NivelOrganizacional() { ID = 3, Nombre = "Unidad Operativa" }
             );
             // Tipo de Objetivos
             context.TipoObjetivo.AddOrUpdate(
@@ -74,17 +74,17 @@ namespace ISAR.Migrations
             // Permisos
             context.Permisos.AddOrUpdate(
                 new Permiso() { ID = 1, Nombre = "Administrador" },
-                new Permiso() { ID = 2, Nombre = "Captura de Estrategias Generales" },
-                new Permiso() { ID = 3, Nombre = "Listado de Estrategias Generales" },
-                new Permiso() { ID = 4, Nombre = "Captura de Objetivos Estratégicos-Organización" },
-                new Permiso() { ID = 5, Nombre = "Listado de Objetivos Estratégicos-Organización" },
+                new Permiso() { ID = 2, Nombre = "Captura de Estrategias Generales", Grupo = "Estrategias Generales", Opcion = "Captura" },
+                new Permiso() { ID = 3, Nombre = "Listado de Estrategias Generales", Grupo = "Estrategias Generales", Opcion = "Listado" },
+                new Permiso() { ID = 4, Nombre = "Captura de Objetivos Estratégicos-Organización", Grupo = "Objetivos Estratégicos-Organización", Opcion = "Captura" },
+                new Permiso() { ID = 5, Nombre = "Listado de Objetivos Estratégicos-Organización", Grupo = "Objetivos Estratégicos-Organización", Opcion = "Listado" },
                 new Permiso() { ID = 6, Nombre = "Líder de Unidad Operativa" },
-                new Permiso() { ID = 7, Nombre = "Captura de Objetivos Estratégicos-Específicos" },
-                new Permiso() { ID = 8, Nombre = "Listado de Objetivos Estratégicos-Específicos" },
-                new Permiso() { ID = 9, Nombre = "Captura de Estrategias Específicas" },
-                new Permiso() { ID = 10, Nombre = "Listado de Estrategias Específicas" },
-                new Permiso() { ID = 11, Nombre = "Captura de Objetivos Operativos" },
-                new Permiso() { ID = 12, Nombre = "Listado de Objetivos Operativos" }
+                new Permiso() { ID = 7, Nombre = "Captura de Objetivos Estratégicos-Específicos", Grupo = "Objetivos Estratégicos-Específicos", Opcion = "Captura" },
+                new Permiso() { ID = 8, Nombre = "Listado de Objetivos Estratégicos-Específicos", Grupo = "Objetivos Estratégicos-Específicos", Opcion = "Listado" },
+                new Permiso() { ID = 9, Nombre = "Captura de Estrategias Específicas", Grupo = "Estrategias Específicas", Opcion = "Captura" },
+                new Permiso() { ID = 10, Nombre = "Listado de Estrategias Específicas", Grupo = "Estrategias Específicas", Opcion = "Listado" },
+                new Permiso() { ID = 11, Nombre = "Captura de Objetivos Operativos", Grupo = "Objetivos Operativos", Opcion = "Captura" },
+                new Permiso() { ID = 12, Nombre = "Listado de Objetivos Operativos", Grupo = "Objetivos Operativos", Opcion = "Listado" }
             );
             // Admin
             ApplicationUserManager userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
@@ -94,7 +94,7 @@ namespace ISAR.Migrations
                 UserName = "admin",
                 Email = "admin@isar.com",
                 Nombre = "Administrador",
-                Puesto = "IT Consultant",
+                //Puesto = "IT Consultant",
                 Activo = true
             };
             var adminresult = userManager.Create(user, "Admin01");

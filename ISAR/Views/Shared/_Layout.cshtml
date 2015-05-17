@@ -103,6 +103,7 @@
                 <!-- START User Info-->
                 <div class="visible-lg visible-md m-t-10">
                     <div class="pull-left p-r-10 p-t-10 fs-16 font-heading">
+                        @if (currentUser != null) { 
                         <span class="semi-bold">Seleccionar periodo:</span>
                         <span style="margin-right: 30px;">
                             <select class="" data-init-plugin="selectyear">
@@ -112,6 +113,7 @@
                                 }
                             </select>
                         </span>
+                        }
                         <div class="dropdown pull-right">
                             <a href="#" class="profile-dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 @if (currentUser != null)
@@ -122,7 +124,7 @@
                                     <a href="@Url.Action("manage", "account")"><i class="pg-settings_small"></i> Administracion</a>
                                 </li>*@
                                 <li class="bg-master-lighter">
-                                    <a href="@Url.Action("logoff", "account")" class="clearfix">
+                                    <a href="@Url.Action("salir", "cuenta")" class="clearfix">
                                         <span class="pull-left">Salir&nbsp;</span>
                                         <span class="pull-right"><i class="pg-power"></i></span>
                                     </a>

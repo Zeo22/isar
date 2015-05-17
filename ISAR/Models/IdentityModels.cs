@@ -19,10 +19,12 @@ namespace ISAR.Models
         [Display(Name = "Área")]
         public virtual Area UsuarioArea { get; set; }
 
-        public string Puesto { get; set; }
+        public virtual Puesto Puesto { get; set; }
 
         [Display(Name = "Activo / Inactivo")]
         public bool Activo { get; set; }
+
+        public int AccessCount { get; set; }
 
         public bool TieneNivel(params int[] Niveles)
         {

@@ -90,6 +90,10 @@ namespace ISAR.Controllers
         // GET: /Roles/Create
         public ActionResult Create()
         {
+            ViewBag.Grupos = (from a in db.Permisos
+                              where a.Grupo != null
+                              select a.Grupo).Distinct();
+
             ViewBag.Permisos = db.Permisos.ToList();
             return View();
         }
@@ -164,6 +168,9 @@ namespace ISAR.Controllers
             }
             
             // TODO: Permisos
+            ViewBag.Grupos = (from a in db.Permisos
+                              where a.Grupo != null
+                              select a.Grupo).Distinct();
             ViewBag.Permisos = db.Permisos.ToList();
             EditarRol roleModel = new EditarRol() { Id = role.Id, Nombre = role.Name, Permisos = role.Permisos };
             return View(roleModel);

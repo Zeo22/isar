@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = "Agregar Unidad de Medida";
+    ViewBag.Grupo = "Administración";
+    ViewBag.Pantalla = ViewBag.Title;
 }
 
 <h4>@ViewBag.Title</h4>
@@ -11,10 +13,15 @@
     @Html.AntiForgeryToken()
     
     <div class="row">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.ValidationSummary("", new { @class = "text-danger" })
         <div class="form-group form-group-default required">
             @Html.LabelFor(model => model.Nombre)
             @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", required = "true" } })
+        </div>
+
+        <div class="form-group form-group-default required">
+            @Html.LabelFor(model => model.Abreviatura)
+            @Html.EditorFor(model => model.Abreviatura, new { htmlAttributes = new { @class = "form-control", required = "true" } })
         </div>
 
         <a href="@Url.Action("index")" class="btn btn-warning btn-cons">Regresar</a> <input type="submit" value="Agregar Unidad de Medida" class="btn btn-success btn-cons" />

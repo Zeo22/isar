@@ -11,15 +11,37 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using ISAR.Models;
+using System.Net.Mail;
+using System.Net;
+using System.Configuration;
 
 namespace ISAR
 {
     public class EmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage message)
+        public async Task SendAsync(IdentityMessage message)
         {
             // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            //return Task.FromResult(0);
+            var email =
+                new MailMessage(new MailAddress(ConfigurationManager.AppSettings["SMTPFrom"]),
+                new MailAddress(message.Destination))
+                {
+                    Subject = message.Subject,
+                    Body = message.Body,
+                    IsBodyHtml = true
+                };
+            using (SmtpClient client = new SmtpClient(ConfigurationManager.AppSettings["SMTPServer"], 587))
+            {
+                NetworkCredential credential = new NetworkCredential(
+                    ConfigurationManager.AppSettings["SMTPUser"],
+                    ConfigurationManager.AppSettings["SMTPPassword"]
+                );
+
+                client.EnableSsl = true;
+                client.Credentials = credential;
+                await client.SendMailAsync(email);
+            }
         }
     }
 
@@ -53,16 +75,16 @@ namespace ISAR
             // Configure validation logic for passwords
             manager.PasswordValidator = new PasswordValidator
             {
-                RequiredLength = 6,
-                RequireNonLetterOrDigit = false,
+                RequiredLength = 8,
+                RequireNonLetterOrDigit = true,
                 RequireDigit = true,
                 RequireLowercase = true,
-                RequireUppercase = true,
+                RequireUppercase = true
             };
 
             // Configure user lockout defaults
-            manager.UserLockoutEnabledByDefault = false;
-            manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
+            manager.UserLockoutEnabledByDefault = true;
+            manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromDays(365);
             manager.MaxFailedAccessAttemptsBeforeLockout = 5;
 
             // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user

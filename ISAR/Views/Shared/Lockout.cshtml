@@ -1,10 +1,13 @@
 ﻿@model System.Web.Mvc.HandleErrorInfo
 
 @{
-    ViewBag.Title = "Locked Out";
+    ViewBag.Title = "Cuenta Bloqueada";
+    ViewBag.Grupo = "Cuenta";
+    ViewBag.Pantalla = ViewBag.Title;
 }
 
-<hgroup>
-    <h1 class="text-danger">Locked out.</h1>
-    <h2 class="text-danger">This account has been locked out, please try again later.</h2>
-</hgroup>
+<h4>@ViewBag.Title</h4>
+<h5>Usted ha superado el número de intentos de inicio de sesión, por lo cual su cuenta ha sido bloqueada.</h5>
+<h5>Para obtener más información, contacte al administrador del sistema.</h5>
+
+<a href="@Url.Action("index", "dashboard")" class="btn btn-warning btn-cons">Regresar</a>

@@ -243,7 +243,7 @@ namespace ISAR.Controllers
                 objetivo.Responsable = db.Users.Find(Responsable);
                 objetivo.Atribuciones = db.Atribuciones.Where(item => Atribuciones.Contains(item.ID)).ToList();
                 objetivo.ObjetivosAlineados = db.Objetivos.Where(item => Objetivos.Contains(item.ID)).ToList();
-                objetivo.Periodo = db.Periodos.FirstOrDefault(item => item.Activo);
+                objetivo.Periodo = db.Periodos.FirstOrDefault(item => item.Activo && (DateTime.Now >= item.FechaInicio && DateTime.Now <= item.FechaFin));
                 db.Objetivos.Add(objetivo);
                 db.SaveChanges();
                 return RedirectToAction("Index", new { lvl = lvl });
@@ -331,7 +331,7 @@ namespace ISAR.Controllers
                 objetivo_tmp.Atribuciones = db.Atribuciones.Where(item => Atribuciones.Contains(item.ID)).ToList();
                 objetivo_tmp.ObjetivosAlineados.Clear();
                 objetivo_tmp.ObjetivosAlineados = db.Objetivos.Where(item => Objetivos.Contains(item.ID)).ToList();
-                objetivo_tmp.Periodo = db.Periodos.FirstOrDefault(item => item.Activo);
+                //objetivo_tmp.Periodo = db.Periodos.FirstOrDefault(item => item.Activo);
                 db.Entry(objetivo_tmp).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index", new { lvl = lvl});

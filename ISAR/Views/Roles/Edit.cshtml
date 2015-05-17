@@ -7,6 +7,7 @@
     ViewBag.Grupo = "Administración";
     ViewBag.Pantalla = ViewBag.Title;
     List<Permiso> permisos = ViewBag.Permisos;
+    Permiso permiso;
 }
 
 <h4>@ViewBag.Title</h4>
@@ -16,12 +17,39 @@
     @Html.AntiForgeryToken()
 
     <div class="row">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.ValidationSummary("", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
         <div class="form-group form-group-default required">
             @Html.LabelFor(model => model.Nombre)
             @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", required = "true" } })
         </div>
+
+        @*<div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    Permisos
+                </div>
+            </div>
+            <div class="panel-body">
+                @foreach (Permiso p in permisos)
+                {
+                    if (Model.Permisos.FirstOrDefault(item => item.ID == p.ID) != null)
+                    {
+                        <div class="checkbox check-success">
+                            <input type="checkbox" checked="checked" value="@p.ID" name="Permisos[]" id="checkbox_@p.ID">
+                            <label for="checkbox_@p.ID">@p.Nombre</label>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="checkbox check-success">
+                            <input type="checkbox" value="@p.ID" name="Permisos[]" id="checkbox_@p.ID">
+                            <label for="checkbox_@p.ID">@p.Nombre</label>
+                        </div>
+                    }
+                }
+            </div>
+        </div>*@
 
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -30,20 +58,61 @@
                 </div>
             </div>
             <div class="panel-body">
-                @foreach (Permiso permiso in permisos)
+                <div class="col-md-5">
+                    <div class="row">
+                        <div class="col-md-8"></div>
+                        <div class="col-md-2">Captura</div>
+                        <div class="col-md-2">Listado</div>
+                    </div>
+                    @foreach (string grupo in ViewBag.Grupos)
+                    {
+                        <div class="row">
+                            <div class="col-md-8 p-t-25">@grupo</div>
+                            <div class="col-md-2">
+                                @{
+                                    permiso = permisos.Where(item => item.Grupo == grupo && item.Opcion == "Captura").First();
+                                }
+                                <div class="checkbox check-success">
+                                    <input type="checkbox" @(Model.Permisos.FirstOrDefault(item => item.ID == permiso.ID) != null ? "checked=\"checked\"" : "") value="@permiso.ID" name="Permisos[]" id="checkbox_@permiso.ID">
+                                    <label for="checkbox_@permiso.ID"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                @{
+                                    permiso = permisos.Where(item => item.Grupo == grupo && item.Opcion == "Listado").First();
+                                }
+                                <div class="checkbox check-success">
+                                    <input type="checkbox" @(Model.Permisos.FirstOrDefault(item => item.ID == permiso.ID) != null ? "checked=\"checked\"" : "") value="@permiso.ID" name="Permisos[]" id="checkbox_@permiso.ID">
+                                    <label for="checkbox_@permiso.ID"></label>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    Permisos Especiales
+                </div>
+            </div>
+            <div class="panel-body">
+                @foreach (Permiso p in permisos.Where(item => item.Grupo == null))
                 {
-                    if (Model.Permisos.FirstOrDefault(item => item.ID == permiso.ID) != null)
+                    if (Model.Permisos.FirstOrDefault(item => item.ID == p.ID) != null)
                     {
                         <div class="checkbox check-success">
-                            <input type="checkbox" checked="checked" value="@permiso.ID" name="Permisos[]" id="checkbox_@permiso.ID">
-                            <label for="checkbox_@permiso.ID">@permiso.Nombre</label>
+                            <input type="checkbox" checked="checked" value="@p.ID" name="Permisos[]" id="checkbox_@p.ID">
+                            <label for="checkbox_@p.ID">@p.Nombre</label>
                         </div>
                     }
                     else
                     {
                         <div class="checkbox check-success">
-                            <input type="checkbox" value="@permiso.ID" name="Permisos[]" id="checkbox_@permiso.ID">
-                            <label for="checkbox_@permiso.ID">@permiso.Nombre</label>
+                            <input type="checkbox" value="@p.ID" name="Permisos[]" id="checkbox_@p.ID">
+                            <label for="checkbox_@p.ID">@p.Nombre</label>
                         </div>
                     }
                 }

@@ -80,13 +80,13 @@ namespace ISAR.Models
         public Area Area { get; set; }
 
         [Display(Name = "Puesto")]
-        public string Puesto { get; set; }
+        public virtual Puesto Puesto { get; set; }
 
         [Display(Name = "Activo / Inactivo")]
         public bool Activo { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "El {0} debe tener al menos {2} caracteres.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "El {0} debe tener al menos {2} caracteres.", MinimumLength = 8)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
@@ -100,19 +100,18 @@ namespace ISAR.Models
     public class ResetPasswordViewModel
     {
         [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
+        [Display(Name = "Usuario")]
+        public string UserName { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "El {0} debe tener al menos {2} caracteres.", MinimumLength = 8)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "Confirmar Password")]
+        [Compare("Password", ErrorMessage = "Los Passwords introducidos no coinciden.")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }
@@ -121,8 +120,7 @@ namespace ISAR.Models
     public class ForgotPasswordViewModel
     {
         [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
+        [Display(Name = "Usuario")]
+        public string UserName { get; set; }
     }
 }

@@ -1,6 +1,11 @@
-﻿@model IEnumerable<ISAR.Models.ApplicationUser>
+﻿@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.Owin;
+@using Microsoft.AspNet.Identity.EntityFramework;
+@using System.Web.Mvc;
+@model IEnumerable<ISAR.Models.ApplicationUser>
 
 @{
+    ApplicationUserManager userManager = ViewBag.UserManager;
     ViewBag.Title = "Listado de Usuarios";
     ViewBag.Grupo = "Administración";
     ViewBag.Pantalla = "Usuarios";
@@ -16,10 +21,13 @@
                     @Html.DisplayNameFor(model => model.UserName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Email)
+                    @Html.DisplayNameFor(model => model.Nombre)
                 </th>
                 <th>
-
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th width="100">
+                    Acción
                 </th>
             </tr>
         </thead>
@@ -29,12 +37,20 @@
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.UserName)
+                        @if (item.LockoutEndDateUtc != null)
+                        {
+                            <a href="#" style="color:red" class="fa fa-lock pull-right" data-toggle="tooltip" title="Cuenta bloqueada"></a>
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Email)
                     </td>
                     <td>
-                        <a href="@Url.Action("Edit", new { id=item.Id })" style="color:green" class="fa fa-edit"></a>
+                        <a href="@Url.Action("RestablecerPasswordAdmin", "Cuenta", new { code = userManager.GeneratePasswordResetToken(item.Id), nombre = "(" + item.Nombre + ")", userName = item.UserName })" style="color:blue" class="fa fa-list-alt" data-toggle="tooltip" title="Restablecer Password"></a>
+                        <a href="@Url.Action("Edit", new { id=item.Id })" style="color:green" class="fa fa-edit" data-toggle="tooltip" title="Editar Usuario"></a>
                         <a href="#" style="color:red" class="fa fa-minus" data-toggle="modal" data-target="#modalDelete" data-id="@item.Id" data-puede-eliminar="@item.PuedeEliminar()" id="btnDelete"></a>
                     </td>
                 </tr>
@@ -75,6 +91,8 @@
 @section scripts {
     <script type="text/javascript">
         $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+
             var settings = {
                 "sDom": "<'table-responsive't><'row'<'pull-right'p> <'pull-left'i>>",
                 "sPaginationType": "bootstrap",

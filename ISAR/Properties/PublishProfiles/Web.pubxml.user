@@ -3340,7 +3340,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/07/2015 01:19:23</publishTime>
     </File>
     <File Include="bin/ISAR.dll">
-      <publishTime>05/13/2015 15:21:53</publishTime>
+      <publishTime>05/17/2015 15:43:19</publishTime>
     </File>
     <File Include="bin/ISAR.pdb">
       <publishTime>05/12/2015 00:05:49</publishTime>
@@ -3418,7 +3418,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/29/2015 02:54:57</publishTime>
     </File>
     <File Include="CodeTemplates/MvcView/Create.cs.t4">
-      <publishTime>05/03/2015 16:52:53</publishTime>
+      <publishTime>05/16/2015 01:22:14</publishTime>
     </File>
     <File Include="CodeTemplates/MvcView/Delete.cs.t4">
       <publishTime>04/29/2015 02:54:57</publishTime>
@@ -3427,7 +3427,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/29/2015 02:54:57</publishTime>
     </File>
     <File Include="CodeTemplates/MvcView/Edit.cs.t4">
-      <publishTime>05/03/2015 16:52:49</publishTime>
+      <publishTime>05/16/2015 01:22:30</publishTime>
     </File>
     <File Include="CodeTemplates/MvcView/Empty.cs.t4">
       <publishTime>04/29/2015 02:54:57</publishTime>
@@ -3436,7 +3436,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/29/2015 02:54:57</publishTime>
     </File>
     <File Include="CodeTemplates/MvcView/List.cs.t4">
-      <publishTime>05/07/2015 18:12:43</publishTime>
+      <publishTime>05/16/2015 01:45:10</publishTime>
     </File>
     <File Include="CodeTemplates/MvcView/ModelMetadataFunctions.cs.include.t4">
       <publishTime>04/29/2015 03:08:51</publishTime>
@@ -4210,7 +4210,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/24/2015 01:49:06</publishTime>
     </File>
     <File Include="Views/Areas/Create.cshtml">
-      <publishTime>05/12/2015 04:09:29</publishTime>
+      <publishTime>05/16/2015 01:07:06</publishTime>
     </File>
     <File Include="Views/Areas/Delete.cshtml">
       <publishTime>05/03/2015 19:07:38</publishTime>
@@ -4219,10 +4219,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/03/2015 19:07:38</publishTime>
     </File>
     <File Include="Views/Areas/Edit.cshtml">
-      <publishTime>05/12/2015 04:10:06</publishTime>
+      <publishTime>05/16/2015 01:07:06</publishTime>
     </File>
     <File Include="Views/Areas/Index.cshtml">
-      <publishTime>05/13/2015 15:05:04</publishTime>
+      <publishTime>05/16/2015 01:06:13</publishTime>
     </File>
     <File Include="Views/Atribuciones/Create.cshtml">
       <publishTime>05/12/2015 04:10:23</publishTime>
@@ -4234,13 +4234,52 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/07/2015 02:03:02</publishTime>
     </File>
     <File Include="Views/Atribuciones/Edit.cshtml">
-      <publishTime>05/10/2015 04:59:14</publishTime>
+      <publishTime>05/16/2015 01:15:16</publishTime>
     </File>
     <File Include="Views/Atribuciones/Index.cshtml">
-      <publishTime>05/13/2015 15:05:15</publishTime>
+      <publishTime>05/16/2015 01:15:14</publishTime>
+    </File>
+    <File Include="Views/Cuenta/Acceso.cshtml">
+      <publishTime>05/15/2015 17:28:36</publishTime>
+    </File>
+    <File Include="Views/Cuenta/ConfirmacionRestablecerPassword.cshtml">
+      <publishTime>04/24/2015 01:49:06</publishTime>
+    </File>
+    <File Include="Views/Cuenta/ConfirmEmail.cshtml">
+      <publishTime>04/24/2015 01:49:06</publishTime>
+    </File>
+    <File Include="Views/Cuenta/ExternalLoginConfirmation.cshtml">
+      <publishTime>04/24/2015 01:49:06</publishTime>
+    </File>
+    <File Include="Views/Cuenta/ExternalLoginFailure.cshtml">
+      <publishTime>04/24/2015 01:49:06</publishTime>
+    </File>
+    <File Include="Views/Cuenta/ForgotPassword.cshtml">
+      <publishTime>04/24/2015 01:49:06</publishTime>
+    </File>
+    <File Include="Views/Cuenta/ForgotPasswordConfirmation.cshtml">
+      <publishTime>04/24/2015 01:49:06</publishTime>
+    </File>
+    <File Include="Views/Cuenta/Register.cshtml">
+      <publishTime>04/28/2015 03:23:06</publishTime>
+    </File>
+    <File Include="Views/Cuenta/RestablecerPassword.cshtml">
+      <publishTime>05/15/2015 21:40:18</publishTime>
+    </File>
+    <File Include="Views/Cuenta/RestablecerPasswordAdmin.cshtml">
+      <publishTime>05/15/2015 21:37:13</publishTime>
+    </File>
+    <File Include="Views/Cuenta/SendCode.cshtml">
+      <publishTime>04/24/2015 01:49:06</publishTime>
+    </File>
+    <File Include="Views/Cuenta/VerifyCode.cshtml">
+      <publishTime>04/24/2015 01:49:06</publishTime>
+    </File>
+    <File Include="Views/Cuenta/_ExternalLoginsListPartial.cshtml">
+      <publishTime>04/24/2015 01:49:06</publishTime>
     </File>
     <File Include="Views/Dashboard/Index.cshtml">
-      <publishTime>05/13/2015 11:20:36</publishTime>
+      <publishTime>05/16/2015 01:42:08</publishTime>
     </File>
     <File Include="Views/Estrategias/Create.cshtml">
       <publishTime>05/12/2015 18:06:49</publishTime>
@@ -4315,7 +4354,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/03/2015 19:12:45</publishTime>
     </File>
     <File Include="Views/Periodos/Create.cshtml">
-      <publishTime>05/12/2015 18:02:22</publishTime>
+      <publishTime>05/16/2015 01:13:28</publishTime>
     </File>
     <File Include="Views/Periodos/Delete.cshtml">
       <publishTime>05/06/2015 22:53:53</publishTime>
@@ -4324,13 +4363,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/06/2015 22:53:54</publishTime>
     </File>
     <File Include="Views/Periodos/Edit.cshtml">
-      <publishTime>05/12/2015 18:02:21</publishTime>
+      <publishTime>05/16/2015 01:13:28</publishTime>
     </File>
     <File Include="Views/Periodos/Index.cshtml">
-      <publishTime>05/13/2015 15:05:44</publishTime>
+      <publishTime>05/16/2015 01:13:28</publishTime>
+    </File>
+    <File Include="Views/Puestos/Create.cshtml">
+      <publishTime>05/16/2015 01:46:42</publishTime>
+    </File>
+    <File Include="Views/Puestos/Edit.cshtml">
+      <publishTime>05/16/2015 01:46:49</publishTime>
+    </File>
+    <File Include="Views/Puestos/Index.cshtml">
+      <publishTime>05/16/2015 01:45:32</publishTime>
     </File>
     <File Include="Views/Roles/Create.cshtml">
-      <publishTime>05/11/2015 23:32:47</publishTime>
+      <publishTime>05/17/2015 15:41:43</publishTime>
     </File>
     <File Include="Views/Roles/Delete.cshtml">
       <publishTime>04/30/2015 23:05:38</publishTime>
@@ -4339,19 +4387,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/30/2015 23:05:38</publishTime>
     </File>
     <File Include="Views/Roles/Edit.cshtml">
-      <publishTime>05/10/2015 04:58:54</publishTime>
+      <publishTime>05/17/2015 15:42:20</publishTime>
     </File>
     <File Include="Views/Roles/Index.cshtml">
-      <publishTime>05/13/2015 20:02:15</publishTime>
+      <publishTime>05/15/2015 00:35:50</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>04/24/2015 01:49:05</publishTime>
     </File>
     <File Include="Views/Shared/Lockout.cshtml">
-      <publishTime>04/24/2015 01:49:06</publishTime>
+      <publishTime>05/15/2015 22:30:12</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>05/12/2015 17:26:50</publishTime>
+      <publishTime>05/15/2015 22:26:54</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutLogin.cshtml">
       <publishTime>05/03/2015 01:00:48</publishTime>
@@ -4360,10 +4408,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/24/2015 01:49:06</publishTime>
     </File>
     <File Include="Views/Shared/_Menu.cshtml">
-      <publishTime>05/13/2015 11:20:51</publishTime>
+      <publishTime>05/16/2015 01:42:06</publishTime>
     </File>
     <File Include="Views/UnidadDeMedida/Create.cshtml">
-      <publishTime>05/10/2015 04:58:54</publishTime>
+      <publishTime>05/16/2015 01:12:24</publishTime>
     </File>
     <File Include="Views/UnidadDeMedida/Delete.cshtml">
       <publishTime>05/03/2015 16:56:33</publishTime>
@@ -4372,13 +4420,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/03/2015 16:56:34</publishTime>
     </File>
     <File Include="Views/UnidadDeMedida/Edit.cshtml">
-      <publishTime>05/10/2015 04:58:54</publishTime>
+      <publishTime>05/16/2015 01:08:35</publishTime>
     </File>
     <File Include="Views/UnidadDeMedida/Index.cshtml">
-      <publishTime>05/13/2015 15:09:16</publishTime>
+      <publishTime>05/16/2015 01:08:26</publishTime>
     </File>
     <File Include="Views/Usuarios/Create.cshtml">
-      <publishTime>05/12/2015 04:03:55</publishTime>
+      <publishTime>05/16/2015 17:01:43</publishTime>
     </File>
     <File Include="Views/Usuarios/Delete.cshtml">
       <publishTime>04/30/2015 23:06:34</publishTime>
@@ -4387,10 +4435,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/30/2015 23:06:34</publishTime>
     </File>
     <File Include="Views/Usuarios/Edit.cshtml">
-      <publishTime>05/12/2015 04:04:53</publishTime>
+      <publishTime>05/16/2015 17:06:21</publishTime>
     </File>
     <File Include="Views/Usuarios/Index.cshtml">
-      <publishTime>05/13/2015 20:02:16</publishTime>
+      <publishTime>05/15/2015 22:33:35</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>04/24/2015 01:48:33</publishTime>
@@ -4399,7 +4447,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/24/2015 01:48:33</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>05/12/2015 03:18:10</publishTime>
+      <publishTime>05/16/2015 16:20:20</publishTime>
     </File>
   </ItemGroup>
 </Project>

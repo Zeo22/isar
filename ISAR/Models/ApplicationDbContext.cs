@@ -26,6 +26,7 @@ namespace ISAR.Models
         public DbSet<TipoAlineacion> TipoAlineacion { get; set; }
         public DbSet<Objetivo> Objetivos { get; set; }
         public DbSet<Atribucion> Atribuciones { get; set; }
+        public DbSet<Puesto> Puestos { get; set; }
 
         #endregion
 

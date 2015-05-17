@@ -21,6 +21,8 @@ if(IsPartialView) {
 
 @{
     ViewBag.Title = "Listado de <#= ViewDataTypeShortName #>";
+	ViewBag.Grupo = "Administración";
+    ViewBag.Pantalla = ViewBag.Title;
 <#
 if (!String.IsNullOrEmpty(LayoutPageFile)) {
 #>
@@ -74,7 +76,7 @@ foreach (PropertyMetadata property in properties) {
     }
 }
 #>
-			<th></th>
+			<th width="100"></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -103,14 +105,14 @@ if (pkName != null) {
 #>
         <td>
 			<a href="@Url.Action("Edit", new { id=item.<#= pkName #> })" style="color:green" class="fa fa-edit"></a>
-			<a href="#" style="color:red" class="fa fa-minus" data-toggle="modal" data-target="#modalDelete" data-id="@item.<#= pkName #>" id="btnDelete"></a>
+			<a href="#" style="color:red" class="fa fa-minus" data-toggle="modal" data-target="#modalDelete" data-id="@item.<#= pkName #>" data-puede-eliminar="@item.PuedeEliminar()" id="btnDelete"></a>
         </td>
 <#
 } else {
 #>
         <td>
 			<a href="@Url.Action("Edit", new { id=item.PrimaryKey })" style="color:green" class="fa fa-edit"></a>
-			<a href="#" style="color:red" class="fa fa-minus" data-toggle="modal" data-target="#modalDelete" data-id="@item.PrimaryKey" id="btnDelete"></a>
+			<a href="#" style="color:red" class="fa fa-minus" data-toggle="modal" data-target="#modalDelete" data-id="@item.PrimaryKey" data-puede-eliminar="@item.PuedeEliminar()" id="btnDelete"></a>
         </td>
 <#
 }
@@ -174,9 +176,18 @@ else { #>
         });
 
 		$('#modalDelete').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget)
-            var Id = button.data('id')
+            var button = $(event.relatedTarget);
+            var Id = button.data('id');
+			var del = button.data("puede-eliminar");
 
+			if (del == "False") {
+                $('body').pgNotification({
+                    style: 'flip',
+                    message: 'No se puede eliminar un <#= ViewDataTypeShortName #> que está en uso.',
+                    type: 'danger'
+                }).show();
+                return false;
+            }
             var modal = $(this)
 <# if (pkName != null) { #>
                         modal.find("#<#= pkName #>").val(Id);

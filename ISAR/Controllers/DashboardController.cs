@@ -10,8 +10,9 @@ namespace ISAR.Controllers
     public class DashboardController : Controller
     {
         // GET: Index
-        public ActionResult Index()
+        public ActionResult Index(string code)
         {
+            ViewBag.Code = code;
             return View();
         }
     }

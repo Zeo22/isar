@@ -28,7 +28,7 @@ namespace ISAR.Models
         public Area Area { get; set; }
 
         [Display(Name = "Puesto")]
-        public string Puesto { get; set; }
+        public virtual Puesto Puesto { get; set; }
 
         [Display(Name = "Activo / Inactivo")]
         public bool Activo { get; set; }

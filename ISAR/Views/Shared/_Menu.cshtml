@@ -4,6 +4,7 @@
     ApplicationUser user = db.Users.FirstOrDefault(item => item.UserName == User.Identity.Name);
 }
 
+@if (user != null) { 
 <ul class="menu-items">
     <li>
         <h2>&nbsp;</h2>
@@ -106,6 +107,9 @@
                 @Html.ActionLink("Atribuciones", "index", "atribuciones")
             </li>
             <li class="">
+                @Html.ActionLink("Puestos", "index", "puestos")
+            </li>
+            <li class="">
                 @Html.ActionLink("Roles", "index", "roles")
             </li>
             <li class="">
@@ -117,3 +121,4 @@
 </ul>
 <div class="clearfix"></div>
 
+}

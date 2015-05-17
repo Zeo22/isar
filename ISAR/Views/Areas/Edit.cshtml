@@ -3,6 +3,8 @@
 
 @{
     ViewBag.Title = "Editar Área";
+    ViewBag.Grupo = "Administración";
+    ViewBag.Pantalla = ViewBag.Title;
     List<NivelOrganizacional> niveles = ViewBag.Niveles;
 }
 
@@ -52,7 +54,7 @@
                 @foreach (NivelOrganizacional nivel in niveles)
                 {
                     <optgroup label="@nivel.Nombre">
-                        @foreach (Area area in @nivel.Areas.ToList())
+                        @foreach (Area area in @nivel.Areas.Where(item => item.ID != Model.ID).ToList())
                         {
                             if (Model.AreaPadre != null) { 
                                 if (area.ID == Model.AreaPadre.ID)

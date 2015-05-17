@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = "Listado de Unidades de Medida";
+    ViewBag.Grupo = "Administración";
+    ViewBag.Pantalla = ViewBag.Title;
 }
 
 <h4>@ViewBag.Title <a href="@Url.Action("Create")" class="btn btn-success btn-cons" style="margin-left: 20px;">Agregar Unidad de Medida</a></h4>
@@ -12,6 +14,9 @@
 			<th>
 				@Html.DisplayNameFor(model => model.Nombre)
 			</th>
+            <th>
+                @Html.DisplayNameFor(model => model.Abreviatura)
+            </th>
 			<th width="100"></th>
 		</tr>
 	</thead>
@@ -21,6 +26,9 @@
 			<td>
 				@Html.DisplayFor(modelItem => item.Nombre)
 			</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Abreviatura)
+            </td>
         <td>
 			<a href="@Url.Action("Edit", new { id=item.ID })" style="color:green" class="fa fa-edit"></a>
             <a href="#" style="color:red" class="fa fa-minus" data-toggle="modal" data-target="#modalDelete" data-id="@item.ID" data-puede-eliminar="@item.PuedeEliminar()" id="btnDelete"></a>

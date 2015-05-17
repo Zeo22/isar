@@ -111,7 +111,7 @@ namespace ISAR.Controllers
                     }
                 }
                 estrategia.ObjetivoAlineado = db.Objetivos.Where(item => Objetivos.Contains(item.ID)).ToList();
-                estrategia.Periodo = db.Periodos.FirstOrDefault(item => item.Activo);
+                estrategia.Periodo = db.Periodos.FirstOrDefault(item => item.Activo && (DateTime.Now >= item.FechaInicio && DateTime.Now <= item.FechaFin));
                 db.Estrategias.Add(estrategia);
                 db.SaveChanges();
                 return RedirectToAction("Index", new { lvl = lvl });
@@ -166,7 +166,7 @@ namespace ISAR.Controllers
                 estrategia_tmp.Titulo = estrategia.Titulo;
                 estrategia_tmp.ObjetivoAlineado.Clear();
                 estrategia_tmp.ObjetivoAlineado = db.Objetivos.Where(item => Objetivos.Contains(item.ID)).ToList();
-                estrategia_tmp.Periodo = db.Periodos.FirstOrDefault(item => item.Activo);
+                //estrategia_tmp.Periodo = db.Periodos.FirstOrDefault(item => item.Activo);
                 db.Entry(estrategia_tmp).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index", new { lvl = lvl });

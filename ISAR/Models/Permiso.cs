@@ -12,6 +12,11 @@ namespace ISAR.Models
     {
         public int ID { get; set; }
         public string Nombre { get; set; }
+
+        public string Grupo { get; set; }
+        public string Opcion { get; set; }
+
+
         public virtual List<ApplicationRole> Roles { get; set; }
     }
 }

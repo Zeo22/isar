@@ -17,6 +17,8 @@ if(IsPartialView) {
 
 @{
     ViewBag.Title = "Editar <#= ViewDataTypeShortName #>";
+	ViewBag.Grupo = "Administración";
+    ViewBag.Pantalla = ViewBag.Title;
 <#
 if (!String.IsNullOrEmpty(LayoutPageFile)) {
 #>
