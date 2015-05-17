@@ -1,0 +1,30 @@
+﻿@model ISAR.Models.Puesto
+
+@{
+    ViewBag.Title = "Agregar Puesto";
+	ViewBag.Grupo = "Administración";
+    ViewBag.Pantalla = ViewBag.Title;
+}
+
+<h4>@ViewBag.Title</h4>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="row">
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <div class="form-group form-group-default">
+            @Html.LabelFor(model => model.Nombre)
+            @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        <a href="@Url.Action("index")" class="btn btn-warning btn-cons">Regresar</a> <input type="submit" value="Agregar Puesto" class="btn btn-success btn-cons" />
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

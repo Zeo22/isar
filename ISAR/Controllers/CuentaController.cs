@@ -13,16 +13,17 @@ using ISAR.Models;
 namespace ISAR.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class CuentaController : Controller
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext _dbContext;
 
-        public AccountController()
+        public CuentaController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public CuentaController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -52,47 +53,82 @@ namespace ISAR.Controllers
             }
         }
 
+        public ApplicationDbContext DbContext
+        {
+            get
+            {
+                return _dbContext ?? HttpContext.GetOwinContext().Get<ApplicationDbContext>();
+            }
+            private set
+            {
+                _dbContext = value;
+            }
+        }
+
         //
-        // GET: /Account/Login
+        // GET: /Cuenta/Login
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
+        public ActionResult Acceso(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
         //
-        // POST: /Account/Login
+        // POST: /Cuenta/Login
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Acceso(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
+            ApplicationUser user = await UserManager.FindByNameAsync(model.UserName);
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: true);
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    if (user.AccessCount < 3)
+                    {
+                        user.AccessCount++;
+                        UserManager.Update(user);
+                        return RedirectToAction("index", "dashboard", new { code = await UserManager.GeneratePasswordResetTokenAsync(user.Id) });
+                    }
+                    else
+                    {
+                        user.AccessCount++;
+                        UserManager.Update(user);
+                        return RedirectToLocal(returnUrl);
+                    }
                 case SignInStatus.LockedOut:
+                    var users = from a in DbContext.Permisos
+                            from b in a.Roles
+                            from c in b.Users
+                            where a.ID == 1
+                            select c.UserId;
+
+                    foreach (string u in users)
+                    {
+                        await UserManager.SendEmailAsync(u, "Usuario " + model.UserName + " bloqueado", "El usuario " + user.Nombre + " ha sido bloqueado por superar el número máximo de intentos de inicio de sesión fallidos"); 
+                    }
+
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    ModelState.AddModelError("", "Error al iniciar sesión.");
                     return View(model);
             }
         }
 
         //
-        // GET: /Account/VerifyCode
+        // GET: /Cuenta/VerifyCode
         [AllowAnonymous]
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
         {
@@ -105,7 +141,7 @@ namespace ISAR.Controllers
         }
 
         //
-        // POST: /Account/VerifyCode
+        // POST: /Cuenta/VerifyCode
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -135,7 +171,7 @@ namespace ISAR.Controllers
         }
 
         //
-        // GET: /Account/Register
+        // GET: /Cuenta/Register
         [AllowAnonymous]
         public ActionResult Register()
         {
@@ -143,7 +179,7 @@ namespace ISAR.Controllers
         }
 
         //
-        // POST: /Account/Register
+        // POST: /Cuenta/Register
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -177,7 +213,7 @@ namespace ISAR.Controllers
         }
 
         //
-        // GET: /Account/ConfirmEmail
+        // GET: /Cuenta/ConfirmEmail
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
@@ -190,7 +226,7 @@ namespace ISAR.Controllers
         }
 
         //
-        // GET: /Account/ForgotPassword
+        // GET: /Cuenta/ForgotPassword
         [AllowAnonymous]
         public ActionResult ForgotPassword()
         {
@@ -198,7 +234,7 @@ namespace ISAR.Controllers
         }
 
         //
-        // POST: /Account/ForgotPassword
+        // POST: /Cuenta/ForgotPassword
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -206,7 +242,7 @@ namespace ISAR.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindByNameAsync(model.Email);
+                var user = await UserManager.FindByNameAsync(model.UserName);
                 if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
@@ -226,7 +262,7 @@ namespace ISAR.Controllers
         }
 
         //
-        // GET: /Account/ForgotPasswordConfirmation
+        // GET: /Cuenta/ForgotPasswordConfirmation
         [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation()
         {
@@ -234,34 +270,83 @@ namespace ISAR.Controllers
         }
 
         //
-        // GET: /Account/ResetPassword
+        // GET: /Cuenta/RestablecerPassword
         [AllowAnonymous]
-        public ActionResult ResetPassword(string code)
+        public ActionResult RestablecerPassword(string code, string userName)
         {
-            return code == null ? View("Error") : View();
+            ResetPasswordViewModel model = new ResetPasswordViewModel();
+
+            model.UserName = userName;
+            model.Code = code;
+            return code == null ? View("Error") : View(model);
         }
 
         //
-        // POST: /Account/ResetPassword
+        // GET: /Cuenta/RestablecerPasswordAdmin
+        [AllowAnonymous]
+        public ActionResult RestablecerPasswordAdmin(string code, string userName, string nombre)
+        {
+            ResetPasswordViewModel model = new ResetPasswordViewModel();
+
+            model.UserName = userName;
+            model.Code = code;
+            ViewBag.Nombre = nombre;
+            return code == null ? View("Error") : View(model);
+        }
+
+        //
+        // POST: /Cuenta/ResetPassword
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
+        public async Task<ActionResult> RestablecerPassword(ResetPasswordViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
-            var user = await UserManager.FindByNameAsync(model.Email);
+            var user = await UserManager.FindByNameAsync(model.UserName);
             if (user == null)
             {
                 // Don't reveal that the user does not exist
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
+                return RedirectToAction("index", "dashboard");
             }
+            user.AccessCount = 4;
+            var res = await UserManager.UpdateAsync(user);
             var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
             if (result.Succeeded)
             {
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
+                return RedirectToAction("index", "dashboard");
+            }
+            AddErrors(result);
+            return View();
+        }
+
+        //
+        // POST: /Cuenta/ResetPassword
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RestablecerPasswordAdmin(ResetPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var user = await UserManager.FindByNameAsync(model.UserName);
+            if (user == null)
+            {
+                // Don't reveal that the user does not exist
+                return RedirectToAction("index", "usuarios");
+            }
+            user.AccessCount = 0;
+            user.AccessFailedCount = 0;
+            user.LockoutEndDateUtc = null;
+            var res = await UserManager.UpdateAsync(user);
+            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("index", "usuarios");
             }
             AddErrors(result);
             return View();
@@ -270,7 +355,7 @@ namespace ISAR.Controllers
         //
         // GET: /Account/ResetPasswordConfirmation
         [AllowAnonymous]
-        public ActionResult ResetPasswordConfirmation()
+        public ActionResult ConfirmacionRestablecerPassword()
         {
             return View();
         }
@@ -390,17 +475,17 @@ namespace ISAR.Controllers
         }
 
         //
-        // POST: /Account/LogOff
+        // POST: /Cuenta/Salid
         //[HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult LogOff()
+        public ActionResult Salir()
         {
             AuthenticationManager.SignOut();
             return RedirectToAction("index", "dashboard");
         }
 
         //
-        // GET: /Account/ExternalLoginFailure
+        // GET: /Cuenta/ExternalLoginFailure
         [AllowAnonymous]
         public ActionResult ExternalLoginFailure()
         {
