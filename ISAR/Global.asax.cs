@@ -20,21 +20,26 @@ namespace ISAR
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
 
-        protected void Application_BeginRequest(Object sender, EventArgs e)
-        {
-            CultureInfo newCulture = (CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
+        //protected void Application_BeginRequest(Object sender, EventArgs e)
+        //{
+        //    CultureInfo newCulture = (CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
 
-            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("es-MX");
-            Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture("es");
-            newCulture.DateTimeFormat.ShortDatePattern = "dd-MMM-yyyy";
-            newCulture.DateTimeFormat.DateSeparator = "-";
-            Thread.CurrentThread.CurrentCulture = newCulture;
-        }
+        //    Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("es-MX");
+        //    Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture("es");
+        //    newCulture.DateTimeFormat.ShortDatePattern = "dd-MMM-yyyy";
+        //    newCulture.DateTimeFormat.DateSeparator = "-";
+        //    Thread.CurrentThread.CurrentCulture = newCulture;
+        //}
 
         //protected void Application_PreRequestHandlerExecute()
         //{
         //    Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("es-MX");
         //    Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture("es");
+        //}
+
+        //protected void Session_Start() {
+        //    Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("es-MX");
+        //    Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture("es-MX");
         //}
     }
 }

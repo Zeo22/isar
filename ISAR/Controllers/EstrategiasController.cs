@@ -24,9 +24,13 @@ namespace ISAR.Controllers
 
             if (areaId == null)
             {
-                if (usuario.TienePermiso(1)) // Administrador
+                if (usuario.TienePermiso(1) || (nivel == 1 && usuario.TienePermiso(3)) || usuario.TieneNivel(1)) // Administrador
                 {
                     area = db.Areas.Where(item => item.Nivel.ID == nivel).First();
+                }
+                else if (usuario.TieneNivel(3) && usuario.TienePermiso(10))
+                {
+                    area = usuario.UsuarioArea.AreaPadre;
                 }
                 else
                 {

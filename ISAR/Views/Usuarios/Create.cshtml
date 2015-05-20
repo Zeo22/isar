@@ -127,7 +127,7 @@
                     $("#Password").popover('destroy');
                 }
 
-                if (errorMap.ConfirmPassword != null && $("#ConfirmPassword").val() != "") {
+                if (errorMap.ConfirmPassword != null) {
                     $("#ConfirmPassword")
                         .popover({
                             content: errorMap.ConfirmPassword,

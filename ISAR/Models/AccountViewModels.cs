@@ -86,7 +86,7 @@ namespace ISAR.Models
         public bool Activo { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "El {0} debe tener al menos {2} caracteres.", MinimumLength = 8)]
+        [StringLength(100, ErrorMessage = "El {0} debe tener al menos {2} caracteres y debe contener al menos tres de los siguientes: mayúsculas, minúsculas, números o caracteres especiales.", MinimumLength = 8)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
@@ -104,7 +104,7 @@ namespace ISAR.Models
         public string UserName { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "El {0} debe tener al menos {2} caracteres.", MinimumLength = 8)]
+        [StringLength(100, ErrorMessage = "El {0} debe tener al menos {2} caracteres y debe contener al menos tres de los siguientes: mayúsculas, minúsculas, números o caracteres especiales.", MinimumLength = 8)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }

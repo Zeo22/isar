@@ -3340,10 +3340,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/07/2015 01:19:23</publishTime>
     </File>
     <File Include="bin/ISAR.dll">
-      <publishTime>05/17/2015 15:43:19</publishTime>
+      <publishTime>05/20/2015 02:07:24</publishTime>
     </File>
     <File Include="bin/ISAR.pdb">
-      <publishTime>05/12/2015 00:05:49</publishTime>
+      <publishTime>05/19/2015 00:30:42</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
       <publishTime>05/07/2015 01:19:23</publishTime>
@@ -4264,10 +4264,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/28/2015 03:23:06</publishTime>
     </File>
     <File Include="Views/Cuenta/RestablecerPassword.cshtml">
-      <publishTime>05/15/2015 21:40:18</publishTime>
+      <publishTime>05/19/2015 02:27:54</publishTime>
     </File>
     <File Include="Views/Cuenta/RestablecerPasswordAdmin.cshtml">
-      <publishTime>05/15/2015 21:37:13</publishTime>
+      <publishTime>05/19/2015 02:28:01</publishTime>
     </File>
     <File Include="Views/Cuenta/SendCode.cshtml">
       <publishTime>04/24/2015 01:49:06</publishTime>
@@ -4294,7 +4294,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/12/2015 18:07:43</publishTime>
     </File>
     <File Include="Views/Estrategias/Index.cshtml">
-      <publishTime>05/13/2015 15:05:44</publishTime>
+      <publishTime>05/17/2015 16:54:33</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
       <publishTime>04/24/2015 01:48:33</publishTime>
@@ -4330,7 +4330,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/07/2015 18:13:29</publishTime>
     </File>
     <File Include="Views/Objetivos/Details.cshtml">
-      <publishTime>05/10/2015 04:13:26</publishTime>
+      <publishTime>05/19/2015 02:04:47</publishTime>
     </File>
     <File Include="Views/Objetivos/Edit.cshtml">
       <publishTime>05/12/2015 18:02:40</publishTime>
@@ -4399,7 +4399,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/15/2015 22:30:12</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>05/15/2015 22:26:54</publishTime>
+      <publishTime>05/19/2015 02:22:38</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutLogin.cshtml">
       <publishTime>05/03/2015 01:00:48</publishTime>
@@ -4426,7 +4426,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/16/2015 01:08:26</publishTime>
     </File>
     <File Include="Views/Usuarios/Create.cshtml">
-      <publishTime>05/16/2015 17:01:43</publishTime>
+      <publishTime>05/19/2015 02:27:40</publishTime>
     </File>
     <File Include="Views/Usuarios/Delete.cshtml">
       <publishTime>04/30/2015 23:06:34</publishTime>
@@ -4438,7 +4438,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/16/2015 17:06:21</publishTime>
     </File>
     <File Include="Views/Usuarios/Index.cshtml">
-      <publishTime>05/15/2015 22:33:35</publishTime>
+      <publishTime>05/19/2015 02:10:04</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>04/24/2015 01:48:33</publishTime>

@@ -131,7 +131,7 @@ namespace ISAR.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", adminresult.Errors.First());
+                    ModelState.AddModelError("Password", adminresult.Errors.First());
                     ViewBag.Niveles = db.NivelesOrganizacionales.ToList();
                     ViewBag.RoleId = new SelectList(RoleManager.Roles, "Name", "Name");
                     ViewBag.Puestos = db.Puestos.ToList();

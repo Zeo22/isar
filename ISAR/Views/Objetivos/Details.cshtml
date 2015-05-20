@@ -37,18 +37,13 @@
     <div class="col-md-6">
         <div class="form-group form-group-default required">
             @Html.LabelFor(model => model.Nombre)
-            @Html.DisplayFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DisplayFor(model => model.Nombre)
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group form-group-default">
             @Html.LabelFor(model => model.Tipo)
-            <select class="full-width" data-init-plugin="select2" name="Tipo" id="Tipo">
-                @foreach (TipoObjetivo item in ViewBag.Tipos)
-                {
-                    <option value="@item.ID" @(@Model.Tipo.ID == item.ID ? "selected=\"selected\"" : "")>@item.Nombre</option>
-                }
-            </select>
+            @Html.DisplayFor(model => model.Tipo.Nombre)
         </div>
     </div>
 </div>
@@ -62,65 +57,44 @@
                 </div>
             </div>
             <div class="panel-body">
-                @Html.DisplayFor(model => model.Descripcion, new { @class = "form-control", rows = "5" })
+                @Html.DisplayFor(model => model.Descripcion)
             </div>
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group form-group-default">
             @Html.LabelFor(model => model.Categoria)
-            <select class="full-width" data-init-plugin="select2" name="Categoria" id="Categoria">
-                @foreach (CategoriaObjetivo item in ViewBag.Categorias)
-                {
-                    <option value="@item.ID" @(@Model.Categoria.ID == item.ID ? "selected=\"selected\"" : "")>@item.Nombre</option>
-                }
-            </select>
+            @Html.DisplayFor(model => model.Categoria.Nombre)
         </div>
     </div>
 </div>
 
 <div class="row">
     <div class="col-md-6">
-        <div class="form-group form-group-default input-group">
+        <div class="form-group form-group-default">
             @Html.LabelFor(model => model.FechaInicio)
-            @Html.DisplayFor(model => model.FechaInicio, new { htmlAttributes = new { @class = "form-control" } })
-            <span class="input-group-addon">
-                <i class="fa fa-calendar"></i>
-            </span>
+            @Html.DisplayFor(model => model.FechaInicio)
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group form-group-default">
             @Html.LabelFor(model => model.Area)
-            <select class="full-width" data-init-plugin="select2" name="Area" id="Area">
-                @foreach (Area item in ViewBag.Areas)
-                {
-                    <option value="@item.ID" @(@Model.Area.ID == item.ID ? "selected=\"selected\"" : "")>@(item.AreaPadre != null ? item.AreaPadre.Nombre + " - " : "")@item.Nombre</option>
-                }
-            </select>
+            @(Model.Area.AreaPadre != null ? Model.Area.AreaPadre.Nombre + " - " : "")@Model.Area.Nombre
         </div>
     </div>
 </div>
 
 <div class="row">
     <div class="col-md-6">
-        <div class="form-group form-group-default input-group">
+        <div class="form-group form-group-default">
             @Html.LabelFor(model => model.FechaFinal)
             @Html.DisplayFor(model => model.FechaFinal, new { htmlAttributes = new { @class = "form-control" } })
-            <span class="input-group-addon">
-                <i class="fa fa-calendar"></i>
-            </span>
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group form-group-default">
             @Html.LabelFor(model => model.Responsable)
-            <select class="full-width" data-init-plugin="select2" name="Responsable" id="Responsable">
-                @foreach (ApplicationUser item in ViewBag.Responsables)
-                {
-                    <option value="@item.Id" @(@Model.Responsable.Id == item.Id ? "selected=\"selected\"" : "")>@item.Nombre</option>
-                }
-            </select>
+            @Html.DisplayFor(model => model.Responsable.Nombre)
         </div>
     </div>
 </div>
@@ -173,6 +147,12 @@
 @section scripts {
     <script>
         var initial_data = @Html.Raw(ViewBag.JSONAtribuciones);
+
+        $("#FechaInicio, #FechaFinal").datepicker({
+            language: 'es',
+            format: 'dd/mm/yyyy',
+            autoclose: true
+        });
 
         $("select").select2("readonly", true);
 

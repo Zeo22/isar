@@ -25,8 +25,9 @@
     }
 </h4>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("index", "estrategias", FormMethod.Post, new { id = "formArea" }))
 {
+    @Html.Hidden("lvl", (string)ViewBag.Nivel)
     @Html.Hidden("areaId", (int)ViewBag.CurrentArea.ID)
 }
 
@@ -181,7 +182,7 @@
 
             $("#Area").on("change", function (val) {
                 $("#areaId").val(val.val);
-                $("form").submit();
+                $("#formArea").submit();
             });
             var settings_noalineados = {
                 "sDom": "<'table-responsive't><'row'<'pull-right'p> <'pull-left'i>>",

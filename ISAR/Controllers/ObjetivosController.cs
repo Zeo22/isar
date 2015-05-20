@@ -90,6 +90,18 @@ namespace ISAR.Controllers
             }
             ViewBag.usuario = usuario;
             ViewBag.Nivel = lvl;
+            if (usuario.TieneNivel(1) || usuario.TienePermiso(1))
+            {
+                return View(db.Objetivos.Where(item => item.Tipo.ID == nivel).ToList());
+            }
+            if ((usuario.TieneNivel(2) && nivel == 2) || (usuario.TieneNivel(3) && nivel == 3))
+            {
+                return View(db.Objetivos.Where(item => item.Tipo.ID == nivel && item.Area.ID == usuario.UsuarioArea.ID).ToList());
+            }
+            if ((usuario.TieneNivel(3) && usuario.TienePermiso(8) && nivel == 2) || (usuario.TieneNivel(2) && usuario.TienePermiso(5) && nivel == 1))
+            {
+                return View(db.Objetivos.Where(item => item.Tipo.ID == nivel && item.Area.ID == usuario.UsuarioArea.AreaPadre.ID).ToList());
+            }
             return View(db.Objetivos.Where(item => item.Tipo.ID == nivel).ToList());
         }
 
@@ -189,10 +201,14 @@ namespace ISAR.Controllers
             {
                 List<ApplicationUser> Responsables = new List<ApplicationUser>();
                 List<Area> Areas = new List<Area>();
+                IEnumerable<int> AreasIds = new List<int>();
 
                 Areas.Add(usuario.UsuarioArea);
                 Areas.AddRange(usuario.UsuarioArea.AreasHijas.ToList());
-                Responsables = db.Users.Where(user => Areas.Contains(usuario.UsuarioArea)).ToList();
+                AreasIds = from a in Areas
+                           select a.ID;
+
+                Responsables = db.Users.Where(user => AreasIds.Contains(usuario.UsuarioArea.ID)).ToList();
                 ViewBag.Responsables = Responsables;
             }
             else
