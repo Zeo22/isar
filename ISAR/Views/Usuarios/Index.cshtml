@@ -2,10 +2,12 @@
 @using Microsoft.AspNet.Identity.Owin;
 @using Microsoft.AspNet.Identity.EntityFramework;
 @using System.Web.Mvc;
+@using ISAR.Models;
 @model IEnumerable<ISAR.Models.ApplicationUser>
 
 @{
     ApplicationUserManager userManager = ViewBag.UserManager;
+    ApplicationDbContext db = ViewBag.DbContext;
     ViewBag.Title = "Listado de Usuarios";
     ViewBag.Grupo = "Administración";
     ViewBag.Pantalla = "Usuarios";
@@ -26,6 +28,12 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Email)
                 </th>
+                <th>
+                    Área
+                </th>
+                <th>
+                    Rol
+                </th>
                 <th width="100">
                     Acción
                 </th>
@@ -34,6 +42,9 @@
         <tbody>
             @foreach (var item in Model)
             {
+                ApplicationUser user = db.Users.Find(item.Id);
+                var roles = userManager.GetRoles(user.Id);
+                
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.UserName)
@@ -47,6 +58,12 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => user.UsuarioArea.Nombre)
+                    </td>
+                    <td>
+                        @Html.Raw(string.Join(", ", roles))
                     </td>
                     <td>
                         <a href="@Url.Action("RestablecerPasswordAdmin", "Cuenta", new { code = userManager.GeneratePasswordResetToken(item.Id), nombre = "(" + item.Nombre + ")", userName = item.UserName })" style="color:blue" class="fa fa-list-alt" data-toggle="tooltip" title="Restablecer Password"></a>

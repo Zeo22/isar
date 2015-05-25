@@ -22,12 +22,12 @@
 
 <h4>@ViewBag.Title</h4>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     @Html.Hidden("lvl", (string)ViewBag.Nivel)
     @Html.Hidden("AtribucionesIds", "")
-    @Html.Hidden("ObjetivosIds", "")
+    @Html.Hidden("EstrategiasIds", "")
     <div class="row">
         <div class="col-md-12">
             @Html.ValidationSummary("", new { @class = "text-danger" })
@@ -101,7 +101,7 @@
                 <select class="full-width" data-init-plugin="select2" name="Area" id="Area">
                     @foreach (Area item in ViewBag.Areas)
                     {
-                        <option value="@item.ID">@(item.AreaPadre != null?item.AreaPadre.Nombre + " - ":"")@item.Nombre</option>
+                        <option value="@item.ID">@(item.AreaPadre != null ? item.AreaPadre.Nombre + " - " : "")@item.Nombre</option>
                     }
                 </select>
             </div>
@@ -122,6 +122,7 @@
             <div class="form-group form-group-default">
                 @Html.LabelFor(model => model.Responsable)
                 <select class="full-width" data-init-plugin="select2" name="Responsable" id="Responsable">
+                    <option value="-1">- Seleccione un Responsable -</option>
                     @foreach (ApplicationUser item in ViewBag.Responsables)
                     {
                         <option value="@item.Id">@item.Nombre</option>
@@ -132,7 +133,7 @@
     </div>
 
     <h4>Atribuciones</h4>
-    
+
     <div class="row">
         <div class="col-md-10">
             <div class="form-group form-group-default">
@@ -162,62 +163,112 @@
                     </th>
                 </tr>
             </thead>
-            <tbody>
-            </tbody>
-        </table>
-    </div>
-
-    if (ViewBag.Nivel != "1") { 
-    <h4>Objetivos Alineados</h4>
-
-    <div class="row">
-        <div @Html.Raw(ViewBag.Nivel == "2"?"style=\"display: none\"":"class=\"col-md-3\"")>
-            <div class="form-group form-group-default">
-                @Html.LabelFor(model => model.Alineacion)
-                <select class="full-width" data-init-plugin="select2" name="Alineacion" id="Alineacion">
-                    @foreach (TipoAlineacion item in ViewBag.Alineacion)
-                    {
-                        <option value="@item.ID">@item.Nombre</option>
-                    }
-                </select>
-            </div>
-        </div>
-        <div @Html.Raw(ViewBag.Nivel == "2"?"class=\"col-md-10\"":"class=\"col-md-7\"")>
-            <div class="form-group form-group-default">
-                @Html.Label("ObjetivoAlineado", "Objetivo")
-                @Html.Hidden("ObjetivoAlineado", "", new { style = "width: 100%;" })
-            </div>
-        </div>
-        <div class="col-md-2">
-            <button type="button" class="btn btn-success btn-cons" id="AgregarObjetivo">
-                Agregar Objetivo
-            </button>
-        </div>
-    </div>
-
-    <div class="row">
-        <table class="table" id="dtObjetivos">
-            <thead>
-                <tr>
-                    <th>
-                        Objetivo
-                    </th>
-                    <th>
-                        Alineación
-                    </th>
-                    <th width="100">
-                        Eliminar
-                    </th>
-                </tr>
-            </thead>
             <tbody></tbody>
         </table>
     </div>
+
+    if (ViewBag.Nivel != "1")
+    {
+        <h4>Estrategias Alineadas</h4>
+
+        if (ViewBag.Nivel == "2")
+        {
+            <div class="row">
+                <div style="display: none;">
+                    <div class="form-group form-group-default">
+                        @Html.LabelFor(model => model.Alineacion)
+                        <select class="full-width" data-init-plugin="select2" name="Alineacion" id="Alineacion">
+                            @foreach (TipoAlineacion item in ViewBag.Alineacion)
+                            {
+                                <option value="@item.ID">@item.Nombre</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group form-group-default">
+                        @Html.Label("ObjetivoAlineado", "Objetivo")
+                        @Html.Hidden("ObjetivoAlineado", "", new { style = "width: 100%;" })
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group form-group-default">
+                        @Html.Label("Estrategia", "Estrategia")
+                        @Html.Hidden("Estrategia", "", new { style = "width: 100%;" })
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-success btn-cons" id="AgregarEstrategia">
+                        Agregar Estrategia
+                    </button>
+                </div>
+            </div>
+        }
+        if (ViewBag.Nivel == "3")
+        {
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group form-group-default">
+                        @Html.LabelFor(model => model.Alineacion)
+                        <select class="full-width" data-init-plugin="select2" name="Alineacion" id="Alineacion">
+                            @foreach (TipoAlineacion item in ViewBag.Alineacion)
+                            {
+                                <option value="@item.ID">@item.Nombre</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="form-group form-group-default">
+                        @Html.Label("AreaAlineada", "Area")
+                        @Html.Hidden("AreaAlineada", "", new { style = "width: 100%;" })
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-success btn-cons" id="AgregarEstrategia">
+                        Agregar Estrategia
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group form-group-default">
+                        @Html.Label("ObjetivoAlineado", "Objetivo")
+                        @Html.Hidden("ObjetivoAlineado", "", new { style = "width: 100%;" })
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group form-group-default">
+                        @Html.Label("Estrategia", "Estrategia")
+                        @Html.Hidden("Estrategia", "", new { style = "width: 100%;" })
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        }
+        <div class="row">
+            <table class="table" id="dtEstrategias">
+                <thead>
+                    <tr>
+                        <th>
+                            Estrategia
+                        </th>
+                        <th>
+                            Alineación
+                        </th>
+                        <th width="100">
+                            Eliminar
+                        </th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
     }
-    
+
     <div class="row">
         <div class="col-md-12">
-            <a href="@Url.Action("index", new { lvl = ViewBag.Nivel })" class="btn btn-warning btn-cons">Regresar</a> 
+            <a href="@Url.Action("index", new { lvl = ViewBag.Nivel })" class="btn btn-warning btn-cons">Regresar</a>
             @*<input type="submit" value="Agregar Objetivo" class="btn btn-success btn-cons" />*@
             <button type="button" class="btn btn-success btn-cons" id="Submit">
                 Agregar Objetivo
@@ -227,7 +278,7 @@
 }
 
 @section scripts {
-@*@Scripts.Render("~/bundles/jqueryval")*@
+    @*@Scripts.Render("~/bundles/jqueryval")*@
     <script>
         $("#FechaInicio, #FechaFinal").datepicker({
             language: 'es',
@@ -241,30 +292,30 @@
             minimumInputLength: -1,
             ajax: {
                 url: "@Url.Action("Atribuciones")",
-            dataType: 'json',
-            quietMillis: 250,
-            data: function (term, page) {
-                return {
-                    search: term,
-                    AreaId: $("#Area").select2("val")
-                };
+                dataType: 'json',
+                quietMillis: 250,
+                data: function (term, page) {
+                    return {
+                        search: term,
+                        AreaId: $("#Area").select2("val")
+                    };
+                },
+                results: function (data, page) {
+                    return { results: data };
+                },
+                cache: true
             },
-            results: function (data, page) {
-                return { results: data };
-            },
-            cache: true
-        },
             initSelection: function (element, callback) {
                 // the input tag has a value attribute preloaded that points to a preselected repository's id
                 // this function resolves that id attribute to an object that select2 can render
                 // using its formatResult renderer - that way the repository name is shown preselected
-            var id = $(element).val();
-            if (id !== "") {
-                $.ajax("@Url.Action("Atribuciones")/?id" + id, {
-                    dataType: "json"
-                }).done(function (data) { callback(data); });
+                var id = $(element).val();
+                if (id !== "") {
+                    $.ajax("@Url.Action("Atribuciones")/?id" + id, {
+                        dataType: "json"
+                    }).done(function (data) { callback(data); });
+                }
             }
-        }
         });
 
         var initial_data = [];
@@ -333,41 +384,113 @@
         });
 
         // Objetivos
-        $("#ObjetivoAlineado").select2({
-            placeholder: "Selecciona un Objetivo",
+        $("#Alineacion").on("change", function (e) {
+            if (e.val == "1") {
+                $("#AreaAlineada").select2("val", "");
+                $("#AreaAlineada").select2("readonly", true);
+            }
+            if (e.val == "2") {
+                $("#AreaAlineada").select2("readonly", false);
+            }
+        });
+
+        $("#AreaAlineada").select2({
+            placeholder: "Seleccione un Área",
             minimumInputLength: -1,
             ajax: {
-                url: "@Url.Action("Objetivos")",
-            dataType: 'json',
-            quietMillis: 250,
-            data: function (term, page) {
-                return {
-                    search: term,
-                    alineacionId: $("#Alineacion").select2("val"),
-                    areaId: $("#Area").select2("val")
-                };
+                url: "@Url.Action("Areas")",
+                dataType: 'json',
+                quietMillis: 250,
+                data: function (term, page) {
+                    return {
+                        search: term
+                    };
+                },
+                results: function (data, page) {
+                    return { results: data };
+                },
+                cache: true
             },
-            results: function (data, page) {
-                return { results: data };
-            },
-            cache: true
-        },
             initSelection: function (element, callback) {
                 // the input tag has a value attribute preloaded that points to a preselected repository's id
                 // this function resolves that id attribute to an object that select2 can render
                 // using its formatResult renderer - that way the repository name is shown preselected
-            var id = $(element).val();
-            if (id !== "") {
-                $.ajax("@Url.Action("Objetivos")/?id" + id, {
-                    dataType: "json"
-                }).done(function (data) { callback(data); });
+                var id = $(element).val();
+                if (id !== "") {
+                    $.ajax("@Url.Action("Objetivos")/?id" + id, {
+                        dataType: "json"
+                    }).done(function (data) { callback(data); });
+                }
             }
-        }
         });
 
-        var initial_data_objetivos = [];
+        $("#Estrategia").select2({
+            placeholder: "Seleccione una Estrategia",
+            minimumInputLength: -1,
+            ajax: {
+                url: "@Url.Action("Estrategias")",
+                dataType: 'json',
+                quietMillis: 250,
+                data: function (term, page) {
+                    return {
+                        search: term,
+                        alineacionId: $("#Alineacion").select2("val"),
+                        objetivoId: $("#ObjetivoAlineado").select2("val")
+                    };
+                },
+                results: function (data, page) {
+                    return { results: data };
+                },
+                cache: true
+            },
+            initSelection: function (element, callback) {
+                // the input tag has a value attribute preloaded that points to a preselected repository's id
+                // this function resolves that id attribute to an object that select2 can render
+                // using its formatResult renderer - that way the repository name is shown preselected
+                var id = $(element).val();
+                if (id !== "") {
+                    $.ajax("@Url.Action("Objetivos")/?id" + id, {
+                        dataType: "json"
+                    }).done(function (data) { callback(data); });
+                }
+            }
+        });
 
-        var settings_objetivos = {
+        $("#ObjetivoAlineado").select2({
+            placeholder: "Seleccione un Objetivo",
+            minimumInputLength: -1,
+            ajax: {
+                url: "@Url.Action("Objetivos")",
+                dataType: 'json',
+                quietMillis: 250,
+                data: function (term, page) {
+                    return {
+                        search: term,
+                        alineacionId: $("#Alineacion").select2("val"),
+                        areaId: $("#AreaAlineada").attr("readonly") == "readonly" || $("#AreaAlineada").length == 0 ? $("#Area").select2("val") : $("#AreaAlineada").select2("val")
+                    };
+                },
+                results: function (data, page) {
+                    return { results: data };
+                },
+                cache: true
+            },
+            initSelection: function (element, callback) {
+                // the input tag has a value attribute preloaded that points to a preselected repository's id
+                // this function resolves that id attribute to an object that select2 can render
+                // using its formatResult renderer - that way the repository name is shown preselected
+                var id = $(element).val();
+                if (id !== "") {
+                    $.ajax("@Url.Action("Objetivos")/?id" + id, {
+                        dataType: "json"
+                    }).done(function (data) { callback(data); });
+                }
+            }
+        });
+
+        var initial_data_estrategias = [];
+
+        var settings_estrategias = {
             "sDom": "<'table-responsive't><'row'<'pull-right'p> <'pull-left'i>>",
             "sPaginationType": "bootstrap",
             "destroy": true,
@@ -379,26 +502,26 @@
                 "sInfoEmpty": ""
             },
             "iDisplayLength": 10,
-            "data": initial_data_objetivos,
+            "data": initial_data_estrategias,
             "columns": [
-                { name: "Objetivo", data: 'text' },
+                { name: "Estrategia", data: 'text' },
                 { name: "Alineación", data: "alineacion" },
                 { name: "Eliminar", data: "Eliminar" }
             ]
         };
 
-        $('#dtObjetivos').dataTable(settings_objetivos);
+        $('#dtEstrategias').dataTable(settings_estrategias);
 
-        $("#AgregarObjetivo").on("click", function () {
-            if ($("#ObjetivoAlineado").select2("val") == "") return;
-            var table = $('#dtObjetivos').DataTable();
-            var data = $("#ObjetivoAlineado").select2("data")
+        $("#AgregarEstrategia").on("click", function () {
+            if ($("#Estrategia").select2("val") == "") return;
+            var table = $('#dtEstrategias').DataTable();
+            var data = $("#Estrategia").select2("data")
             var exists = false;
 
             table.rows().every(function () {
                 var data = this.data();
 
-                if (data.id == $("#ObjetivoAlineado").select2("val")) {
+                if (data.id == $("#Estrategia").select2("val")) {
                     exists = true;
                     return;
                 }
@@ -407,7 +530,7 @@
             if (exists) {
                 $('body').pgNotification({
                     style: 'flip',
-                    message: 'El Objetivo seleccionado ya esta asignado.',
+                    message: 'La Estrategia seleccionada ya esta asignada.',
                     type: 'danger'
                 }).show();
                 return;
@@ -421,8 +544,8 @@
             }).draw();
         });
 
-        $('#dtObjetivos tbody').on('click', 'a.fa-minus', function () {
-            var table = $('#dtObjetivos').DataTable();
+        $('#dtEstrategias tbody').on('click', 'a.fa-minus', function () {
+            var table = $('#dtEstrategias').DataTable();
 
             table
                 .row($(this).parents('tr'))
@@ -432,22 +555,26 @@
 
         $("#Submit").on("click", function () {
             var table = $('#dtAtribuciones').DataTable();
-            var table_objetivos = $('#dtObjetivos').DataTable();
+            var table_estrategias = $('#dtEstrategias').DataTable();
             var AtribucionesIds = [];
-            var ObjetivosIds = [];
+            var EstrategiasIds = [];
             table.rows().every(function () {
                 var data = this.data();
 
                 AtribucionesIds.push(data.id);
             });
-            table_objetivos.rows().every(function () {
+            table_estrategias.rows().every(function () {
                 var data = this.data();
 
-                ObjetivosIds.push(data.id);
+                EstrategiasIds.push(data.id);
             });
             $("#AtribucionesIds").val(AtribucionesIds.join(","));
-            $("#ObjetivosIds").val(ObjetivosIds.join(","));
+            $("#EstrategiasIds").val(EstrategiasIds.join(","));
             $("form").submit();
+        });
+
+        $(document).ready(function () {
+            $("#AreaAlineada").select2("readonly", true);
         });
 
     </script>

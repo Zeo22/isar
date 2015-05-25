@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -27,6 +28,8 @@ namespace ISAR.Models
         public DbSet<Objetivo> Objetivos { get; set; }
         public DbSet<Atribucion> Atribuciones { get; set; }
         public DbSet<Puesto> Puestos { get; set; }
+        public DbSet<Comportamiento> Comportamiento { get; set; }
+        public DbSet<Indicador> Indicadores { get; set; }
 
         #endregion
 
@@ -68,17 +71,31 @@ namespace ISAR.Models
                 m.MapRightKey("EstrategiaID");
             });
 
-            modelBuilder.Entity<Objetivo>().HasMany(t => t.ObjetivosAlineados).WithMany().Map(m =>
-            {
-                m.ToTable("ObjetivosAlineados");
-                m.MapLeftKey("ObjetivoID");
-                m.MapRightKey("ObjetivoAlineadoID");
-            });
+            //modelBuilder.Entity<Objetivo>().HasMany(t => t.ObjetivosAlineados).WithMany().Map(m =>
+            //{
+            //    m.ToTable("ObjetivosAlineados");
+            //    m.MapLeftKey("ObjetivoID");
+            //    m.MapRightKey("ObjetivoAlineadoID");
+            //});
 
             modelBuilder.Entity<Atribucion>().HasMany(t => t.Objetivos).WithMany(p => p.Atribuciones).Map(m => {
                 m.ToTable("Atribuciones_Objetivos");
                 m.MapLeftKey("AtribucionID");
                 m.MapRightKey("ObjetivoID");
+            });
+
+            modelBuilder.Entity<Objetivo>().HasMany(t => t.Periodos).WithMany(p => p.Objetivos).Map(m =>
+            {
+                m.ToTable("Objetivos_Periodos");
+                m.MapLeftKey("ObjetivoID");
+                m.MapRightKey("PeriodoID");
+            });
+
+            modelBuilder.Entity<Estrategia>().HasMany(t => t.Periodos).WithMany(p => p.Estrategias).Map(m =>
+            {
+                m.ToTable("Estrategias_Periodos");
+                m.MapLeftKey("EstrategiaID");
+                m.MapRightKey("PeriodoID");
             });
 
             //modelBuilder.Entity<GrupoPantalla>().HasMany(g => g.Pantallas).WithRequired(p => p.Grupo);

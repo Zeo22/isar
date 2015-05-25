@@ -4,6 +4,7 @@
 @{
     
     ApplicationUser usuario = (ApplicationUser)ViewBag.usuario;
+    Periodo periodo = (Periodo)ViewBag.PeriodoSeleccionado;
     
     switch ((string)ViewBag.Nivel)
     {
@@ -24,7 +25,7 @@
 }
 
 <h4>@ViewBag.Title 
-    @if (usuario.TienePermiso(1) || (ViewBag.Nivel == "1" && usuario.TienePermiso(4)) || (ViewBag.Nivel == "2" && usuario.TienePermiso(7)) || (ViewBag.Nivel == "3" && usuario.TienePermiso(11))) // Captura de Objetivos
+    @if (usuario.TienePermiso(1) || ((ViewBag.Nivel == "1" && usuario.TienePermiso(4)) || (ViewBag.Nivel == "2" && usuario.TienePermiso(7)) || (ViewBag.Nivel == "3" && usuario.TienePermiso(11))) && periodo.Activo) // Captura de Objetivos
     {
         <a href="@Url.Action("Create", new { lvl = ViewBag.Nivel })" class="btn btn-success btn-cons" style="margin-left: 20px;">Agregar Objetivo</a>
     }
@@ -70,7 +71,7 @@
             }
             @if (ViewBag.Nivel != "1") {
             <td>
-                @if (item.ObjetivosAlineados.Count() > 0)
+                @if (item.Estrategias.Count() > 0)
                 {
                     <i style="color:green" class="fa fa-check-circle"></i>
                 }
@@ -81,7 +82,7 @@
             </td>
             }
             <td>
-                @if (usuario.TienePermiso(1) || (ViewBag.Nivel == "1" && usuario.TienePermiso(4)) || (ViewBag.Nivel == "2" && usuario.TienePermiso(7)) || (ViewBag.Nivel == "3" && usuario.TienePermiso(11))) // Captura de Objetivos
+                @if (usuario.TienePermiso(1) || ((ViewBag.Nivel == "1" && usuario.TienePermiso(4)) || (ViewBag.Nivel == "2" && usuario.TienePermiso(7)) || (ViewBag.Nivel == "3" && usuario.TienePermiso(11))) && periodo.Activo) // Captura de Objetivos
                 {
                     <a href="@Url.Action("Edit", new { id=item.ID, lvl = ViewBag.Nivel })" style="color:green" class="fa fa-edit"></a>
                     <a href="#" style="color:red" class="fa fa-minus" data-toggle="modal" data-target="#modalDelete" data-id="@item.ID" data-puede-eliminar="@item.PuedeEliminar()" id="btnDelete"></a>

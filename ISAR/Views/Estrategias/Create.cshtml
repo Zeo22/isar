@@ -27,6 +27,8 @@
     @Html.AntiForgeryToken()
     @Html.Hidden("lvl", (string)ViewBag.Nivel)
     @Html.Hidden("ObjetivosIds", "")
+    @Html.Hidden("areaId", (int)ViewBag.areaId)
+    <input type="hidden" name="areaId" id="areaId" value="@ViewBag.areaId" />
     <div class="row">
         @Html.ValidationSummary("", new { @class = "text-danger" })
         <div class="form-group form-group-default">

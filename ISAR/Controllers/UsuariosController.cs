@@ -52,11 +52,25 @@ namespace ISAR.Controllers
             }
         }
 
+        private ApplicationDbContext _dbContext;
+        public ApplicationDbContext DbContext
+        {
+            get
+            {
+                return _dbContext ?? HttpContext.GetOwinContext().Get<ApplicationDbContext>();
+            }
+            private set
+            {
+                _dbContext = value;
+            }
+        }
+
         //
         // GET: /Users/
         public async Task<ActionResult> Index()
         {
             ViewBag.UserManager = UserManager;
+            ViewBag.DbContext = DbContext;
             return View(await UserManager.Users.ToListAsync());
         }
 

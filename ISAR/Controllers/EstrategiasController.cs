@@ -15,11 +15,42 @@ namespace ISAR.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        private List<Periodo> GetPeriodsByObjetives(Estrategia estrategia)
+        {
+            List<Periodo> periods = new List<Models.Periodo>();
+            IEnumerable<Periodo> res;
+
+            if (estrategia.ObjetivoAlineado == null)
+            {
+                res = db.Periodos.Where(item => item.Activo);
+            }
+            else
+            {
+                res = (from a in estrategia.ObjetivoAlineado
+                      from b in a.Periodos
+                      select b).Distinct();
+            }
+
+            periods.AddRange(res.ToList());
+
+            foreach (Periodo p in db.Periodos.Where(item => item.Activo))
+            {
+                if (!periods.Exists(item => item.ID == p.ID))
+                {
+                    periods.Add(p);
+                }
+            }
+
+            return periods;
+        }
+
         // GET: Estrategias
         public ActionResult Index(string lvl, int? areaId)
         {
             ApplicationUser usuario = (ApplicationUser)db.Users.FirstOrDefault(item => item.UserName == User.Identity.Name);
             int nivel = int.Parse(lvl);
+            int periodId = (int)Session["SelectedPeriod"];
+            Periodo period = db.Periodos.Find(periodId);
             Area area;
 
             if (areaId == null)
@@ -45,8 +76,9 @@ namespace ISAR.Controllers
             ViewBag.CurrentArea = area;
             ViewBag.Nivel = lvl;
             ViewBag.Areas = db.Areas.Where(item => item.Nivel.ID == nivel).ToList();
-            ViewBag.EstrategiasNoAlineadas = db.Estrategias.Where(item => item.ObjetivoAlineado.Count() == 0).ToList();
-            return View(db.Objetivos.Include("Estrategias").Where(item => item.Area.ID == area.ID));
+            ViewBag.PeriodoSeleccionado = period;
+            ViewBag.EstrategiasNoAlineadas = db.Estrategias.Where(item => item.ObjetivoAlineado.Count() == 0 && item.Periodos.Any(p => p.ID == periodId)).ToList();
+            return View(db.Objetivos.Include("Estrategias").Where(item => item.Area.ID == area.ID && item.Periodos.Any(p => p.ID == periodId)));
         }
 
         // GET: Estrategias/Details/5
@@ -61,7 +93,7 @@ namespace ISAR.Controllers
             {
                 return HttpNotFound();
             }
-            FillViewBag(ViewBag, lvl);
+            FillViewBag(ViewBag, lvl, null);
             var json_objetivos = from a in estrategia.ObjetivoAlineado
                                  select new
                                  {
@@ -72,7 +104,7 @@ namespace ISAR.Controllers
             return View(estrategia);
         }
 
-        private void FillViewBag(dynamic ViewBag, string lvl)
+        private void FillViewBag(dynamic ViewBag, string lvl, int? areaId)
         {
             ApplicationUser usuario = (ApplicationUser)db.Users.FirstOrDefault(item => item.UserName == User.Identity.Name);
             int nivel = int.Parse(lvl);
@@ -81,7 +113,14 @@ namespace ISAR.Controllers
             ViewBag.Nivel = lvl;
             if (usuario.TienePermiso(1)) // Administrador
             {
-                ViewBag.Objetivos = db.Objetivos.Where(item => item.Area.Nivel.ID == nivel).ToList();
+                if (areaId != null)
+                {
+                    ViewBag.Objetivos = db.Objetivos.Where(item => item.Area.ID == areaId).ToList();
+                }
+                else
+                {
+                    ViewBag.Objetivos = db.Objetivos.Where(item => item.Area.Nivel.ID == nivel).ToList();
+                }
             }
             else
             {
@@ -90,9 +129,10 @@ namespace ISAR.Controllers
         }
 
         // GET: Estrategias/Create
-        public ActionResult Create(string lvl)
+        public ActionResult Create(string lvl, int? areaId)
         {
-            FillViewBag(ViewBag, lvl);
+            ViewBag.areaId = areaId;
+            FillViewBag(ViewBag, lvl, areaId);
             return View();
         }
 
@@ -101,7 +141,7 @@ namespace ISAR.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Titulo")] Estrategia estrategia, string lvl, string ObjetivosIds)
+        public ActionResult Create([Bind(Include = "ID,Titulo")] Estrategia estrategia, string lvl, string ObjetivosIds, int? areaId)
         {
             if (ModelState.IsValid)
             {
@@ -115,17 +155,18 @@ namespace ISAR.Controllers
                     }
                 }
                 estrategia.ObjetivoAlineado = db.Objetivos.Where(item => Objetivos.Contains(item.ID)).ToList();
-                estrategia.Periodo = db.Periodos.FirstOrDefault(item => item.Activo && (DateTime.Now >= item.FechaInicio && DateTime.Now <= item.FechaFin));
+                estrategia.Periodos = this.GetPeriodsByObjetives(estrategia);
                 db.Estrategias.Add(estrategia);
                 db.SaveChanges();
-                return RedirectToAction("Index", new { lvl = lvl });
+                return RedirectToAction("Index", new { lvl = lvl, areaId = areaId });
             }
-            FillViewBag(ViewBag, lvl);
+            ViewBag.areaId = areaId;
+            FillViewBag(ViewBag, lvl, areaId);
             return View(estrategia);
         }
 
         // GET: Estrategias/Edit/5
-        public ActionResult Edit(int? id, string lvl)
+        public ActionResult Edit(int? id, string lvl, int? areaId)
         {
             if (id == null)
             {
@@ -136,7 +177,8 @@ namespace ISAR.Controllers
             {
                 return HttpNotFound();
             }
-            FillViewBag(ViewBag, lvl);
+            ViewBag.areaId = areaId;
+            FillViewBag(ViewBag, lvl, areaId);
             var json_objetivos = from a in estrategia.ObjetivoAlineado
                                  select new
                                  {
@@ -153,7 +195,7 @@ namespace ISAR.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Titulo")] Estrategia estrategia, string lvl, string ObjetivosIds)
+        public ActionResult Edit([Bind(Include = "ID,Titulo")] Estrategia estrategia, string lvl, string ObjetivosIds, int? areaId)
         {
             if (ModelState.IsValid)
             {
@@ -171,11 +213,14 @@ namespace ISAR.Controllers
                 estrategia_tmp.ObjetivoAlineado.Clear();
                 estrategia_tmp.ObjetivoAlineado = db.Objetivos.Where(item => Objetivos.Contains(item.ID)).ToList();
                 //estrategia_tmp.Periodo = db.Periodos.FirstOrDefault(item => item.Activo);
+                estrategia_tmp.Periodos.Clear();
+                estrategia_tmp.Periodos = this.GetPeriodsByObjetives(estrategia_tmp);
                 db.Entry(estrategia_tmp).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index", new { lvl = lvl });
+                return RedirectToAction("Index", new { lvl = lvl, areaId = areaId });
             }
-            FillViewBag(ViewBag, lvl);
+            ViewBag.areaId = areaId;
+            FillViewBag(ViewBag, lvl, areaId);
             return View(estrategia);
         }
 
@@ -197,12 +242,12 @@ namespace ISAR.Controllers
         // POST: Estrategias/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id, string lvl)
+        public ActionResult DeleteConfirmed(int id, string lvl, int? areaId)
         {
             Estrategia estrategia = db.Estrategias.Find(id);
             db.Estrategias.Remove(estrategia);
             db.SaveChanges();
-            return RedirectToAction("Index", new { lvl = lvl });
+            return RedirectToAction("Index", new { lvl = lvl, areaId = areaId });
         }
 
         protected override void Dispose(bool disposing)

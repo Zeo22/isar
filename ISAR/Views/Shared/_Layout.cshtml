@@ -106,10 +106,10 @@
                         @if (currentUser != null) { 
                         <span class="semi-bold">Seleccionar periodo:</span>
                         <span style="margin-right: 30px;">
-                            <select class="" data-init-plugin="selectyear">
+                            <select class="" data-init-plugin="selectyear" id="SelectedPeriod">
                                 @foreach (Periodo item in periodos)
                                 {
-                                    <option selected="@item.Activo">@item.Nombre</option>
+                                    <option @(item.ID == (int)Session["selectedPeriod"]? "selected=\"selected\"" : "") value="@item.ID">@item.Nombre</option>
                                 }
                             </select>
                         </span>

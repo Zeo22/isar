@@ -86,6 +86,11 @@ namespace ISAR.Migrations
                 new Permiso() { ID = 11, Nombre = "Captura de Objetivos Operativos", Grupo = "Objetivos Operativos", Opcion = "Captura" },
                 new Permiso() { ID = 12, Nombre = "Listado de Objetivos Operativos", Grupo = "Objetivos Operativos", Opcion = "Listado" }
             );
+            // Comportamiento
+            context.Comportamiento.AddOrUpdate(
+                new Comportamiento() { ID = 1, Name = "Discreto" },
+                new Comportamiento() { ID = 2, Name = "Continuo" }
+            );
             // Admin
             ApplicationUserManager userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
 

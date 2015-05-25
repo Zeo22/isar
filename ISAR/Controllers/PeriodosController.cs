@@ -15,6 +15,15 @@ namespace ISAR.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        // GET: Periods/ChangeSelectedPeriod
+        public JsonResult ChangeSelectedPeriod(int? periodId)
+        {
+            Periodo period = db.Periodos.Find(periodId);
+            Session["selectedPeriod"] = periodId;
+
+            return Json(periodId, JsonRequestBehavior.AllowGet);
+        }
+
         // GET: Periodos
         public ActionResult Index()
         {
@@ -72,7 +81,39 @@ namespace ISAR.Controllers
                         return View(periodo);
                     }
                 }
+
                 db.Periodos.Add(periodo);
+                db.SaveChanges();
+                // Objetivos - Periodos
+                List<Objetivo> objetivos = db.Objetivos.Where(item => 
+                    (item.FechaInicio >= periodo.FechaInicio && item.FechaInicio <= periodo.FechaFin) 
+                    || (item.FechaFinal >= periodo.FechaInicio && item.FechaFinal <= periodo.FechaFin)
+                    || (periodo.FechaInicio >= item.FechaInicio && periodo.FechaInicio <= item.FechaFinal)
+                    || (periodo.FechaFin >= item.FechaInicio && periodo.FechaFin <= item.FechaFinal)).ToList();
+                foreach (Objetivo o in objetivos)
+                {
+                    if (o.Periodos == null)
+                    {
+                        o.Periodos = new List<Periodo>();
+                    }
+                    if (!o.Periodos.Exists(item => item.ID == periodo.ID))
+                    {
+                        o.Periodos.Add(periodo);
+                        db.Entry(o).State = EntityState.Modified;
+                    }
+                    foreach (Estrategia e in o.Estrategias)
+                    {
+                        if (e.Periodos == null)
+                        {
+                            e.Periodos = new List<Periodo>();
+                        }
+                        if (!e.Periodos.Exists(item => item.ID == periodo.ID))
+                        {
+                            e.Periodos.Add(periodo);
+                            db.Entry(e).State = EntityState.Modified;
+                        }
+                    }
+                }
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -126,6 +167,37 @@ namespace ISAR.Controllers
                     }
                 }
                 db.Entry(periodo).State = EntityState.Modified;
+                db.SaveChanges();
+                // Objetivos - Periodos
+                List<Objetivo> objetivos = db.Objetivos.Where(item =>
+                    (item.FechaInicio >= periodo.FechaInicio && item.FechaInicio <= periodo.FechaFin)
+                    || (item.FechaFinal >= periodo.FechaInicio && item.FechaFinal <= periodo.FechaFin)
+                    || (periodo.FechaInicio >= item.FechaInicio && periodo.FechaInicio <= item.FechaFinal)
+                    || (periodo.FechaFin >= item.FechaInicio && periodo.FechaFin <= item.FechaFinal)).ToList();
+                foreach (Objetivo o in objetivos)
+                {
+                    if (o.Periodos == null)
+                    {
+                        o.Periodos = new List<Periodo>();
+                    }
+                    if (!o.Periodos.Exists(item => item.ID == periodo.ID))
+                    {
+                        o.Periodos.Add(periodo);
+                        db.Entry(o).State = EntityState.Modified;
+                    }
+                    foreach (Estrategia e in o.Estrategias)
+                    {
+                        if (e.Periodos == null)
+                        {
+                            e.Periodos = new List<Periodo>();
+                        }
+                        if (!e.Periodos.Exists(item => item.ID == periodo.ID))
+                        {
+                            e.Periodos.Add(periodo);
+                            db.Entry(e).State = EntityState.Modified;
+                        }
+                    }
+                }
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

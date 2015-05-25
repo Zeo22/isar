@@ -259,6 +259,22 @@
     <Compile Include="Migrations\201505172004408_EditPermiso1.Designer.cs">
       <DependentUpon>201505172004408_EditPermiso1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201505220405582_RemoveObjetivosAlineados.cs" />
+    <Compile Include="Migrations\201505220405582_RemoveObjetivosAlineados.Designer.cs">
+      <DependentUpon>201505220405582_RemoveObjetivosAlineados.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505231955366_EditPeriodsObjetivo.cs" />
+    <Compile Include="Migrations\201505231955366_EditPeriodsObjetivo.Designer.cs">
+      <DependentUpon>201505231955366_EditPeriodsObjetivo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505232050213_AddIndicadores.cs" />
+    <Compile Include="Migrations\201505232050213_AddIndicadores.Designer.cs">
+      <DependentUpon>201505232050213_AddIndicadores.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505240100369_AddPeriodosEstrategias.cs" />
+    <Compile Include="Migrations\201505240100369_AddPeriodosEstrategias.Designer.cs">
+      <DependentUpon>201505240100369_AddPeriodosEstrategias.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
@@ -267,7 +283,9 @@
     <Compile Include="Models\Atribucion.cs" />
     <Compile Include="Models\Estrategia.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Indicador.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MetaIndicador.cs" />
     <Compile Include="Models\NivelOrganizacional.cs" />
     <Compile Include="Models\Objetivo.cs" />
     <Compile Include="Models\Periodo.cs" />
@@ -1685,7 +1703,6 @@
     <Content Include="Views\Atribuciones\Edit.cshtml" />
     <Content Include="Views\Atribuciones\Index.cshtml" />
     <Content Include="Views\Objetivos\Create.cshtml" />
-    <Content Include="Views\Objetivos\Delete.cshtml" />
     <Content Include="Views\Objetivos\Details.cshtml" />
     <Content Include="Views\Objetivos\Edit.cshtml" />
     <Content Include="Views\Objetivos\Index.cshtml" />
@@ -1769,6 +1786,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201505172004408_EditPermiso1.resx">
       <DependentUpon>201505172004408_EditPermiso1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505220405582_RemoveObjetivosAlineados.resx">
+      <DependentUpon>201505220405582_RemoveObjetivosAlineados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505231955366_EditPeriodsObjetivo.resx">
+      <DependentUpon>201505231955366_EditPeriodsObjetivo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505232050213_AddIndicadores.resx">
+      <DependentUpon>201505232050213_AddIndicadores.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505240100369_AddPeriodosEstrategias.resx">
+      <DependentUpon>201505240100369_AddPeriodosEstrategias.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

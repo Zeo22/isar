@@ -57,9 +57,9 @@ namespace ISAR.Models
         [Display(Name = "Alineación")]
         public virtual List<Atribucion> Atribuciones { get; set; }
         public virtual TipoAlineacion Alineacion { get; set; }
-        public virtual List<Objetivo> ObjetivosAlineados { get; set; } // Los hijos
+        //public virtual List<Objetivo> ObjetivosAlineados { get; set; } // Los hijos
         public virtual List<Estrategia> Estrategias { get; set; }
-        public virtual Periodo Periodo { get; set; }
+        public virtual List<Periodo> Periodos { get; set; }
 
         public bool PuedeEliminar()
         {

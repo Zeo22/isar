@@ -7,6 +7,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Threading;
 using System.Globalization;
+using ISAR.Models;
 
 namespace ISAR
 {
@@ -37,9 +38,15 @@ namespace ISAR
         //    Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture("es");
         //}
 
-        //protected void Session_Start() {
-        //    Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("es-MX");
-        //    Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture("es-MX");
-        //}
+        protected void Session_Start()
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            Periodo period = db.Periodos.FirstOrDefault(item => item.Activo);
+
+            if (period != null)
+            {
+                Session["selectedPeriod"] = period.ID;
+            }
+        }
     }
 }
