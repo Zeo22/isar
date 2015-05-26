@@ -275,6 +275,10 @@
     <Compile Include="Migrations\201505240100369_AddPeriodosEstrategias.Designer.cs">
       <DependentUpon>201505240100369_AddPeriodosEstrategias.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201505260312157_AddEstrategiasArea.cs" />
+    <Compile Include="Migrations\201505260312157_AddEstrategiasArea.Designer.cs">
+      <DependentUpon>201505260312157_AddEstrategiasArea.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
@@ -1798,6 +1802,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201505240100369_AddPeriodosEstrategias.resx">
       <DependentUpon>201505240100369_AddPeriodosEstrategias.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505260312157_AddEstrategiasArea.resx">
+      <DependentUpon>201505260312157_AddEstrategiasArea.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

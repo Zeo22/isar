@@ -16,6 +16,7 @@ namespace ISAR.Models
         [Display(Name = "Objetivo")]
         public virtual List<Objetivo> ObjetivoAlineado { get; set; }
         public virtual List<Periodo> Periodos { get; set; }
+        public virtual Area Area { get; set; }
 
         public bool PuedeEliminar()
         {
