@@ -84,12 +84,16 @@ namespace ISAR.Migrations
                 new Permiso() { ID = 9, Nombre = "Captura de Estrategias Específicas", Grupo = "Estrategias Específicas", Opcion = "Captura" },
                 new Permiso() { ID = 10, Nombre = "Listado de Estrategias Específicas", Grupo = "Estrategias Específicas", Opcion = "Listado" },
                 new Permiso() { ID = 11, Nombre = "Captura de Objetivos Operativos", Grupo = "Objetivos Operativos", Opcion = "Captura" },
-                new Permiso() { ID = 12, Nombre = "Listado de Objetivos Operativos", Grupo = "Objetivos Operativos", Opcion = "Listado" }
-            );
-            // Comportamiento
-            context.Comportamiento.AddOrUpdate(
-                new Comportamiento() { ID = 1, Name = "Discreto" },
-                new Comportamiento() { ID = 2, Name = "Continuo" }
+                new Permiso() { ID = 12, Nombre = "Listado de Objetivos Operativos", Grupo = "Objetivos Operativos", Opcion = "Listado" },
+
+                new Permiso() { ID = 13, Nombre = "Captura de Indicadores Estratégicos-Organización", Grupo = "Indicadores Estratégicos-Organización", Opcion = "Captura" },
+                new Permiso() { ID = 14, Nombre = "Listado de Indicadores Estratégicos-Organización", Grupo = "Indicadores Estratégicos-Organización", Opcion = "Listado" },
+
+                new Permiso() { ID = 15, Nombre = "Captura de Indicadores Estratégicos-Específicos", Grupo = "Indicadores Estratégicos-Específicos", Opcion = "Captura" },
+                new Permiso() { ID = 16, Nombre = "Listado de Indicadores Estratégicos-Específicos", Grupo = "Indicadores Estratégicos-Específicos", Opcion = "Listado" },
+
+                new Permiso() { ID = 17, Nombre = "Captura de Indicadores Operativos", Grupo = "Indicadores Operativos", Opcion = "Captura" },
+                new Permiso() { ID = 18, Nombre = "Listado de Indicadores Operativos", Grupo = "Indicadores Operativos", Opcion = "Listado" }
             );
             // Admin
             ApplicationUserManager userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
@@ -103,6 +107,31 @@ namespace ISAR.Migrations
                 Activo = true
             };
             var adminresult = userManager.Create(user, "Admin01");
+            // Indicadores
+            // Comportamiento
+            context.Comportamiento.AddOrUpdate(
+                new Comportamiento() { ID = 1, Nombre = "Discreto" },
+                new Comportamiento() { ID = 2, Nombre = "Continuo" }
+            );
+            // Tipo Indicador
+            context.TipoIndicador.AddOrUpdate(
+                new TipoIndicador() { ID = 1, Nivel = context.NivelesOrganizacionales.Find(1), Nombre = "Visión" },
+                new TipoIndicador() { ID = 2, Nivel = context.NivelesOrganizacionales.Find(1), Nombre = "Objetivos Estratégicos-Organización" },
+                new TipoIndicador() { ID = 3, Nivel = context.NivelesOrganizacionales.Find(2), Nombre = "Objetivos Estratégicos-Estecifico" },
+                new TipoIndicador() { ID = 4, Nivel = context.NivelesOrganizacionales.Find(3), Nombre = "Objetivos Operativos" },
+                new TipoIndicador() { ID = 5, Nivel = context.NivelesOrganizacionales.Find(3), Nombre = "Procesos" },
+                new TipoIndicador() { ID = 6, Nivel = context.NivelesOrganizacionales.Find(3), Nombre = "Proyectos" }
+            );
+            // Fecuencia de Medicion
+            context.FrecuenciaMedicion.AddOrUpdate(
+                new FrecuenciaMedicion() { ID = 1, Nombre = "Diario" },
+                new FrecuenciaMedicion() { ID = 2, Nombre = "Semanal" },
+                new FrecuenciaMedicion() { ID = 3, Nombre = "Mensual" },
+                new FrecuenciaMedicion() { ID = 3, Nombre = "Bimestral" },
+                new FrecuenciaMedicion() { ID = 3, Nombre = "Trimestral" },
+                new FrecuenciaMedicion() { ID = 3, Nombre = "Semestral" },
+                new FrecuenciaMedicion() { ID = 3, Nombre = "Anual" }
+            );
         }
     }
 }

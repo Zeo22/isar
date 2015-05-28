@@ -1,0 +1,225 @@
+﻿@using ISAR.Models;
+@model ISAR.Models.Indicador
+
+@{
+    ViewBag.Title = "Agregar Indicador";
+    switch ((string)ViewBag.Nivel)
+    {
+        case "1":
+            ViewBag.Grupo = "Nivel Superior";
+            ViewBag.Pantalla = ViewBag.Title;
+            break;
+        case "2":
+            ViewBag.Grupo = "Nivel Vicepresidencia";
+            ViewBag.Pantalla = ViewBag.Title;
+            break;
+        case "3":
+            ViewBag.Grupo = "Nivel Operativo";
+            ViewBag.Pantalla = ViewBag.Title;
+            break;
+    }
+}
+
+<h4>@ViewBag.Title</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("lvl", (string)ViewBag.Nivel)
+
+    <div class="row">
+        <div class="col-md-12">
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <ul class="nav nav-tabs nav-tabs-simple">
+        <li class="active">
+            <a data-toggle="tab" href="#tabDefinicion">Definición</a>
+        </li>
+        <li>
+            <a data-toggle="tab" href="#tabMetas">Meta y Resultados</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="tabDefinicion">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group form-group-default">
+                        @Html.LabelFor(model => model.Nombre)
+                        @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group form-group-default">
+                        @Html.LabelFor(model => model.Tipo)
+                        <select class="full-width" data-init-plugin="select2" name="Tipo[ID]" id="Tipo_ID_">
+                            @foreach (TipoIndicador item in ViewBag.Tipo)
+                            {
+                                <option value="@item.ID">@item.Nombre</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                Descripción
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            @Html.TextAreaFor(model => model.Descripcion, new { @class = "form-control", rows = "8" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group form-group-default">
+                        @Html.LabelFor(model => model.Frecuencia)
+                        <select class="full-width" data-init-plugin="select2" name="Frecuencia[ID]" id="Frecuencia_ID_">
+                            @foreach (FrecuenciaMedicion item in ViewBag.Frecuencia)
+                            {
+                                <option value="@item.ID">@item.Nombre</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                Fórmula
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            @Html.TextAreaFor(model => model.Formula, new { @class = "form-control", rows = "3" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group form-group-default input-group">
+                        @Html.LabelFor(model => model.FechaInicio)
+                        @Html.EditorFor(model => model.FechaInicio, new { htmlAttributes = new { @class = "form-control" } })
+                        <span class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </span>
+                    </div>
+
+                    <div class="form-group form-group-default input-group">
+                        @Html.LabelFor(model => model.FechaFinal)
+                        @Html.EditorFor(model => model.FechaFinal, new { htmlAttributes = new { @class = "form-control" } })
+                        <span class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                Fuente de Información
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            @Html.TextAreaFor(model => model.FuenteInformacion, new { @class = "form-control", rows = "3" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group form-group-default">
+                        @Html.LabelFor(model => model.UnidadDeMedida)
+                        <select class="full-width" data-init-plugin="select2" name="UnidadDeMedida[ID]" id="UnidadDeMedida_ID_">
+                            @foreach (UnidadDeMedida item in ViewBag.Unidades)
+                            {
+                                <option value="@item.ID">@item.Nombre</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group form-group-default">
+                        @Html.LabelFor(model => model.Area)
+                        <select class="full-width" data-init-plugin="select2" name="Area[ID]" id="Area_ID_">
+                            @foreach (Area item in ViewBag.Areas)
+                            {
+                                <option value="@item.ID">@item.Nombre</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group form-group-default">
+                        @Html.LabelFor(model => model.Comportamiento)
+                        <select class="full-width" data-init-plugin="select2" name="Comportamiento[ID]" id="Comportamiento_ID_">
+                            @foreach (Comportamiento item in ViewBag.Comportamiento)
+                            {
+                                <option value="@item.ID">@item.Nombre</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group form-group-default">
+                        @Html.LabelFor(model => model.Responsable)
+                        <select class="full-width" data-init-plugin="select2" name="Responsable[Id]" id="Responsable_Id_">
+                            <option value="-1">- Seleccione un Responsable -</option>
+                            @foreach (ApplicationUser item in ViewBag.Responsables)
+                            {
+                                <option value="@item.Id">@item.Nombre</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                Umbrales
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <i style="color:green" class="fa fa-circle"></i> @Html.TextBox("UmbralVerde[Desde]") A @Html.TextBox("UmbralVerde[Hasta]")<br>
+                            <i style="color:yellow" class="fa fa-circle"></i> @Html.TextBox("UmbralAmarillo[Desde]") A @Html.TextBox("UmbralAmarillo[Hasta]")<br>
+                            <i style="color:red" class="fa fa-circle"></i> @Html.TextBox("UmbralRojo[Desde]") A @Html.TextBox("UmbralRojo[Hasta]")<br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+
+                </div>
+                <div class="col-md-6">
+
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane" id="tabMetas">
+            En Construcción
+        </div>
+    </div>
+    <div class="row">
+        <a href="@Url.Action("index", new { lvl = ViewBag.Nivel })" class="btn btn-warning btn-cons">Regresar</a> <input type="submit" value="Agregar Indicador" class="btn btn-success btn-cons" />
+    </div>
+}
+
+
+@section Scripts {
+    @*@Scripts.Render("~/bundles/jqueryval")*@
+    <script>
+        $("#FechaInicio, #FechaFinal").datepicker({
+            language: 'es',
+            format: 'dd/mm/yyyy',
+            autoclose: true
+        });
+    </script>
+}

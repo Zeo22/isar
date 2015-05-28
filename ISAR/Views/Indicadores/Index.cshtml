@@ -1,0 +1,153 @@
+﻿@using ISAR.Models;
+@model IEnumerable<ISAR.Models.Indicador>
+
+@{
+    ApplicationUser usuario = (ApplicationUser)ViewBag.usuario;
+    Periodo periodo = (Periodo)ViewBag.PeriodoSeleccionado;
+
+    switch ((string)ViewBag.Nivel)
+    {
+        case "1":
+            ViewBag.Grupo = "Nivel Superior";
+            ViewBag.Pantalla = "Indicadores Estratégicos-Organización";
+            break;
+        case "2":
+            ViewBag.Grupo = "Nivel Vicepresidencia";
+            ViewBag.Pantalla = "Indicadores Estratégicos-Específicos";
+            break;
+        case "3":
+            ViewBag.Grupo = "Nivel Operativo";
+            ViewBag.Pantalla = "Indicadores Operativos";
+            break;
+    }
+    ViewBag.Title = "Listado de " + ViewBag.Pantalla;
+}
+
+<h4>
+    @ViewBag.Title
+    @if (usuario.TienePermiso(1) || ((ViewBag.Nivel == "1" && usuario.TienePermiso(13)) || (ViewBag.Nivel == "2" && usuario.TienePermiso(15)) || (ViewBag.Nivel == "1" && usuario.TienePermiso(17))) && periodo.Activo)
+    {
+        <a href="@Url.Action("Create", new { lvl = ViewBag.Nivel})" class="btn btn-success btn-cons" style="margin-left: 20px;">Agregar Indicador</a>
+    }
+</h4>
+
+<table class="table" id="dtTable">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Nombre)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Descripcion)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.FechaInicio)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Formula)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.FuenteInformacion)
+			</th>
+			<th width="100"></th>
+		</tr>
+	</thead>
+	<tbody>
+@foreach (var item in Model) {
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.Nombre)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Descripcion)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.FechaInicio)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Formula)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.FuenteInformacion)
+			</td>
+        <td>
+            @if (usuario.TienePermiso(1) || ((ViewBag.Nivel == "1" && usuario.TienePermiso(13)) || (ViewBag.Nivel == "2" && usuario.TienePermiso(15)) || (ViewBag.Nivel == "1" && usuario.TienePermiso(17))) && periodo.Activo) { 
+			    <a href="@Url.Action("Edit", new { id=item.ID, lvl = ViewBag.Nivel })" style="color:green" class="fa fa-edit"></a>
+			    <a href="#" style="color:red" class="fa fa-minus" data-toggle="modal" data-target="#modalDelete" data-id="@item.ID" data-puede-eliminar="@item.PuedeEliminar()" id="btnDelete"></a>
+            }
+            else
+            {
+                <a href="@Url.Action("Details", new { id = item.ID, lvl = ViewBag.Nivel })" style="color:green" class="fa fa-edit"></a>
+            }
+        </td>
+		</tr>
+}
+	</tbody>
+</table>
+
+<div class="modal fade slide-up disable-scroll" id="modalDelete" tabindex="-1" role="dialog" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content-wrapper">
+            <div class="modal-content">
+                <div class="modal-header clearfix text-left">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <i class="pg-close fs-14"></i>
+                    </button>
+                    <h4 class="semi-bold">¿Esta seguro que desea eliminar este Indicador?</h4>
+                </div>
+                <div class="modal-body">
+                    @using (Html.BeginForm("Delete", "Indicadores", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("ID")
+                        <div class="row">
+                            <div class="col-md-8"></div>
+                            <div class="col-md-4">
+                                <input type="submit" value="Eliminar Indicador" class="btn btn-primary btn-block m-t-5 pull-right" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var settings = {
+                "sDom": "<'table-responsive't><'row'<'pull-right'p> <'pull-left'i>>",
+                "sPaginationType": "bootstrap",
+                "destroy": true,
+                "scrollCollapse": true,
+                "oLanguage": {
+                    "sLengthMenu": "_MENU_ ",
+                    "sInfo": "Mostrando items del <b>_START_ al _END_</b> de un total de _TOTAL_ items",
+                    "sEmptyTable": "No existe información para mostrar.",
+                    "sInfoEmpty": ""
+                },
+                "iDisplayLength": 10
+            };
+
+            $('#dtTable').dataTable(settings);
+        });
+
+		$('#modalDelete').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var Id = button.data('id');
+			var del = button.data("puede-eliminar");
+
+			if (del == "False") {
+                $('body').pgNotification({
+                    style: 'flip',
+                    message: 'No se puede eliminar un Indicador que está en uso.',
+                    type: 'danger'
+                }).show();
+                return false;
+            }
+            var modal = $(this)
+                        modal.find("#ID").val(Id);
+        })
+    </script>
+}

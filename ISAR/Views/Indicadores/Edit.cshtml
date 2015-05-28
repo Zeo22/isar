@@ -1,0 +1,57 @@
+﻿@model ISAR.Models.Indicador
+
+@{
+    ViewBag.Title = "Editar Indicador";
+	ViewBag.Grupo = "Administración";
+    ViewBag.Pantalla = ViewBag.Title;
+}
+
+<h4>@ViewBag.Title</h4>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="row">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="form-group form-group-default">
+            @Html.LabelFor(model => model.Nombre)
+            @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group form-group-default">
+            @Html.LabelFor(model => model.Descripcion)
+            @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group form-group-default">
+            @Html.LabelFor(model => model.FechaInicio)
+            @Html.EditorFor(model => model.FechaInicio, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.FechaInicio, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group form-group-default">
+            @Html.LabelFor(model => model.Formula)
+            @Html.EditorFor(model => model.Formula, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Formula, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group form-group-default">
+            @Html.LabelFor(model => model.FuenteInforacion)
+            @Html.EditorFor(model => model.FuenteInforacion, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.FuenteInforacion, "", new { @class = "text-danger" })
+        </div>
+
+        <a href="@Url.Action("index")" class="btn btn-warning btn-cons">Regresar</a> <input type="submit" value="Editar Indicador" class="btn btn-success btn-cons" />
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

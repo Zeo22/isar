@@ -29,6 +29,9 @@ namespace ISAR.Models
         public DbSet<Atribucion> Atribuciones { get; set; }
         public DbSet<Puesto> Puestos { get; set; }
         public DbSet<Comportamiento> Comportamiento { get; set; }
+        public DbSet<TipoIndicador> TipoIndicador { get; set; }
+        public DbSet<FrecuenciaMedicion> FrecuenciaMedicion { get; set; }
+        public DbSet<Umbral> Umbrales { get; set; }
         public DbSet<Indicador> Indicadores { get; set; }
 
         #endregion

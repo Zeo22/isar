@@ -19,6 +19,9 @@ namespace ISAR
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            // Binders
+            ModelBinders.Binders.Add(typeof(Indicador), new Binders.IndicadoresModelBinder());
         }
 
         //protected void Application_BeginRequest(Object sender, EventArgs e)
