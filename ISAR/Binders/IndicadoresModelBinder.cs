@@ -62,7 +62,8 @@ namespace ISAR.Binders
 
             if (indicador.Responsable == null)
             {
-                bindingContext.ModelState.AddModelError("Responsable", "El campo responsable es obligatorio.");
+                bindingContext.ModelState.Remove("Responsable.Nombre");
+                bindingContext.ModelState.AddModelError("Responsable", "El campo Responsable es obligatorio.");
             }
             else
             {

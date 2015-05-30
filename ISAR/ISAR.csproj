@@ -301,6 +301,10 @@
     <Compile Include="Migrations\201505270657519_EditIndicadorFuente.Designer.cs">
       <DependentUpon>201505270657519_EditIndicadorFuente.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201505300535002_AddPeriodoIndicador.cs" />
+    <Compile Include="Migrations\201505300535002_AddPeriodoIndicador.Designer.cs">
+      <DependentUpon>201505300535002_AddPeriodoIndicador.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
@@ -1558,6 +1562,7 @@
     <Content Include="CodeTemplates\MvcView\ModelMetadataFunctions.cs.include.t4" />
     <None Include="Properties\PublishProfiles\Web.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Indicadores\AddEdit.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -1847,6 +1852,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201505270657519_EditIndicadorFuente.resx">
       <DependentUpon>201505270657519_EditIndicadorFuente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505300535002_AddPeriodoIndicador.resx">
+      <DependentUpon>201505300535002_AddPeriodoIndicador.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -550,7 +550,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/24/2015 15:48:10</publishTime>
     </File>
     <File Include="assets/plugins/bootstrap-datepicker/css/datepicker3.css">
-      <publishTime>04/24/2015 15:48:10</publishTime>
+      <publishTime>05/30/2015 03:25:24</publishTime>
     </File>
     <File Include="assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js">
       <publishTime>04/24/2015 15:48:10</publishTime>
@@ -3340,7 +3340,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/07/2015 01:19:23</publishTime>
     </File>
     <File Include="bin/ISAR.dll">
-      <publishTime>05/25/2015 22:26:02</publishTime>
+      <publishTime>05/30/2015 04:49:40</publishTime>
     </File>
     <File Include="bin/ISAR.pdb">
       <publishTime>05/19/2015 00:30:42</publishTime>
@@ -3819,6 +3819,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/bootstrap.min.js">
       <publishTime>04/24/2015 01:48:48</publishTime>
     </File>
+    <File Include="Scripts/Indicadores/AddEdit.js">
+      <publishTime>05/30/2015 05:03:22</publishTime>
+    </File>
     <File Include="Scripts/jquery-1.10.2.js">
       <publishTime>04/24/2015 01:48:49</publishTime>
     </File>
@@ -4171,7 +4174,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/03/2015 01:12:59</publishTime>
     </File>
     <File Include="Scripts/_references.js">
-      <publishTime>05/21/2015 01:56:57</publishTime>
+      <publishTime>05/29/2015 22:04:25</publishTime>
     </File>
     <File Include="Views/Account/ConfirmEmail.cshtml">
       <publishTime>04/24/2015 01:49:06</publishTime>
@@ -4279,7 +4282,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/24/2015 01:49:06</publishTime>
     </File>
     <File Include="Views/Dashboard/Index.cshtml">
-      <publishTime>05/16/2015 01:42:08</publishTime>
+      <publishTime>05/26/2015 22:07:17</publishTime>
     </File>
     <File Include="Views/Estrategias/Create.cshtml">
       <publishTime>05/23/2015 22:03:14</publishTime>
@@ -4294,7 +4297,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/23/2015 22:03:13</publishTime>
     </File>
     <File Include="Views/Estrategias/Index.cshtml">
-      <publishTime>05/23/2015 21:54:20</publishTime>
+      <publishTime>05/27/2015 01:16:42</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
       <publishTime>04/24/2015 01:48:33</publishTime>
@@ -4304,6 +4307,21 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Views/Home/Index.cshtml">
       <publishTime>04/24/2015 14:08:42</publishTime>
+    </File>
+    <File Include="Views/Indicadores/Create.cshtml">
+      <publishTime>05/30/2015 04:56:52</publishTime>
+    </File>
+    <File Include="Views/Indicadores/Delete.cshtml">
+      <publishTime>05/26/2015 18:06:11</publishTime>
+    </File>
+    <File Include="Views/Indicadores/Details.cshtml">
+      <publishTime>05/30/2015 02:33:07</publishTime>
+    </File>
+    <File Include="Views/Indicadores/Edit.cshtml">
+      <publishTime>05/30/2015 04:24:48</publishTime>
+    </File>
+    <File Include="Views/Indicadores/Index.cshtml">
+      <publishTime>05/30/2015 02:42:11</publishTime>
     </File>
     <File Include="Views/Manage/AddPhoneNumber.cshtml">
       <publishTime>04/24/2015 01:49:06</publishTime>
@@ -4324,7 +4342,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/24/2015 01:49:06</publishTime>
     </File>
     <File Include="Views/Objetivos/Create.cshtml">
-      <publishTime>05/21/2015 22:58:04</publishTime>
+      <publishTime>05/27/2015 01:29:57</publishTime>
     </File>
     <File Include="Views/Objetivos/Delete.cshtml">
       <publishTime>05/07/2015 18:13:29</publishTime>
@@ -4408,7 +4426,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/24/2015 01:49:06</publishTime>
     </File>
     <File Include="Views/Shared/_Menu.cshtml">
-      <publishTime>05/16/2015 01:42:06</publishTime>
+      <publishTime>05/26/2015 22:47:51</publishTime>
     </File>
     <File Include="Views/UnidadDeMedida/Create.cshtml">
       <publishTime>05/16/2015 01:12:24</publishTime>

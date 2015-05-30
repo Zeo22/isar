@@ -2,6 +2,7 @@
 @model ISAR.Models.Indicador
 
 @{
+    ApplicationUser usuario = (ApplicationUser)ViewBag.usuario;
     ViewBag.Title = "Agregar Indicador";
     switch ((string)ViewBag.Nivel)
     {
@@ -187,39 +188,133 @@
                             </div>
                         </div>
                         <div class="panel-body">
-                            <i style="color:green" class="fa fa-circle"></i> @Html.TextBox("UmbralVerde[Desde]") A @Html.TextBox("UmbralVerde[Hasta]")<br>
-                            <i style="color:yellow" class="fa fa-circle"></i> @Html.TextBox("UmbralAmarillo[Desde]") A @Html.TextBox("UmbralAmarillo[Hasta]")<br>
-                            <i style="color:red" class="fa fa-circle"></i> @Html.TextBox("UmbralRojo[Desde]") A @Html.TextBox("UmbralRojo[Hasta]")<br>
+                            <i style="color:green" class="fa fa-circle"></i> @Html.EditorFor(model => model.UmbralVerde.Desde) A @Html.EditorFor(model => model.UmbralVerde.Hasta)<br>
+                            <i style="color:yellow" class="fa fa-circle"></i> @Html.EditorFor(model => model.UmbralAmarillo.Desde) A @Html.EditorFor(model => model.UmbralAmarillo.Hasta)<br>
+                            <i style="color:red" class="fa fa-circle"></i> @Html.EditorFor(model => model.UmbralRojo.Desde) A @Html.EditorFor(model => model.UmbralRojo.Hasta)<br>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="tab-pane" id="tabMetas">
             <div class="row">
-                <div class="col-md-6">
-
-                </div>
-                <div class="col-md-6">
-
+                <div class="col-md-12">
+                    <div class="tab-pane" id="tabMetas">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group form-group-default input-group">
+                                    @Html.Label("Fecha")
+                                    @Html.TextBox("Fecha", "", new { @class = "form-control" })
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </span>
+                                </div>
+                                @Html.Hidden("MetaFechaInicio")
+                                @Html.Hidden("MetaFechaFinal")
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group form-group-default input-group">
+                                    @Html.Label("Meta")
+                                    @Html.TextBox("Meta", "", new { @class = "form-control" })
+                                    <div class="input-group-addon" id="lblUnidad"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group form-group-default disabled">
+                                    @Html.Label("lblFrecuencia", "Frecuencia")
+                                    @Html.TextBox("lblFrecuencia", "", new { @class = "form-control", disabled = "disabled" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="button" class="btn btn-success btn-cons" id="AgregarMeta">
+                                    Agregar Meta
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table" id="dtMetas">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Dia
+                                            </th>
+                                            <th>
+                                                Meta
+                                            </th>
+                                            <th>
+                                                Resultados
+                                            </th>
+                                            <th width="10" class="text-center">
+                                                Cerrar<br />Meta
+                                            </th>
+                                            @if (usuario.TienePermiso(1))
+                                            {
+                                                <th width="10" class="text-center" id="AbrirMeta">
+                                                    Abrir<br />Meta
+                                                </th>
+                                            }
+                                            <th width="10" class="text-center">
+                                                Cerrar<br />Resultado
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="tab-pane" id="tabMetas">
-            En Construcción
-        </div>
     </div>
+
+    <div class="modal fade slide-up disable-scroll" id="EditResultado" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content-wrapper">
+                <div class="modal-content">
+                    <div class="modal-header clearfix text-left">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            <i class="pg-close fs-14"></i>
+                        </button>
+                        <h4 class="semi-bold">Editar Meta y Resultado</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group form-group-default input-group">
+                            @Html.Label("MetaModal", "Meta")
+                            @Html.TextBox("MetaModal", "", new { @class = "form-control" })
+                            <div class="input-group-addon" id="lblUnidadMetaModal"></div>
+                        </div>
+                        <div class="form-group form-group-default input-group">
+                            @Html.Label("ResultadoModal", "Resultados")
+                            @Html.TextBox("ResultadoModal", "", new { @class = "form-control" })
+                            <div class="input-group-addon" id="lblUnidadResModal"></div>
+                        </div>
+                        @Html.Hidden("RowIndexModal")
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-cons" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary btn-cons" data-dismiss="modal" id="EditarModal">Editar</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div>
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
     <div class="row">
-        <a href="@Url.Action("index", new { lvl = ViewBag.Nivel })" class="btn btn-warning btn-cons">Regresar</a> <input type="submit" value="Agregar Indicador" class="btn btn-success btn-cons" />
+        <a href="@Url.Action("index", new { lvl = ViewBag.Nivel })" class="btn btn-warning btn-cons">Regresar</a> 
+        @*<input type="submit" value="Agregar Indicador" class="btn btn-success btn-cons" />*@
+        <button type="button" class="btn btn-success btn-cons" id="Submit">
+            Agregar Indicador
+        </button>
     </div>
 }
 
 
 @section Scripts {
     @*@Scripts.Render("~/bundles/jqueryval")*@
+    @Scripts.Render("~/Scripts/Indicadores/AddEdit.js")
     <script>
-        $("#FechaInicio, #FechaFinal").datepicker({
-            language: 'es',
-            format: 'dd/mm/yyyy',
-            autoclose: true
-        });
+        var initial_data = @ViewBag.Metas;
     </script>
 }

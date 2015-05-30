@@ -127,10 +127,10 @@ namespace ISAR.Migrations
                 new FrecuenciaMedicion() { ID = 1, Nombre = "Diario" },
                 new FrecuenciaMedicion() { ID = 2, Nombre = "Semanal" },
                 new FrecuenciaMedicion() { ID = 3, Nombre = "Mensual" },
-                new FrecuenciaMedicion() { ID = 3, Nombre = "Bimestral" },
-                new FrecuenciaMedicion() { ID = 3, Nombre = "Trimestral" },
-                new FrecuenciaMedicion() { ID = 3, Nombre = "Semestral" },
-                new FrecuenciaMedicion() { ID = 3, Nombre = "Anual" }
+                new FrecuenciaMedicion() { ID = 4, Nombre = "Bimestral" },
+                new FrecuenciaMedicion() { ID = 5, Nombre = "Trimestral" },
+                new FrecuenciaMedicion() { ID = 6, Nombre = "Semestral" },
+                new FrecuenciaMedicion() { ID = 7, Nombre = "Anual" }
             );
         }
     }

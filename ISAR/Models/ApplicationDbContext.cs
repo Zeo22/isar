@@ -101,6 +101,13 @@ namespace ISAR.Models
                 m.MapRightKey("PeriodoID");
             });
 
+            modelBuilder.Entity<Indicador>().HasMany(t => t.Periodos).WithMany(p => p.Indicadores).Map(m =>
+            {
+                m.ToTable("Indicadores_Periodos");
+                m.MapLeftKey("IndicadorID");
+                m.MapRightKey("PeriodoID");
+            });
+
             //modelBuilder.Entity<GrupoPantalla>().HasMany(g => g.Pantallas).WithRequired(p => p.Grupo);
 
         }

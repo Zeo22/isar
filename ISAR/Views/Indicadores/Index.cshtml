@@ -71,7 +71,8 @@
 				@Html.DisplayFor(modelItem => item.FuenteInformacion)
 			</td>
         <td>
-            @if (usuario.TienePermiso(1) || ((ViewBag.Nivel == "1" && usuario.TienePermiso(13)) || (ViewBag.Nivel == "2" && usuario.TienePermiso(15)) || (ViewBag.Nivel == "1" && usuario.TienePermiso(17))) && periodo.Activo) { 
+            @if (usuario.TienePermiso(1) || ((ViewBag.Nivel == "1" && usuario.TienePermiso(13)) || (ViewBag.Nivel == "2" && usuario.TienePermiso(15)) || (ViewBag.Nivel == "1" && usuario.TienePermiso(17))) && periodo.Activo)
+            { 
 			    <a href="@Url.Action("Edit", new { id=item.ID, lvl = ViewBag.Nivel })" style="color:green" class="fa fa-edit"></a>
 			    <a href="#" style="color:red" class="fa fa-minus" data-toggle="modal" data-target="#modalDelete" data-id="@item.ID" data-puede-eliminar="@item.PuedeEliminar()" id="btnDelete"></a>
             }
@@ -147,7 +148,7 @@
                 return false;
             }
             var modal = $(this)
-                        modal.find("#ID").val(Id);
+            modal.find("#ID").val(Id);
         })
     </script>
 }

@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ISAR.Models;
+using System.Web.Script.Serialization;
 
 namespace ISAR.Controllers
 {
@@ -22,17 +23,18 @@ namespace ISAR.Controllers
             }
         }
 
-        private void FillViewBagCreate(dynamic ViewBag, string lvl)
+        private void FillViewBagCreate(Indicador indicador, dynamic ViewBag, string lvl)
         {
             ApplicationUser usuario = (ApplicationUser)db.Users.FirstOrDefault(item => item.UserName == User.Identity.Name);
             int nivel = int.Parse(lvl);
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
 
             ViewBag.usuario = usuario;
             ViewBag.Nivel = lvl;
             ViewBag.Unidades = db.UnidadesDeMedida.ToList();
             ViewBag.Comportamiento = db.Comportamiento.ToList();
             ViewBag.Tipo = db.TipoIndicador.Where(item => item.Nivel.ID == nivel).ToList();
-            ViewBag.Frecuencia = db.FrecuenciaMedicion.ToList();
+            ViewBag.Frecuencia = db.FrecuenciaMedicion.OrderBy(item => item.ID).ToList();
             // Areas
             if (usuario.TienePermiso(1)) // Administrador
             {
@@ -79,6 +81,36 @@ namespace ISAR.Controllers
                 Responsables.Add(usuario);
                 ViewBag.Responsables = Responsables;
             }
+
+            if (indicador != null)
+            {
+                if (indicador.Metas != null)
+                {
+                    var json = from a in indicador.Metas
+                               select new {
+                                    id = a.ID,
+                                    inicio = a.FechaInicio.ToString("dd/MM/yyyy"),
+                                    fin = a.FechaFin.ToString("dd/MM/yyyy"),
+                                    meta = a.Meta,
+                                    resultados = a.Resultado,
+                                    metaCerrada = a.MetaCerrada,
+                                    resultadoCerrado = a.ResultadoCerrado,
+                                    cerrarMeta = "<a href=\"javascript: $.noop();\" style=\"color:red\" class=\"fa fa-minus\"></a>",
+                                    abrirMeta = "<a href=\"javascript: $.noop();\" style=\"color:red\" class=\"fa fa-minus\"></a>",
+                                    cerrarResultado = "<a href=\"javascript: $.noop();\" style=\"color:red\" class=\"fa fa-minus\"></a>"
+                               };
+
+                    ViewBag.Metas = serializer.Serialize(json);
+                }
+                else
+                {
+                    ViewBag.Metas = serializer.Serialize(new object[] { });
+                }
+            }
+            else
+            {
+                ViewBag.Metas = serializer.Serialize(new object[] { });
+            }
         }
 
         // GET: Indicadores
@@ -116,7 +148,7 @@ namespace ISAR.Controllers
         }
 
         // GET: Indicadores/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, string lvl)
         {
             if (id == null)
             {
@@ -127,13 +159,14 @@ namespace ISAR.Controllers
             {
                 return HttpNotFound();
             }
+            FillViewBagCreate(indicador, ViewBag, lvl);
             return View(indicador);
         }
 
         // GET: Indicadores/Create
         public ActionResult Create(string lvl)
         {
-            FillViewBagCreate(ViewBag, lvl);
+            FillViewBagCreate(null, ViewBag, lvl);
             return View();
         }
 
@@ -149,12 +182,12 @@ namespace ISAR.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index", new { lvl = lvl });
             }
-            FillViewBagCreate(ViewBag, lvl);
+            FillViewBagCreate(indicador, ViewBag, lvl);
             return View(indicador);
         }
 
         // GET: Indicadores/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id, string lvl)
         {
             if (id == null)
             {
@@ -165,6 +198,7 @@ namespace ISAR.Controllers
             {
                 return HttpNotFound();
             }
+            FillViewBagCreate(indicador, ViewBag, lvl);
             return View(indicador);
         }
 
@@ -173,14 +207,50 @@ namespace ISAR.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Nombre,Descripcion,FechaInicio,Formula,FuenteInforacion")] Indicador indicador)
+        public ActionResult Edit(Indicador indicador, string lvl)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(indicador).State = EntityState.Modified;
+                Indicador tmp = db.Indicadores.Find(indicador.ID);
+                tmp.Area = indicador.Area;
+                tmp.Comportamiento = indicador.Comportamiento;
+                tmp.Descripcion = indicador.Descripcion;
+                tmp.FechaFinal = indicador.FechaFinal;
+                tmp.FechaInicio = indicador.FechaInicio;
+                tmp.Formula = indicador.Formula;
+                tmp.Frecuencia = indicador.Frecuencia;
+                tmp.FuenteInformacion = indicador.FuenteInformacion;
+                tmp.Metas.Clear();
+                tmp.Metas = indicador.Metas;
+                tmp.Nombre = indicador.Nombre;
+                tmp.Periodos.Clear();
+                tmp.Periodos = indicador.Periodos;
+                tmp.Responsable = indicador.Responsable;
+                tmp.Tipo = indicador.Tipo;
+                tmp.UmbralAmarillo = indicador.UmbralAmarillo;
+                tmp.UmbralRojo = indicador.UmbralRojo;
+                tmp.UmbralVerde = indicador.UmbralVerde;
+                tmp.UnidadDeMedida = indicador.UnidadDeMedida;
+                if (tmp.Metas != null)
+                {
+                    tmp.Metas.ForEach(meta =>
+                    {
+                        meta.Indicador = tmp;
+                        //if (meta.ID == 0)
+                        //{
+                        //    db.Entry(meta).State = EntityState.Added;
+                        //}
+                        //else
+                        //{
+                        //    db.Entry(meta).State = EntityState.Modified;
+                        //}
+                    });
+                }
+                db.Entry(tmp).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { lvl = lvl });
             }
+            FillViewBagCreate(indicador, ViewBag, lvl);
             return View(indicador);
         }
 

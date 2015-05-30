@@ -1,57 +1,317 @@
-﻿@model ISAR.Models.Indicador
+﻿@using ISAR.Models;
+@model ISAR.Models.Indicador
 
 @{
+    ApplicationUser usuario = (ApplicationUser)ViewBag.usuario;
     ViewBag.Title = "Editar Indicador";
-	ViewBag.Grupo = "Administración";
-    ViewBag.Pantalla = ViewBag.Title;
+    switch ((string)ViewBag.Nivel)
+    {
+        case "1":
+            ViewBag.Grupo = "Nivel Superior";
+            ViewBag.Pantalla = ViewBag.Title;
+            break;
+        case "2":
+            ViewBag.Grupo = "Nivel Vicepresidencia";
+            ViewBag.Pantalla = ViewBag.Title;
+            break;
+        case "3":
+            ViewBag.Grupo = "Nivel Operativo";
+            ViewBag.Pantalla = ViewBag.Title;
+            break;
+    }
 }
 
 <h4>@ViewBag.Title</h4>
 
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+    @Html.Hidden("lvl", (string)ViewBag.Nivel)
+
     <div class="row">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ID)
-
-        <div class="form-group form-group-default">
-            @Html.LabelFor(model => model.Nombre)
-            @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+        <div class="col-md-12">
+            @Html.ValidationSummary("", new { @class = "text-danger" })
         </div>
+    </div>
 
-        <div class="form-group form-group-default">
-            @Html.LabelFor(model => model.Descripcion)
-            @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+    <ul class="nav nav-tabs nav-tabs-simple">
+        <li class="active">
+            <a data-toggle="tab" href="#tabDefinicion">Definición</a>
+        </li>
+        <li>
+            <a data-toggle="tab" href="#tabMetas">Meta y Resultados</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="tabDefinicion">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group form-group-default">
+                        @Html.LabelFor(model => model.Nombre)
+                        @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group form-group-default">
+                        @Html.LabelFor(model => model.Tipo)
+                        <select class="full-width" data-init-plugin="select2" name="Tipo[ID]" id="Tipo_ID_">
+                            @foreach (TipoIndicador item in ViewBag.Tipo)
+                            {
+                                <option value="@item.ID" @(Model.Tipo.ID != null && Model.Tipo.ID == item.ID?"selected=\"selected\"":"")>@item.Nombre</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                Descripción
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            @Html.TextAreaFor(model => model.Descripcion, new { @class = "form-control", rows = "8" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group form-group-default">
+                        @Html.LabelFor(model => model.Frecuencia)
+                        <select class="full-width" data-init-plugin="select2" name="Frecuencia[ID]" id="Frecuencia_ID_">
+                            @foreach (FrecuenciaMedicion item in ViewBag.Frecuencia)
+                            {
+                                <option value="@item.ID" @(Model.Frecuencia.ID != null && Model.Frecuencia.ID == item.ID ? "selected=\"selected\"" : "")>@item.Nombre</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                Fórmula
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            @Html.TextAreaFor(model => model.Formula, new { @class = "form-control", rows = "3" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group form-group-default input-group">
+                        @Html.LabelFor(model => model.FechaInicio)
+                        @Html.EditorFor(model => model.FechaInicio, new { htmlAttributes = new { @class = "form-control" } })
+                        <span class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </span>
+                    </div>
+
+                    <div class="form-group form-group-default input-group">
+                        @Html.LabelFor(model => model.FechaFinal)
+                        @Html.EditorFor(model => model.FechaFinal, new { htmlAttributes = new { @class = "form-control" } })
+                        <span class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                Fuente de Información
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            @Html.TextAreaFor(model => model.FuenteInformacion, new { @class = "form-control", rows = "3" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group form-group-default">
+                        @Html.LabelFor(model => model.UnidadDeMedida)
+                        <select class="full-width" data-init-plugin="select2" name="UnidadDeMedida[ID]" id="UnidadDeMedida_ID_">
+                            @foreach (UnidadDeMedida item in ViewBag.Unidades)
+                            {
+                                <option value="@item.ID" @(Model.UnidadDeMedida.ID != null && Model.UnidadDeMedida.ID == item.ID ? "selected=\"selected\"" : "")>@item.Nombre</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group form-group-default">
+                        @Html.LabelFor(model => model.Area)
+                        <select class="full-width" data-init-plugin="select2" name="Area[ID]" id="Area_ID_">
+                            @foreach (Area item in ViewBag.Areas)
+                            {
+                                <option value="@item.ID" @(Model.Area.ID != null && Model.Area.ID == item.ID ? "selected=\"selected\"" : "")>@item.Nombre</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group form-group-default">
+                        @Html.LabelFor(model => model.Comportamiento)
+                        <select class="full-width" data-init-plugin="select2" name="Comportamiento[ID]" id="Comportamiento_ID_">
+                            @foreach (Comportamiento item in ViewBag.Comportamiento)
+                            {
+                                <option value="@item.ID" @(Model.Comportamiento.ID != null && Model.Comportamiento.ID == item.ID ? "selected=\"selected\"" : "")>@item.Nombre</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group form-group-default">
+                        @Html.LabelFor(model => model.Responsable)
+                        <select class="full-width" data-init-plugin="select2" name="Responsable[Id]" id="Responsable_Id_">
+                            <option value="-1">- Seleccione un Responsable -</option>
+                            @foreach (ApplicationUser item in ViewBag.Responsables)
+                            {
+                                <option value="@item.Id" @(Model.Responsable.Id != null && Model.Responsable.Id == item.Id ? "selected=\"selected\"" : "")>@item.Nombre</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                Umbrales
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            @Html.HiddenFor(model => model.UmbralVerde.ID)
+                            @Html.HiddenFor(model => model.UmbralAmarillo.ID)
+                            @Html.HiddenFor(model => model.UmbralRojo.ID)
+                            <i style="color:green" class="fa fa-circle"></i> @Html.EditorFor(model => model.UmbralVerde.Desde) A @Html.EditorFor(model => model.UmbralVerde.Hasta)<br>
+                            <i style="color:yellow" class="fa fa-circle"></i> @Html.EditorFor(model => model.UmbralAmarillo.Desde) A @Html.EditorFor(model => model.UmbralAmarillo.Hasta)<br>
+                            <i style="color:red" class="fa fa-circle"></i> @Html.EditorFor(model => model.UmbralRojo.Desde) A @Html.EditorFor(model => model.UmbralRojo.Hasta)<br>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="form-group form-group-default">
-            @Html.LabelFor(model => model.FechaInicio)
-            @Html.EditorFor(model => model.FechaInicio, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.FechaInicio, "", new { @class = "text-danger" })
+        <div class="tab-pane" id="tabMetas">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group form-group-default input-group">
+                        @Html.Label("Fecha")
+                        @Html.TextBox("Fecha", "", new { @class = "form-control" })
+                        <span class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </span>
+                    </div>
+                    @Html.Hidden("MetaFechaInicio")
+                    @Html.Hidden("MetaFechaFinal")
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-group-default input-group">
+                        @Html.Label("Meta")
+                        @Html.TextBox("Meta", "", new { @class = "form-control" })
+                        <div class="input-group-addon" id="lblUnidad"></div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-group-default disabled">
+                        @Html.Label("lblFrecuencia", "Frecuencia")
+                        @Html.TextBox("lblFrecuencia", "", new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-success btn-cons" id="AgregarMeta">
+                        Agregar Meta
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table" id="dtMetas">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Dia
+                                </th>
+                                <th>
+                                    Meta
+                                </th>
+                                <th>
+                                    Resultados
+                                </th>
+                                <th width="10" class="text-center">
+                                    Cerrar<br />Meta
+                                </th>
+                                @if (usuario.TienePermiso(1))
+                                {
+                                    <th width="10" class="text-center" id="AbrirMeta">
+                                        Abrir<br />Meta
+                                    </th>
+                                }
+                                <th width="10" class="text-center">
+                                    Cerrar<br />Resultado
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
         </div>
+    </div>
 
-        <div class="form-group form-group-default">
-            @Html.LabelFor(model => model.Formula)
-            @Html.EditorFor(model => model.Formula, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Formula, "", new { @class = "text-danger" })
-        </div>
+    <div class="modal fade slide-up disable-scroll" id="EditResultado" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content-wrapper">
+                <div class="modal-content">
+                    <div class="modal-header clearfix text-left">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            <i class="pg-close fs-14"></i>
+                        </button>
+                        <h4 class="semi-bold">Editar Meta y Resultado</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group form-group-default input-group">
+                            @Html.Label("MetaModal", "Meta")
+                            @Html.TextBox("MetaModal", "", new { @class = "form-control" })
+                            <div class="input-group-addon" id="lblUnidadMetaModal"></div>
+                        </div>
+                        <div class="form-group form-group-default input-group">
+                            @Html.Label("ResultadoModal", "Resultados")
+                            @Html.TextBox("ResultadoModal", "", new { @class = "form-control" })
+                            <div class="input-group-addon" id="lblUnidadResModal"></div>
+                        </div>
+                        @Html.Hidden("RowIndexModal")
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-cons" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary btn-cons" data-dismiss="modal" id="EditarModal">Editar</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div>
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
-        <div class="form-group form-group-default">
-            @Html.LabelFor(model => model.FuenteInforacion)
-            @Html.EditorFor(model => model.FuenteInforacion, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.FuenteInforacion, "", new { @class = "text-danger" })
-        </div>
-
-        <a href="@Url.Action("index")" class="btn btn-warning btn-cons">Regresar</a> <input type="submit" value="Editar Indicador" class="btn btn-success btn-cons" />
+    <div class="row">
+        <a href="@Url.Action("index", new { lvl = ViewBag.Nivel })" class="btn btn-warning btn-cons">Regresar</a>
+        @*<input type="submit" value="Agregar Indicador" class="btn btn-success btn-cons" />*@
+        <button type="button" class="btn btn-success btn-cons" id="Submit">
+            Editar Indicador
+        </button>
     </div>
 }
 
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    @*@Scripts.Render("~/bundles/jqueryval")*@
+    @Scripts.Render("~/Scripts/Indicadores/AddEdit.js")
+    <script>
+        var initial_data = @Html.Raw(ViewBag.Metas);
+    </script>
 }
