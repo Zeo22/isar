@@ -77,7 +77,7 @@ namespace ISAR.Controllers
             ViewBag.Nivel = lvl;
             ViewBag.Areas = db.Areas.Where(item => item.Nivel.ID == nivel).ToList();
             ViewBag.PeriodoSeleccionado = period;
-            ViewBag.EstrategiasNoAlineadas = db.Estrategias.Where(item => item.ObjetivoAlineado.Count() == 0 && item.Periodos.Any(p => p.ID == periodId)).ToList();
+            ViewBag.EstrategiasNoAlineadas = db.Estrategias.Where(item => item.ObjetivoAlineado.Count() == 0 && (item.Area == null ? true : item.Area.ID == areaId) && item.Periodos.Any(p => p.ID == periodId)).ToList();
             return View(db.Objetivos.Include("Estrategias").Where(item => item.Area.ID == area.ID && item.Periodos.Any(p => p.ID == periodId)));
         }
 
@@ -154,6 +154,7 @@ namespace ISAR.Controllers
                         Objetivos.Add(int.Parse(item));
                     }
                 }
+                estrategia.Area = db.Areas.Find(areaId);
                 estrategia.ObjetivoAlineado = db.Objetivos.Where(item => Objetivos.Contains(item.ID)).ToList();
                 estrategia.Periodos = this.GetPeriodsByObjetives(estrategia);
                 db.Estrategias.Add(estrategia);
@@ -210,6 +211,7 @@ namespace ISAR.Controllers
                 }
                 var estrategia_tmp = db.Estrategias.Include("ObjetivoAlineado").FirstOrDefault(item => item.ID == estrategia.ID);
                 estrategia_tmp.Titulo = estrategia.Titulo;
+                estrategia_tmp.Area = db.Areas.Find(areaId);
                 estrategia_tmp.ObjetivoAlineado.Clear();
                 estrategia_tmp.ObjetivoAlineado = db.Objetivos.Where(item => Objetivos.Contains(item.ID)).ToList();
                 //estrategia_tmp.Periodo = db.Periodos.FirstOrDefault(item => item.Activo);

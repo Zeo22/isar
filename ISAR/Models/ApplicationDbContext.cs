@@ -29,6 +29,9 @@ namespace ISAR.Models
         public DbSet<Atribucion> Atribuciones { get; set; }
         public DbSet<Puesto> Puestos { get; set; }
         public DbSet<Comportamiento> Comportamiento { get; set; }
+        public DbSet<TipoIndicador> TipoIndicador { get; set; }
+        public DbSet<FrecuenciaMedicion> FrecuenciaMedicion { get; set; }
+        public DbSet<Umbral> Umbrales { get; set; }
         public DbSet<Indicador> Indicadores { get; set; }
 
         #endregion
@@ -95,6 +98,13 @@ namespace ISAR.Models
             {
                 m.ToTable("Estrategias_Periodos");
                 m.MapLeftKey("EstrategiaID");
+                m.MapRightKey("PeriodoID");
+            });
+
+            modelBuilder.Entity<Indicador>().HasMany(t => t.Periodos).WithMany(p => p.Indicadores).Map(m =>
+            {
+                m.ToTable("Indicadores_Periodos");
+                m.MapLeftKey("IndicadorID");
                 m.MapRightKey("PeriodoID");
             });
 

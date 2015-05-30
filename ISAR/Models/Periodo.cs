@@ -23,10 +23,11 @@ namespace ISAR.Models
         public bool Activo { get; set; }
         public virtual List<Estrategia> Estrategias { get; set; }
         public virtual List<Objetivo> Objetivos { get; set; }
+        public virtual List<Indicador> Indicadores { get; set; }
 
         public bool PuedeEliminar()
         {
-            return !(this.Estrategias.Count() > 0 || this.Objetivos.Count() > 0);
+            return !(this.Estrategias.Count() > 0 || this.Objetivos.Count() > 0 || this.Indicadores.Count() > 0);
         }
     }
 }

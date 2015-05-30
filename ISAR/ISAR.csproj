@@ -163,11 +163,13 @@
     <Compile Include="App_Start\JsonModelBinder.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Binders\IndicadoresModelBinder.cs" />
     <Compile Include="Controllers\CuentaController.cs" />
     <Compile Include="Controllers\AreasController.cs" />
     <Compile Include="Controllers\AtribucionesController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\EstrategiasController.cs" />
+    <Compile Include="Controllers\IndicadoresController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ObjetivosController.cs" />
     <Compile Include="Controllers\PeriodosController.cs" />
@@ -274,6 +276,34 @@
     <Compile Include="Migrations\201505240100369_AddPeriodosEstrategias.cs" />
     <Compile Include="Migrations\201505240100369_AddPeriodosEstrategias.Designer.cs">
       <DependentUpon>201505240100369_AddPeriodosEstrategias.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505260312157_AddEstrategiasArea.cs" />
+    <Compile Include="Migrations\201505260312157_AddEstrategiasArea.Designer.cs">
+      <DependentUpon>201505260312157_AddEstrategiasArea.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505270050538_AddIndicadoresNombre.cs" />
+    <Compile Include="Migrations\201505270050538_AddIndicadoresNombre.Designer.cs">
+      <DependentUpon>201505270050538_AddIndicadoresNombre.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505270059131_AddFrecuenciaNombre.cs" />
+    <Compile Include="Migrations\201505270059131_AddFrecuenciaNombre.Designer.cs">
+      <DependentUpon>201505270059131_AddFrecuenciaNombre.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505270132535_AddIndicadorPeriodos.cs" />
+    <Compile Include="Migrations\201505270132535_AddIndicadorPeriodos.Designer.cs">
+      <DependentUpon>201505270132535_AddIndicadorPeriodos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505270645521_AddIndicadorFechaFinal.cs" />
+    <Compile Include="Migrations\201505270645521_AddIndicadorFechaFinal.Designer.cs">
+      <DependentUpon>201505270645521_AddIndicadorFechaFinal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505270657519_EditIndicadorFuente.cs" />
+    <Compile Include="Migrations\201505270657519_EditIndicadorFuente.Designer.cs">
+      <DependentUpon>201505270657519_EditIndicadorFuente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505300535002_AddPeriodoIndicador.cs" />
+    <Compile Include="Migrations\201505300535002_AddPeriodoIndicador.Designer.cs">
+      <DependentUpon>201505300535002_AddPeriodoIndicador.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -1532,6 +1562,7 @@
     <Content Include="CodeTemplates\MvcView\ModelMetadataFunctions.cs.include.t4" />
     <None Include="Properties\PublishProfiles\Web.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Indicadores\AddEdit.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -1715,6 +1746,11 @@
     <Content Include="Views\Puestos\Create.cshtml" />
     <Content Include="Views\Puestos\Edit.cshtml" />
     <Content Include="Views\Puestos\Index.cshtml" />
+    <Content Include="Views\Indicadores\Create.cshtml" />
+    <Content Include="Views\Indicadores\Delete.cshtml" />
+    <Content Include="Views\Indicadores\Details.cshtml" />
+    <Content Include="Views\Indicadores\Edit.cshtml" />
+    <Content Include="Views\Indicadores\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1798,6 +1834,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201505240100369_AddPeriodosEstrategias.resx">
       <DependentUpon>201505240100369_AddPeriodosEstrategias.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505260312157_AddEstrategiasArea.resx">
+      <DependentUpon>201505260312157_AddEstrategiasArea.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505270050538_AddIndicadoresNombre.resx">
+      <DependentUpon>201505270050538_AddIndicadoresNombre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505270059131_AddFrecuenciaNombre.resx">
+      <DependentUpon>201505270059131_AddFrecuenciaNombre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505270132535_AddIndicadorPeriodos.resx">
+      <DependentUpon>201505270132535_AddIndicadorPeriodos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505270645521_AddIndicadorFechaFinal.resx">
+      <DependentUpon>201505270645521_AddIndicadorFechaFinal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505270657519_EditIndicadorFuente.resx">
+      <DependentUpon>201505270657519_EditIndicadorFuente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505300535002_AddPeriodoIndicador.resx">
+      <DependentUpon>201505300535002_AddPeriodoIndicador.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

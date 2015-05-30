@@ -9,7 +9,7 @@
     <li>
         <h2>&nbsp;</h2>
     </li>
-@if (user.TieneNivel(1) || user.TienePermiso(1, 3, 5))
+@if (user.TieneNivel(1) || user.TienePermiso(1, 3, 5, 14))
 {
     <li class="">
         <a href="javascript:;">
@@ -31,13 +31,19 @@
                     @Html.ActionLink("Estrategias Generales", "index", "estrategias", new { lvl = 1 }, new { })
                 </li>
             }
+            @if (user.TienePermiso(1, 14))
+            { 
+            <li class="">
+                @Html.ActionLink("Indicadores", "index", "indicadores", new { lvl = 1 }, new { })
+            </li>
+            }
             <li class="">
                 @Html.ActionLink("Tableros de Indicadores", "index", "dashboard")
             </li>
         </ul>
     </li>
 }
-@if (user.TieneNivel(2) || user.TienePermiso(1, 8, 10) || user.TieneNivel(1))
+@if (user.TieneNivel(2) || user.TienePermiso(1, 8, 10, 16) || user.TieneNivel(1))
 {
     <li class="">
         <a href="javascript:;">
@@ -56,13 +62,19 @@
                     @Html.ActionLink("Estrategias Especifícas", "index", "estrategias", new { lvl = 2 }, new { })
                 </li>
             }
+            @if (user.TienePermiso(1, 16))
+            { 
+            <li class="">
+                @Html.ActionLink("Indicadores", "index", "indicadores", new { lvl = 2 }, new { })
+            </li>
+            }
             <li class="">
                 @Html.ActionLink("Tableros de Indicadores", "index", "dashboard")
             </li>
         </ul>
     </li>
 }
-@if (user.TieneNivel(3) || user.TienePermiso(1, 12) || user.TieneNivel(1))
+@if (user.TieneNivel(3) || user.TienePermiso(1, 12, 18) || user.TieneNivel(1))
 {
     <li class="">
         <a href="javascript:;">
@@ -81,9 +93,12 @@
             <li class="">
                 @Html.ActionLink("Proyectos", "index", "dashboard")
             </li>
+            @if (user.TienePermiso(1, 18))
+            {
             <li class="">
-                @Html.ActionLink("Indicadores", "index", "dashboard")
+                @Html.ActionLink("Indicadores", "index", "indicadores", new { lvl = 3 }, new { })
             </li>
+            }
         </ul>
     </li>
 }
